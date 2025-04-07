@@ -2,8 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/core/utils/app_assets.dart';
-import '../../../../../core/common/widgets/custom_btn.dart';
-import '../../../../../core/theme/app_colors.dart';
+import '../../../../../../../core/common/widgets/custom_btn.dart';
+import '../../../../../../../core/theme/app_colors.dart';
 
 class OtpFormForPassword extends StatefulWidget {
   const OtpFormForPassword({super.key});

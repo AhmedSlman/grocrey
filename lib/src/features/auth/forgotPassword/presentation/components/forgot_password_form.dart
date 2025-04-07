@@ -4,7 +4,7 @@ import 'package:grocery/core/common/functions/validator.dart';
 import 'package:grocery/core/common/widgets/custom_btn.dart';
 import 'package:grocery/core/common/widgets/custom_text_form_field.dart';
 import 'package:grocery/core/utils/app_assets.dart';
-import 'package:grocery/src/features/auth/widgets/eamil_and_phone_tap_baar.dart';
+import 'package:grocery/src/features/auth/forgotPassword/presentation/widgets/eamil_and_phone_tap_baar.dart';
 
 class ForgetPasswordForm extends StatefulWidget {
   const ForgetPasswordForm({super.key});

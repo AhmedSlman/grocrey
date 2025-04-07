@@ -1,8 +1,9 @@
 import 'package:go_router/go_router.dart';
 import 'package:grocery/core/routes/router_names.dart';
-import 'package:grocery/src/features/auth/components/forgot_password_form.dart';
-import 'package:grocery/src/features/auth/components/otp_form_for_password.dart';
+import 'package:grocery/src/features/auth/forgotPassword/presentation/components/forgot_password_form.dart';
+import 'package:grocery/src/features/auth/otpFormForPassword/presentation/components/otp_form_for_password.dart';
 import 'package:grocery/src/features/auth/login/presentation/view/login_view.dart';
+import 'package:grocery/src/features/auth/setNewPass/presentation/components/set_new_pass_component.dart';
 import 'package:grocery/src/features/auth/signup/presentation/views/signup_view.dart';
 import 'package:grocery/src/features/intro/onboarding.dart';
 import 'package:grocery/src/features/intro/splash.dart';
@@ -32,6 +33,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: RouterNames.otpFormForPassword,
       builder: (context, state) => OtpFormForPassword(),
+    ),
+    GoRoute(
+      path: RouterNames.setAnewPassword,
+      builder: (context, state) => SetNewPassComponent(),
     ),
   ],
 );
