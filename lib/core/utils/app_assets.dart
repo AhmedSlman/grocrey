@@ -12,4 +12,7 @@ abstract class AppAssets {
   static const String giftIcon = "assets/svg/giftIcon.svg";
   static const String iconForRate = "assets/svg/iconForRate.svg";
   static const String successIcon = "assets/svg/successIcon.svg";
+  static const String appleIcon = "assets/images/Google - Original.png";
+  static const String googleIcon = "assets/images/Apple - Original.png";
+  static const String facebookIcon = "assets/images/Facebook - Original.png";
 }

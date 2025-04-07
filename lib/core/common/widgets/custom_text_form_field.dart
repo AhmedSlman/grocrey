@@ -14,7 +14,8 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? prefixIcon;
   final Color? fillColor;
   final void Function()? toggleObscure;
- final TextInputType? keyboardType;
+  final TextInputType? keyboardType;
+  final String labelText;
 
   const CustomTextFormField({
     super.key,
@@ -29,57 +30,54 @@ class CustomTextFormField extends StatelessWidget {
     this.isPassword = false,
     this.toggleObscure,
     this.keyboardType,
+    required this.labelText,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.0.w),
-      child: TextFormField(
-        controller: controller,
-        obscureText: obscureText,
-        keyboardType: keyboardType,
-        textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(
-              vertical: 18.0.w,
-              horizontal: 12.0.w,
-            ),
-            hintText: hintText,
-            hintStyle: AppStyles.s12.copyWith(
-              color: AppColors.grey,
-            ),
-            fillColor: fillColor ?? AppColors.white,
-            filled: true,
-            suffixIcon: isPassword
+    return TextFormField(
+      controller: controller,
+      obscureText: obscureText,
+      keyboardType: keyboardType,
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(
+          vertical: 18.0.w,
+          horizontal: 12.0.w,
+        ),
+        hintText: hintText,
+        hintStyle: AppStyles.s12.copyWith(color: AppColors.grey),
+        fillColor: fillColor ?? AppColors.white,
+        filled: true,
+        suffixIcon:
+            isPassword
                 ? IconButton(
-                    onPressed: toggleObscure,
-                    icon: Visibility(
-                        visible: obscureText,
-                        replacement: const Icon(
-                          Icons.visibility_outlined,
-                        ),
-                        child: const Icon(Icons.visibility_off_outlined)),
-                    color: AppColors.grey,
-                  )
+                  onPressed: toggleObscure,
+                  icon: Visibility(
+                    visible: obscureText,
+                    replacement: const Icon(Icons.visibility_outlined),
+                    child: const Icon(Icons.visibility_off_outlined),
+                  ),
+                  color: AppColors.grey,
+                )
                 : suffixIcon,
-            prefixIcon: prefixIcon,
-            border: InputBorder.none,
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: AppColors.grey),
-              borderRadius: BorderRadius.circular(5.0),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: AppColors.primaryColor),
-              borderRadius: BorderRadius.circular(5.0),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: AppColors.red),
-              borderRadius: BorderRadius.circular(5.0),
-            )),
-        validator: validator ?? (value) => null,
-        maxLines: maxLines,
+        prefixIcon: prefixIcon,
+        border: InputBorder.none,
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
       ),
+      validator: validator ?? (value) => null,
+      maxLines: maxLines,
     );
   }
 }

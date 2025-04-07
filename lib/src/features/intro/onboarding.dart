@@ -35,7 +35,7 @@ class OnboardingView extends StatelessWidget {
                     text: "إبدأ",
                     textStyle: AppStyles.s16White,
                     onPressed: () {
-                      context.go(RouterNames.login);
+                      context.go(RouterNames.register);
                     },
                     height: 60.h,
                     width: 345.w,
