@@ -1,8 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:grocery/core/common/widgets/custom_btn.dart';
 import 'package:grocery/core/common/widgets/custom_text_form_field.dart';
+import 'package:grocery/core/routes/router_names.dart';
 import 'package:grocery/core/utils/app_assets.dart';
 import 'package:grocery/src/features/auth/login/presentation/view/login_view.dart';
 
@@ -191,12 +193,7 @@ class _SignupFormComponentState extends State<SignupFormComponent> {
                         recognizer:
                             TapGestureRecognizer()
                               ..onTap = () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => LoginView(),
-                                  ),
-                                );
+                                context.go(RouterNames.login);
                               },
                       ),
                     ],

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:grocery/core/common/functions/validator.dart';
 import 'package:grocery/core/common/widgets/custom_btn.dart';
 import 'package:grocery/core/common/widgets/custom_text_form_field.dart';
+import 'package:grocery/core/routes/router_names.dart';
 import 'package:grocery/core/utils/app_assets.dart';
 import 'package:grocery/src/features/auth/forgotPassword/presentation/widgets/eamil_and_phone_tap_baar.dart';
 
@@ -112,7 +114,9 @@ class _ForgetPasswordFormState extends State<ForgetPasswordForm>
                 Center(
                   child: CustomButton(
                     text: 'اعاده تعيين كلمه السر',
-                    onPressed: () {},
+                    onPressed: () {
+                      context.go(RouterNames.otpFormForPassword);
+                    },
                     height: 40.h,
                     width: 230.w,
                   ),

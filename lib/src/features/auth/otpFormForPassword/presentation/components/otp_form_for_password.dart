@@ -67,7 +67,7 @@ class _OtpFormState extends State<OtpFormForPassword> {
                         return Padding(
                           padding: EdgeInsets.symmetric(horizontal: 14.w),
                           child: SizedBox(
-                            width: 60.w,
+                            width: 55.w,
                             height: 80.h,
                             child: TextFormField(
                               controller: _controllers[index],
