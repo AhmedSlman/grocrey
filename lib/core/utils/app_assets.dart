@@ -3,6 +3,9 @@ abstract class AppAssets {
   static const String grocery = "assets/images/grocry.png";
   static const String onbording1 = "assets/images/onbording1.png";
   static const String logoColored = "assets/images/logo_colored.png";
+  static const String category1 = "assets/images/category1.png";
+  static const String banner = "assets/images/banner.png";
+  static const String product = "assets/images/product.png";
 
   // icons
   static const String editIcon = "assets/svg/editIcon.svg";

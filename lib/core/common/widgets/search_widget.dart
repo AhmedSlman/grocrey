@@ -24,10 +24,7 @@ class SearchWidget extends StatelessWidget {
                 decoration: InputDecoration(
                   hintText: 'ابحث عن منتج',
                   hintStyle: TextStyle(color: AppColors.grey),
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: AppColors.fillGrey,
-                  ),
+                  prefixIcon: Icon(Icons.search, color: AppColors.fillGrey),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(vertical: 10),
                 ),
