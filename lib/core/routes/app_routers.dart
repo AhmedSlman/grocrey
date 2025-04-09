@@ -6,6 +6,8 @@ import 'package:grocery/src/features/auth/login/presentation/view/login_view.dar
 import 'package:grocery/src/features/auth/signup/presentation/views/signup_view.dart';
 import 'package:grocery/src/features/intro/onboarding.dart';
 import 'package:grocery/src/features/intro/splash.dart';
+import 'package:grocery/src/features/profile/editprofile/presentation/view/edit_profile.dart';
+import 'package:grocery/src/features/profile/profile/presentation/view/profile_view.dart';
 
 final GoRouter router = GoRouter(
   routes: [
@@ -32,6 +34,14 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: RouterNames.otpFormForPassword,
       builder: (context, state) => OtpFormForPassword(),
+    ),
+    GoRoute(
+      path: RouterNames.profile,
+      builder: (context, state) => ProfileView(),
+    ),
+    GoRoute(
+      path: RouterNames.editProfile,
+      builder: (context, state) => EditProfileView(),
     ),
   ],
 );

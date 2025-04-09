@@ -3,10 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../theme/app_colors.dart';
 
 class CustomIconBackWidget extends StatelessWidget {
-  const CustomIconBackWidget({
-    super.key,
-    this.onPressed,
-  });
+  const CustomIconBackWidget({super.key, this.onPressed});
   final VoidCallback? onPressed;
 
   @override
@@ -21,7 +18,7 @@ class CustomIconBackWidget extends StatelessWidget {
             height: 30.h,
             width: 30.w,
             decoration: BoxDecoration(
-              color: AppColors.primaryColor,
+              color: AppColors.lightGrey,
               borderRadius: BorderRadius.circular(10),
               boxShadow: const [
                 BoxShadow(
@@ -32,8 +29,8 @@ class CustomIconBackWidget extends StatelessWidget {
               ],
             ),
             child: const Icon(
-              Icons.arrow_forward_ios_outlined,
-              color: AppColors.primaryColor,
+              Icons.arrow_back_ios_outlined,
+              color: AppColors.black,
             ),
           ),
         ),
