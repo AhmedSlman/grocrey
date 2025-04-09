@@ -5,6 +5,7 @@ import 'package:grocery/src/features/auth/login/presentation/view/login_view.dar
 import 'package:grocery/src/features/auth/otpFormForPassword/presentation/view/otp_form_for_password_view.dart';
 import 'package:grocery/src/features/auth/setNewPass/presentation/components/set_new_pass_component.dart';
 import 'package:grocery/src/features/auth/signup/presentation/views/signup_view.dart';
+import 'package:grocery/src/features/home/presentation/view/home_view.dart';
 import 'package:grocery/src/features/intro/onboarding.dart';
 import 'package:grocery/src/features/intro/splash.dart';
 
@@ -37,6 +38,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: RouterNames.setAnewPassword,
       builder: (context, state) => SetNewPassComponent(),
+    ),
+    GoRoute(
+      path: RouterNames.home,
+      builder: (context, state) => const HomeView(),
     ),
   ],
 );

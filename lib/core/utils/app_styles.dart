@@ -54,6 +54,12 @@ class AppStyles {
     fontWeight: FontWeight.w500,
     color: AppColors.black,
   );
+  static TextStyle s16Alex = TextStyle(
+    fontFamily: 'Alexandria',
+    fontSize: 16.0.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColors.black,
+  );
   static TextStyle s15 = TextStyle(
     fontFamily: 'Cairo',
     fontSize: 15.0.sp,
@@ -74,6 +80,12 @@ class AppStyles {
   );
   static TextStyle s12 = TextStyle(
     fontFamily: 'Cairo',
+    fontSize: 12.0.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColors.greyText,
+  );
+  static TextStyle s12Alex = TextStyle(
+    fontFamily: 'Alexandria',
     fontSize: 12.0.sp,
     fontWeight: FontWeight.w500,
     color: AppColors.greyText,

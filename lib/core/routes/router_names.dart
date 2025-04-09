@@ -4,6 +4,7 @@ abstract class RouterNames {
   static const String login = '/hbvjh';
   static const String register = '/register';
   static const String forgotPassword = '/dcsdc';
-  static const String otpFormForPassword = '/fdvdfg';
+  static const String otpFormForPassword = '/otpFormForPassword';
+  static const String home = '/';
   static const String setAnewPassword = '/nmnhb';
 }

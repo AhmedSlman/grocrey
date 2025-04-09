@@ -46,7 +46,7 @@ class CustomTextFormField extends StatelessWidget {
           horizontal: 12.0.w,
         ),
         hintText: hintText,
-        hintStyle: AppStyles.s12.copyWith(color: AppColors.grey),
+        hintStyle: AppStyles.s14Alex.copyWith(color: AppColors.black),
         fillColor: fillColor ?? AppColors.white,
         filled: true,
         suffixIcon:
