@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:grocery/core/common/widgets/custom_profile_header.dart';
 import 'package:grocery/core/theme/app_colors.dart';
 import 'package:grocery/src/features/profile/profile/presentation/view/custom_profile_item.dart';
 
@@ -28,24 +29,7 @@ class ProfileView extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(height: 50),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  radius: 20,
-                  backgroundColor: AppColors.lightGrey,
-                  child: Icon(Icons.arrow_back_ios_outlined),
-                ),
-                SizedBox(width: 10),
-                const Text(
-                  "البيانات الشخصية",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
+          CustomProfileHeader(header: 'البيانات الشخصية'),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
