@@ -9,14 +9,16 @@ class DioConsumer extends ApiConsumer {
 
   DioConsumer({required this.dio}) {
     dio.options.baseUrl = EndpointsStrings.baseUrl;
-    dio.interceptors.add(LogInterceptor(
-      request: true,
-      requestBody: true,
-      requestHeader: true,
-      responseBody: true,
-      responseHeader: true,
-      error: true,
-    ));
+    dio.interceptors.add(
+      LogInterceptor(
+        request: true,
+        requestBody: true,
+        requestHeader: true,
+        responseBody: true,
+        responseHeader: true,
+        error: true,
+      ),
+    );
   }
 
   @override
@@ -51,9 +53,10 @@ class DioConsumer extends ApiConsumer {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
     bool isFormData = false,
+    String? tokn,
   }) async {
     try {
-      final token = CacheHelper.getToken();
+      final token = CacheHelper.getToken() ?? tokn;
       final response = await dio.post(
         path,
         data:
@@ -103,11 +106,13 @@ class DioConsumer extends ApiConsumer {
   }
 
   @override
-  Future<dynamic> put(String path,
-      {Object? data,
-      Map<String, dynamic>? queryParameters,
-      Map<String, dynamic>? headers,
-      bool isFormData = false}) async {
+  Future<dynamic> put(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? headers,
+    bool isFormData = false,
+  }) async {
     final token = CacheHelper.getToken();
     final response = await dio.put(
       path,

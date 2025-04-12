@@ -13,7 +13,7 @@ class CustomProfileHeader extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       child: Column(
         children: [
-          SizedBox(height: 20.h),
+          SizedBox(height: 30.h),
           Row(
             children: [
               GestureDetector(

@@ -10,11 +10,7 @@ class ErrorModel {
 
   final List<dynamic>? data;
 
-  ErrorModel({
-    required this.message,
-    this.key,
-    this.data,
-  });
+  ErrorModel({required this.message, this.key, this.data});
 
   factory ErrorModel.fromJson(Map<String, dynamic> json) =>
       _$ErrorModelFromJson(json);

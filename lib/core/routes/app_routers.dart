@@ -9,6 +9,10 @@ import 'package:grocery/src/features/intro/onboarding.dart';
 import 'package:grocery/src/features/profile/address/presentation/view/add_address.dart';
 import 'package:grocery/src/features/profile/address/presentation/view/addresses.dart';
 import 'package:grocery/src/features/profile/editprofile/presentation/view/edit_profile.dart';
+import 'package:grocery/src/features/profile/info/view.dart';
+import 'package:grocery/src/features/profile/orders/presentation/views/orders.dart';
+import 'package:grocery/src/features/profile/profile/presentation/view/profile_view.dart';
+import 'package:grocery/src/features/profile/setting/presentation/views/view.dart';
 
 final GoRouter router = GoRouter(
   routes: [
@@ -44,10 +48,10 @@ final GoRouter router = GoRouter(
     //   path: RouterNames.home,
     //   builder: (context, state) => const HomeView(),
     // ),
-    // GoRoute(
-    //   path: RouterNames.profile,
-    //   builder: (context, state) => ProfileView(),
-    // ),
+    GoRoute(
+      path: RouterNames.profile,
+      builder: (context, state) => ProfileView(),
+    ),
     GoRoute(
       path: RouterNames.editProfile,
       builder: (context, state) => EditProfileView(),
@@ -59,6 +63,19 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: RouterNames.add_addresses,
       builder: (context, state) => AddAddressView(),
+    ),
+
+    GoRoute(
+      path: RouterNames.setting,
+      builder: (context, state) => SettingView(),
+    ),
+    GoRoute(
+      path: RouterNames.orders,
+      builder: (context, state) => OrdersView(),
+    ),
+    GoRoute(
+      path: RouterNames.about_info,
+      builder: (context, state) => InfoView(),
     ),
   ],
 );
