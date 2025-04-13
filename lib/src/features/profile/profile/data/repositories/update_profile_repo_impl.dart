@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:grocery/core/errors/error_model.dart';
-import 'package:grocery/src/features/profile/editprofile/data/data_source/update_profile_data_source.dart';
-import 'package:grocery/src/features/profile/editprofile/data/model/profile_model.dart';
-import 'package:grocery/src/features/profile/editprofile/domain/repositories/edit_profile_repo.dart';
+import 'package:grocery/src/features/profile/profile/data/data_source/update_profile_data_source.dart';
+import 'package:grocery/src/features/profile/profile/data/model/profile_model.dart';
+import 'package:grocery/src/features/profile/profile/domain/repositories/edit_profile_repo.dart';
 
 class EditProfileRepoImpl extends EditProfileRepo {
   final EditProfileDataSource updateProfileDataSource;

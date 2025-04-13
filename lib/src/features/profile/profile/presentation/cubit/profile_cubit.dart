@@ -2,10 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:grocery/core/data/api/api_consumer.dart';
 import 'package:grocery/core/data/api/dio_consumer.dart';
-import 'package:grocery/src/features/profile/editprofile/data/data_source/update_profile_data_source.dart';
-import 'package:grocery/src/features/profile/editprofile/data/model/profile_model.dart';
-import 'package:grocery/src/features/profile/editprofile/data/repositories/update_profile_repo_impl.dart';
-import 'package:grocery/src/features/profile/editprofile/domain/usecases/edit_profile_use_cases.dart';
+import 'package:grocery/src/features/profile/profile/data/data_source/update_profile_data_source.dart';
+import 'package:grocery/src/features/profile/profile/data/model/profile_model.dart';
+import 'package:grocery/src/features/profile/profile/data/repositories/update_profile_repo_impl.dart';
+import 'package:grocery/src/features/profile/profile/domain/usecases/edit_profile_use_cases.dart';
 import 'package:meta/meta.dart';
 
 part 'profile_state.dart';

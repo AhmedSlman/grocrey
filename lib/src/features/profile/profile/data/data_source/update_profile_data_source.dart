@@ -3,7 +3,7 @@ import 'package:grocery/core/constants/endpoints_strings.dart';
 import 'package:grocery/core/data/api/api_consumer.dart';
 import 'package:grocery/core/errors/error_model.dart';
 import 'package:grocery/core/errors/exceptions.dart';
-import 'package:grocery/src/features/profile/editprofile/data/model/profile_model.dart';
+import 'package:grocery/src/features/profile/profile/data/model/profile_model.dart';
 
 abstract class EditProfileDataSource {
   Future<Either<ErrorModel, ProfileModel>> getUserData(int id);
