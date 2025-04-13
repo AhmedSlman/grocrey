@@ -1,5 +1,5 @@
 abstract class EndpointsStrings {
-  static const String baseUrl = "https://konafa.legendsagencystuff.com/";
+  static const String baseUrl = "https://grocery.mlmcosmo.com/";
 
   static const String login = 'api/login';
   static const String logout = 'api/logout';
@@ -8,6 +8,5 @@ abstract class EndpointsStrings {
   static const String verifyEmail = 'api/verify-email';
   static const String forgetPassword = 'api/reset-password-send-code';
   static const String checkCode = 'api/reset-password-check-code';
-
-
+  static const String profile = 'user/user/profile/';
 }

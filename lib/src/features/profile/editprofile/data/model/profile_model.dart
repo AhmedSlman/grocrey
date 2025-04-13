@@ -29,7 +29,8 @@ class ProfileModel {
       json['last_name'] as String ?? '',
       json['email'] as String ?? '',
       json['phone'] as String ?? '',
-      (json['image'] as String?) ?? 'assets/images/user.png',
+      (json['image'] as String?) ??
+          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
       json['address'] as String ?? '',
       json['email_verified_at'] ?? '',
       json['created_at'] as String ?? '',

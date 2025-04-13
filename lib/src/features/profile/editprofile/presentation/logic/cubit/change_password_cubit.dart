@@ -30,7 +30,7 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState> {
           options: Options(
             headers: {
               "Authorization":
-                  "Bearer 6|7IoSIrUS6ZEoXbaXfW3DjQURT525GkRn6BYFDYhR0f794554",
+                  "Bearer 2|PUBZ4HQi8IizILy3EITYQCnKYG9im2NzhkWECNsn8c1fe411",
             },
           ),
           data: {

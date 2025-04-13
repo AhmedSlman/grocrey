@@ -36,7 +36,8 @@ class DioConsumer extends ApiConsumer {
           headers: {
             'Accept': 'application/vnd.api+json',
             'Content-Type': 'application/vnd.api+json',
-            'Authorization': 'Bearer $token',
+            'Authorization':
+                'Bearer 1|cCcp8NtfCp3Uk5qCZErlNASvNwL2HfZb9zJ7BVtV2b6969fc',
           },
         ),
       );
@@ -53,10 +54,9 @@ class DioConsumer extends ApiConsumer {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headers,
     bool isFormData = false,
-    String? tokn,
   }) async {
     try {
-      final token = CacheHelper.getToken() ?? tokn;
+      final token = CacheHelper.getToken();
       final response = await dio.post(
         path,
         data:
@@ -66,7 +66,8 @@ class DioConsumer extends ApiConsumer {
           headers: {
             'Accept': 'application/vnd.api+json',
             'Content-Type': 'application/vnd.api+json',
-            'Authorization': 'Bearer $token',
+            'Authorization':
+                'Bearer 1|cCcp8NtfCp3Uk5qCZErlNASvNwL2HfZb9zJ7BVtV2b6969fc',
           },
         ),
       );

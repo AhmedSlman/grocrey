@@ -14,6 +14,6 @@ class SuccessProfileState extends ProfileState {
 }
 
 class FailProfileState extends ProfileState {
-  String error;
+  final String error;
   FailProfileState(this.error);
 }
