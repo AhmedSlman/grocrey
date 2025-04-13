@@ -6,13 +6,13 @@ import 'package:grocery/src/features/auth/otpFormForPassword/presentation/view/o
 import 'package:grocery/src/features/auth/setNewPass/presentation/components/set_new_pass_component.dart';
 import 'package:grocery/src/features/auth/signup/presentation/views/signup_view.dart';
 import 'package:grocery/src/features/intro/onboarding.dart';
-import 'package:grocery/src/features/profile/address/presentation/view/add_address.dart';
-import 'package:grocery/src/features/profile/address/presentation/view/addresses.dart';
-import 'package:grocery/src/features/profile/editprofile/presentation/view/edit_profile.dart';
-import 'package:grocery/src/features/profile/info/view.dart';
-import 'package:grocery/src/features/profile/orders/presentation/views/orders.dart';
-import 'package:grocery/src/features/profile/profile/presentation/view/profile_view.dart';
-import 'package:grocery/src/features/profile/setting/presentation/views/view.dart';
+import 'package:grocery/src/features/profile/presentation/views/add_address_view.dart';
+import 'package:grocery/src/features/profile/presentation/views/addresses_view.dart';
+import 'package:grocery/src/features/profile/presentation/views/edit_profile_view.dart';
+import 'package:grocery/src/features/profile/presentation/views/info_view.dart';
+import 'package:grocery/src/features/profile/presentation/views/orders_view.dart';
+import 'package:grocery/src/features/profile/presentation/views/profile_view.dart';
+import 'package:grocery/src/features/profile/presentation/views/setting_view.dart';
 
 final GoRouter router = GoRouter(
   routes: [
