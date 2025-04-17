@@ -11,6 +11,7 @@ class CustomButton extends StatelessWidget {
   final double? width;
   final TextStyle? textStyle;
   final BorderRadius? borderRadius;
+  final bool isLoading;
 
   const CustomButton({
     super.key,
@@ -21,6 +22,7 @@ class CustomButton extends StatelessWidget {
     this.width,
     this.textStyle,
     this.borderRadius,
+    this.isLoading = false,
   });
 
   @override
@@ -39,8 +41,9 @@ class CustomButton extends StatelessWidget {
             //     color: AppColors.primaryColor,
             //     ),
           ),
-          child:
-              Center(child: Text(text, style: textStyle ?? AppStyles.s16White)),
+          child: Center(
+            child: Text(text, style: textStyle ?? AppStyles.s16White),
+          ),
         ),
       ),
     );

@@ -5,14 +5,14 @@ import 'package:grocery/core/common/widgets/custom_text_form_field.dart'
     show CustomTextFormField;
 import 'package:grocery/core/utils/app_assets.dart';
 
-class SetNewPassComponent extends StatefulWidget {
-  const SetNewPassComponent({super.key});
+class SetNewPassView extends StatefulWidget {
+  const SetNewPassView({super.key});
 
   @override
-  State<SetNewPassComponent> createState() => _SetNewPassComponentState();
+  State<SetNewPassView> createState() => _SetNewPassViewState();
 }
 
-class _SetNewPassComponentState extends State<SetNewPassComponent> {
+class _SetNewPassViewState extends State<SetNewPassView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

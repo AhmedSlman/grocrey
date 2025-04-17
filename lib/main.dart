@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/core/data/cached/cache_helper.dart';
+
 import 'package:grocery/core/routes/app_routers.dart';
+import 'package:grocery/core/services/service_locator.dart';
 import 'package:grocery/core/theme/app_themes.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  CacheHelper().init();
-  runApp(const MyApp());
+  setupLocator();
+  await getIt<CacheHelper>().init();
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
