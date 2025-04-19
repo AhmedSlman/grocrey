@@ -9,7 +9,7 @@ class ErrorModel {
 
   final Map<String, List<String>>? errors;
 
-  ErrorModel({required this.message, this.errors});
+  ErrorModel({required this.message, this.errors, List? data, String? key});
 
   factory ErrorModel.fromJson(Map<String, dynamic> json) =>
       _$ErrorModelFromJson(json);

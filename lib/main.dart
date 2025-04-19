@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -11,8 +12,17 @@ import 'package:grocery/core/theme/app_themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   CacheHelper().init();
-  runApp(const MyApp());
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('ar'), Locale('en')],
+      startLocale: Locale('ar'),
+
+      path: 'assets/lang',
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -33,13 +43,11 @@ class MyApp extends StatelessWidget {
                 routerConfig: router,
                 debugShowCheckedModeBanner: false,
                 theme: AppTheme.getTheme(state.themeEnum),
-                locale: const Locale('ar'),
-                supportedLocales: const [Locale('en'), Locale('ar')],
-                localizationsDelegates: const [
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
+                localizationsDelegates: context.localizationDelegates,
+                locale: context.locale,
+                supportedLocales: context.supportedLocales,
+
+                //    localizationsDelegates:context.localizationDelegates ,
               );
             },
           ),

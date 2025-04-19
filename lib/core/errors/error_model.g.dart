@@ -15,6 +15,6 @@ ErrorModel _$ErrorModelFromJson(Map<String, dynamic> json) => ErrorModel(
 Map<String, dynamic> _$ErrorModelToJson(ErrorModel instance) =>
     <String, dynamic>{
       'msg': instance.message,
-      'key': instance.key,
-      'data': instance.data,
+      //   'key': instance.key,
+      // 'data': instance.data,
     };

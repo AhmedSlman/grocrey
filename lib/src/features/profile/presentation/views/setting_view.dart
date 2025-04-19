@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery/core/app_cubit/app_cubit.dart';
@@ -68,12 +69,21 @@ class _SettingViewState extends State<SettingView> {
                             ),
                           )
                           .toList(),
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    value == 'اللغة العربية'
+                        ? context.setLocale(Locale('ar')).then((v) {
+                          context.read<AppCubit>().changeLanguage('ar');
+                        })
+                        : context.setLocale(Locale('en')).then((v) {
+                          context.read<AppCubit>().changeLanguage('en');
+                        });
+                  },
                 ),
               ],
             ),
           ),
           Padding(padding: const EdgeInsets.all(8.0), child: Divider()),
+
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
