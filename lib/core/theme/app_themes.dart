@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:grocery/core/app_cubit/app_cubit.dart';
 import 'app_colors.dart';
 
 class AppTheme {
+  static ThemeData getTheme(ThemeEnum themeEnum) {
+    return themeEnum == ThemeEnum.dark ? darkTheme : lightTheme;
+  }
+
   static final ThemeData lightTheme = ThemeData(
     scaffoldBackgroundColor: AppColors.white,
     brightness: Brightness.light,
@@ -15,9 +20,7 @@ class AppTheme {
         fontSize: 20.0,
         fontWeight: FontWeight.bold,
       ),
-      iconTheme: IconThemeData(
-        color: Colors.white,
-      ),
+      iconTheme: IconThemeData(color: Colors.white),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Colors.white,
@@ -32,5 +35,32 @@ class AppTheme {
       textTheme: ButtonTextTheme.primary,
     ),
   );
-  
+  static final ThemeData darkTheme = ThemeData(
+    scaffoldBackgroundColor: Colors.black,
+    brightness: Brightness.dark,
+    primaryColor: AppColors.primaryColor,
+    hintColor: AppColors.primaryColor,
+    fontFamily: "Cairo",
+    appBarTheme: const AppBarTheme(
+      backgroundColor: AppColors.primaryColor,
+      titleTextStyle: TextStyle(
+        color: Colors.white,
+        fontSize: 20.0,
+        fontWeight: FontWeight.bold,
+      ),
+      iconTheme: IconThemeData(color: Colors.white),
+    ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: Colors.black,
+      selectedItemColor: AppColors.primaryColor,
+      unselectedItemColor: Colors.white70,
+    ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: AppColors.primaryColor,
+    ),
+    buttonTheme: const ButtonThemeData(
+      buttonColor: AppColors.primaryColor,
+      textTheme: ButtonTextTheme.primary,
+    ),
+  );
 }

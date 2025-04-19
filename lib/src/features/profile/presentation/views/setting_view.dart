@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grocery/core/app_cubit/app_cubit.dart';
 import 'package:grocery/core/common/widgets/custom_profile_header.dart';
 import 'package:grocery/core/theme/app_colors.dart';
 import 'package:grocery/src/features/profile/presentation/component/show_delete_account_bottom_sheet.dart';
 import 'package:grocery/src/features/profile/presentation/widgets/item_toggle.dart';
 
-class SettingView extends StatelessWidget {
+class SettingView extends StatefulWidget {
   const SettingView({super.key});
+
+  @override
+  State<SettingView> createState() => _SettingViewState();
+}
+
+class _SettingViewState extends State<SettingView> {
+  bool isDark = true;
+  changeTheme() {
+    setState(() {
+      isDark = !isDark;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +39,11 @@ class SettingView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ItemToggle(
-              isSwitched: true,
-              onChanged: (c) {},
+              isSwitched: isDark,
+              onChanged: (c) {
+                changeTheme();
+                context.read<AppCubit>().changeTheme();
+              },
               text: 'الوضع المظلم',
             ),
           ),

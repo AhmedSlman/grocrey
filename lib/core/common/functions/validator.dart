@@ -64,7 +64,7 @@ class Validator {
     if (parts.isEmpty) {
       return 'يرجى إدخال اسم ثلاثي ';
     }
-    const pattern = r'^[a-zA-Zا-ي ]+$';
+    const pattern = r'^[a-zA-Zا-ي]+$';
     final regex = RegExp(pattern);
     for (var part in parts) {
       if (!regex.hasMatch(part)) {

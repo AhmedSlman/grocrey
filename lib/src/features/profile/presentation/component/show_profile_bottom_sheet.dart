@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/core/theme/app_colors.dart';
+import 'package:grocery/src/features/profile/presentation/logic/profile_cubit/profile_cubit.dart';
 import 'package:grocery/src/features/profile/presentation/widgets/edit_item.dart';
 
 void showProfilePictureBottomSheet(BuildContext context) {
@@ -36,13 +37,17 @@ void showProfilePictureBottomSheet(BuildContext context) {
                 EditImageItem(
                   icon: Icons.camera_alt_outlined,
                   label: 'كاميرا',
-                  onTap: () {},
+                  onTap: () {
+                    ProfileCubit().chooseImageFromCamera();
+                  },
                 ),
                 SizedBox(width: 30),
                 EditImageItem(
                   icon: Icons.photo_library_outlined,
                   label: 'المعرض',
-                  onTap: () {},
+                  onTap: () {
+                    ProfileCubit().chooseImageFromGallery();
+                  },
                 ),
               ],
             ),

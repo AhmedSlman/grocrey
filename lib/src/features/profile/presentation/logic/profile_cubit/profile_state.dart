@@ -13,6 +13,10 @@ class SuccessProfileState extends ProfileState {
   SuccessProfileState(this.profileData);
 }
 
+final class LoadingUpdateProfileState extends ProfileState {}
+
+class SuccessUpdateProfile extends ProfileState {}
+
 class FailProfileState extends ProfileState {
   final String error;
   FailProfileState(this.error);
