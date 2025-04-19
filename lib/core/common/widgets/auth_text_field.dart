@@ -9,6 +9,8 @@ class AuthTextField extends StatelessWidget {
   final IconData icon;
   final bool isPassword;
   final TextInputType? keyboardType;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   const AuthTextField({
     super.key,
@@ -18,6 +20,8 @@ class AuthTextField extends StatelessWidget {
     required this.icon,
     this.isPassword = false,
     this.keyboardType,
+    this.controller,
+    this.validator,
   });
 
   @override
@@ -31,11 +35,13 @@ class AuthTextField extends StatelessWidget {
         ),
         SizedBox(height: 10.h),
         CustomTextFormField(
+          controller: controller,
           labelText: labelText,
           hintText: hint,
           isPassword: isPassword,
           prefixIcon: Icon(icon, color: Colors.grey[600]),
           keyboardType: keyboardType,
+          validator: validator,
         ),
       ],
     );
