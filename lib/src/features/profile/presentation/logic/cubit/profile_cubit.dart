@@ -6,9 +6,8 @@ import 'package:grocery/src/features/profile/data/data_source/update_profile_dat
 import 'package:grocery/src/features/profile/data/model/profile_model.dart';
 import 'package:grocery/src/features/profile/data/repositories/update_profile_repo_impl.dart';
 import 'package:grocery/src/features/profile/domain/usecases/edit_profile_use_cases.dart';
+import 'package:grocery/src/features/profile/presentation/logic/profile_cubit/profile_cubit.dart';
 import 'package:meta/meta.dart';
-
-part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(InitialProfileState());
