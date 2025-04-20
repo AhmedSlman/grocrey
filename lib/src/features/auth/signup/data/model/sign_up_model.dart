@@ -4,20 +4,20 @@ part 'sign_up_model.g.dart';
 
 @JsonSerializable()
 class SignUpModel {
-  String? firstName;
-  String? lastName;
+  String? name;
+  String? last_name;
   String? email;
   String? password;
   String? phone;
-  String? passwordConfirmation;
+  String? password_confirmation;
 
   SignUpModel({
-    this.firstName,
-    this.lastName,
+    this.name,
+    this.last_name,
     this.email,
     this.password,
     this.phone,
-    this.passwordConfirmation,
+    this.password_confirmation,
   });
 
   factory SignUpModel.fromJson(Map<String, dynamic> json) =>

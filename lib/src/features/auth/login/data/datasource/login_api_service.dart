@@ -16,16 +16,27 @@ class LoginApiService {
   ) async {
     try {
       final response = await api.post(
-        'login',
+        'user/login',
         data: {'email': email, 'password': password},
         isFormData: true,
       );
-      final userResponse = LoginResponce.fromJson(response);
-      CacheHelper.saveToken(value: userResponse.token);
-      CacheHelper.saveData(key: 'name', value: userResponse.user.name);
-      CacheHelper.saveData(key: 'email', value: userResponse.user.email);
 
-      return Right(userResponse);
+      // تحقق من وجود مفتاح 'message' و 'token'
+      if (response['message'] != null && response['token'] != null) {
+        final userResponse = LoginResponce.fromJson(response);
+        final user = userResponse.user;
+
+        if (user != null) {
+          CacheHelper.saveToken(value: userResponse.token);
+          CacheHelper.saveData(key: 'name', value: user.name);
+          CacheHelper.saveData(key: 'email', value: user.email);
+        }
+
+        return Right(userResponse);
+      } else {
+        // لو السيرفر رجع استجابة فيها فقط رسالة خطأ
+        throw ServerException(errorModel: ErrorModel.fromJson(response));
+      }
     } on ServerException catch (e) {
       return Left(e.errorModel);
     }

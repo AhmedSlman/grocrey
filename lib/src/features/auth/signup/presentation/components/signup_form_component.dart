@@ -70,12 +70,12 @@ class _SignupFormComponentState extends State<SignupFormComponent> {
                       if (_formKey.currentState!.validate()) {
                         context.read<SignUpCubit>().register(
                           SignUpModel(
-                            firstName: firstNameController.text,
-                            lastName: familyNameController.text,
+                            name: firstNameController.text,
+                            last_name: familyNameController.text,
                             email: emailController.text,
                             phone: phoneController.text,
                             password: passwordController.text,
-                            passwordConfirmation:
+                            password_confirmation:
                                 confirmPasswordController.text,
                           ),
                         );

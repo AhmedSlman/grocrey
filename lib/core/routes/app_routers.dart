@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:grocery/core/routes/router_names.dart';
 import 'package:grocery/core/services/service_locator.dart';
 import 'package:grocery/src/features/auth/forgotPassword/presentation/view/forget_password_view.dart';
+import 'package:grocery/src/features/auth/login/presentation/cubit/login_cubit.dart';
 import 'package:grocery/src/features/auth/login/presentation/view/login_view.dart';
 import 'package:grocery/src/features/auth/otpFormForPassword/presentation/view/otp_form_for_password_view.dart';
 import 'package:grocery/src/features/auth/setNewPass/presentation/view/set_new_pass_view.dart';
@@ -29,7 +30,11 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: RouterNames.login,
-      builder: (context, state) => const LoginView(),
+      builder:
+          (context, state) => BlocProvider(
+            create: (context) => getIt<LoginCubit>(),
+            child: const LoginView(),
+          ),
     ),
     GoRoute(
       path: RouterNames.register,

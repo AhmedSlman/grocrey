@@ -8,7 +8,10 @@ part of 'login_model.dart';
 
 LoginResponce _$LoginResponceFromJson(Map<String, dynamic> json) =>
     LoginResponce(
-      user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
+      user:
+          json['user'] == null
+              ? null
+              : UserModel.fromJson(json['user'] as Map<String, dynamic>),
       token: json['token'] as String,
     );
 
