@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery/core/common/functions/validator.dart';
-=======
-
->>>>>>> d08fbbd242971515e8655dc1f9ccab39194766e2
 import 'package:grocery/core/common/widgets/custom_btn.dart';
 import 'package:grocery/core/common/widgets/custom_text_form_field.dart';
 import 'package:grocery/src/features/profile/presentation/logic/profile_cubit/profile_cubit.dart';

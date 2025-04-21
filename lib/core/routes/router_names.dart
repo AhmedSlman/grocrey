@@ -1,6 +1,6 @@
 abstract class RouterNames {
   // static const String splash = '/';
-  static const String onboarding = '/';
+  static const String onboarding = '/onboarding';
   static const String login = '/hbvjh';
   static const String register = '/register';
   static const String forgotPassword = '/dcsdc';
@@ -15,5 +15,5 @@ abstract class RouterNames {
   static const String orders = '/orders';
   static const String about_info = '/about_info';
 
-  static const String profile = '/profile';
+  static const String profile = '/';
 }
