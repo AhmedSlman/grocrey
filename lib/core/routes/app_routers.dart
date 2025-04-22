@@ -9,6 +9,8 @@ import 'package:grocery/src/features/auth/otpFormForPassword/presentation/view/o
 import 'package:grocery/src/features/auth/setNewPass/presentation/view/set_new_pass_view.dart';
 import 'package:grocery/src/features/auth/signup/presentation/cubit/sign_up_cubit.dart';
 import 'package:grocery/src/features/auth/signup/presentation/views/signup_view.dart';
+import 'package:grocery/src/features/home/presentation/logic/categories/getcategories_cubit.dart';
+import 'package:grocery/src/features/home/presentation/view/home_view.dart';
 import 'package:grocery/src/features/intro/onboarding.dart';
 import 'package:grocery/src/features/profile/presentation/views/add_address_view.dart';
 import 'package:grocery/src/features/profile/presentation/views/addresses_view.dart';
@@ -56,10 +58,14 @@ final GoRouter router = GoRouter(
       path: RouterNames.setAnewPassword,
       builder: (context, state) => SetNewPassView(),
     ),
-    // GoRoute(
-    //   path: RouterNames.home,
-    //   builder: (context, state) => const HomeView(),
-    // ),
+    GoRoute(
+      path: RouterNames.home,
+      builder:
+          (context, state) => BlocProvider(
+            create: (context) => GetcategoriesCubit(),
+            child: const HomeView(),
+          ),
+    ),
     GoRoute(
       path: RouterNames.profile,
       builder: (context, state) => ProfileView(),

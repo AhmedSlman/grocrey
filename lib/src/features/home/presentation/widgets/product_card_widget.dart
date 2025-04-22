@@ -23,81 +23,109 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 173.h,
-      height: 227.w,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: AppColors.lightBorderGrey, width: 1),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Center(
-                child: Image.asset(imagePath, height: 120, fit: BoxFit.contain),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        width: 180.w,
+        height: 230.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: AppColors.lightBorderGrey, width: 1),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(8.0.r),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(8.0.r),
+                child: Center(
+                  child: Image.network(
+                    imagePath,
+                    height: 60.h,
+                    fit: BoxFit.contain,
+                  ),
+                ),
               ),
-            ),
 
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: AppStyles.s12Alex.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  size,
-                  style: AppStyles.s12Alex.copyWith(color: AppColors.grey),
-                ),
-              ],
-            ),
-
-            SizedBox(height: 5.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                InkWell(
-                  onTap: onAddPressed,
-                  child: Container(
-                    width: 36,
-                    height: 36,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF0A6986),
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(Icons.add, color: Colors.white),
-                  ),
-                ),
-
-                Row(
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      originalPrice,
-                      style: AppStyles.s12Alex.copyWith(
-                        decoration: TextDecoration.lineThrough,
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: AppStyles.s12Alex.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: 3.h),
+                        Text(
+                          size,
+                          style: AppStyles.s12Alex.copyWith(
+                            color: AppColors.grey,
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(width: 5.w),
-                    Text(
-                      currentPrice,
-                      style: AppStyles.s12Alex.copyWith(
-                        color: AppColors.primaryColor,
-                        fontWeight: FontWeight.bold,
-                      ),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                          onTap: onAddPressed,
+                          child: Container(
+                            width: 32.r,
+                            height: 32.r,
+                            decoration: const BoxDecoration(
+                              color: Color(0xFF0A6986),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.white,
+                              size: 18.r,
+                            ),
+                          ),
+                        ),
+
+                        Flexible(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  originalPrice,
+                                  style: AppStyles.s12Alex.copyWith(
+                                    decoration: TextDecoration.lineThrough,
+                                    fontSize: 10.sp,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              SizedBox(width: 3.w),
+                              Text(
+                                currentPrice,
+                                style: AppStyles.s12Alex.copyWith(
+                                  color: AppColors.primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 5),
                   ],
                 ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );

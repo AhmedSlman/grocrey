@@ -16,7 +16,7 @@ class SettingView extends StatefulWidget {
 }
 
 class _SettingViewState extends State<SettingView> {
-  bool isDark = true;
+  bool isDark = false;
 
   @override
   void initState() {

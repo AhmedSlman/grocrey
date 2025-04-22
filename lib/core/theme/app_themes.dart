@@ -4,7 +4,7 @@ import 'app_colors.dart';
 
 class AppTheme {
   static ThemeData getTheme(ThemeEnum themeEnum) {
-    return themeEnum == ThemeEnum.dark ? darkTheme : lightTheme;
+    return themeEnum == ThemeEnum.dark ? lightTheme : darkTheme;
   }
 
   static final ThemeData lightTheme = ThemeData(

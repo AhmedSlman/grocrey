@@ -37,7 +37,7 @@ class DioConsumer extends ApiConsumer {
             'Accept': 'application/vnd.api+json',
             'Content-Type': 'application/vnd.api+json',
             'Authorization':
-                'Bearer 3|6CAagv1fcoKSjqGodlmaxLTfKWyrMOdmUUnSJprm63cecf9d',
+                'Bearer 12|LahjUdCTSjSsU1EsDoZrHq7AAqUJttlH1b1MkKfO5c46b1ad',
           },
         ),
       );

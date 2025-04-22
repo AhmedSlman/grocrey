@@ -1,11 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:grocery/core/errors/error_model.dart';
+import 'package:grocery/src/features/home/data/model/category_model.dart';
+import 'package:grocery/src/features/home/data/model/product_model.dart';
 import 'package:grocery/src/features/home/data/remote/home_remote_data_source.dart';
 
 abstract class HomeRepo {
   Future<Either<ErrorModel, void>> getHomeData();
-  Future<Either<ErrorModel, void>> getHomeCategories();
-  Future<Either<ErrorModel, void>> getHomeProducts();
+  Future<Either<ErrorModel, List<CategoryModel>>> getHomeCategories();
+  Future<Either<ErrorModel, CategoryModelDetail>> getHomeProducts(productId);
   Future<Either<ErrorModel, void>> getHomeBanners();
   Future<Either<ErrorModel, void>> getHomeBrands();
   Future<Either<ErrorModel, void>> getHomeOffers();
@@ -26,7 +28,7 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<Either<ErrorModel, void>> getHomeCategories() {
+  Future<Either<ErrorModel, List<CategoryModel>>> getHomeCategories() {
     return _homeRemoteDataSource.getHomeCategories();
   }
 
@@ -41,7 +43,7 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<Either<ErrorModel, void>> getHomeProducts() {
-    return _homeRemoteDataSource.getHomeProducts();
+  Future<Either<ErrorModel, CategoryModelDetail>> getHomeProducts(productId) {
+    return _homeRemoteDataSource.getHomeProducts(productId);
   }
 }
