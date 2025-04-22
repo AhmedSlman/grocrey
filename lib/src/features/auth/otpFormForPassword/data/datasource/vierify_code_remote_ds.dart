@@ -7,7 +7,12 @@ class VerifyCodeRemoteDs {
 
   VerifyCodeRemoteDs(this._apiServices);
 
-  Future<Either<ErrorModel, String>> verifyCode(String email, String code) {
-    return _apiServices.verifyCode(email, code);
+  Future<Either<ErrorModel, String>> verifyCode(
+    String email,
+    String code,
+    String passwordConfirmation,
+    String password,
+  ) async {
+    return _apiServices.verifyCode(email, code, passwordConfirmation, password);
   }
 }

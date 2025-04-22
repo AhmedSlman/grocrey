@@ -21,8 +21,8 @@ class LoginApiService {
         isFormData: true,
       );
 
-      // تحقق من وجود مفتاح 'message' و 'token'
-      if (response['message'] != null && response['token'] != null) {
+      // Check if this is a successful response (has user and token)
+      if (response['user'] != null && response['token'] != null) {
         final userResponse = LoginResponce.fromJson(response);
         final user = userResponse.user;
 
@@ -33,12 +33,20 @@ class LoginApiService {
         }
 
         return Right(userResponse);
-      } else {
-        // لو السيرفر رجع استجابة فيها فقط رسالة خطأ
+      }
+      // If we're here, it means it's an error response
+      else {
         throw ServerException(errorModel: ErrorModel.fromJson(response));
       }
     } on ServerException catch (e) {
-      return Left(e.errorModel);
+      return Left(
+        e.errorModel.message?.isNotEmpty == true
+            ? e.errorModel
+            : ErrorModel(message: "Something went wrong"),
+      );
+    } catch (e) {
+      // Handle any other exceptions
+      return Left(ErrorModel(message: e.toString()));
     }
   }
 }

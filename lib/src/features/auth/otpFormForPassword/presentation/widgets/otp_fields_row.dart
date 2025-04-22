@@ -6,15 +6,18 @@ class OtpFieldsRow extends StatefulWidget {
   const OtpFieldsRow({super.key});
 
   @override
-  State<OtpFieldsRow> createState() => _OtpFieldsRowState();
+  OtpFieldsRowState createState() => OtpFieldsRowState();
 }
 
-class _OtpFieldsRowState extends State<OtpFieldsRow> {
+class OtpFieldsRowState extends State<OtpFieldsRow> {
   final List<TextEditingController> _controllers = List.generate(
-    4,
+    6,
     (_) => TextEditingController(),
   );
-  final List<FocusNode> _focusNodes = List.generate(4, (_) => FocusNode());
+
+  final List<FocusNode> _focusNodes = List.generate(6, (_) => FocusNode());
+
+  List<String> get otpValues => _controllers.map((e) => e.text).toList();
 
   @override
   void dispose() {
@@ -31,11 +34,11 @@ class _OtpFieldsRowState extends State<OtpFieldsRow> {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(4, (index) {
+      children: List.generate(6, (index) {
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14.w),
+          padding: const EdgeInsets.symmetric(horizontal: 5),
           child: SizedBox(
-            width: 55.w,
+            width: 40.w,
             height: 80.h,
             child: TextFormField(
               controller: _controllers[index],
@@ -47,7 +50,7 @@ class _OtpFieldsRowState extends State<OtpFieldsRow> {
               style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(),
-                counterText: '..',
+                counterText: '',
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.r),
                   borderSide: const BorderSide(color: AppColors.primaryColor),
@@ -59,7 +62,7 @@ class _OtpFieldsRowState extends State<OtpFieldsRow> {
                 errorStyle: const TextStyle(height: 0),
               ),
               onChanged: (value) {
-                if (value.isNotEmpty && index < 3) {
+                if (value.isNotEmpty && index < 5) {
                   FocusScope.of(context).requestFocus(_focusNodes[index + 1]);
                 } else if (value.isEmpty && index > 0) {
                   FocusScope.of(context).requestFocus(_focusNodes[index - 1]);

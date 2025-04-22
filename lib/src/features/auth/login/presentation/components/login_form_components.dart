@@ -21,15 +21,22 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   @override
+  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(
+    return BlocConsumer<LoginCubit, LoginState>(
+      listener: (context, state) {
+        if (state is LoginSuccessState) {
+          context.go(RouterNames.home);
+        }
+        if (state is LoginErrorState) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.errorModel.message)));
+        }
+      },
       builder: (context, state) {
         if (state is LoginLoadingState) {
           return const Center(child: CircularProgressIndicator());
-        }
-
-        if (state is LoginErrorState) {
-          return Center(child: Text(state.errorModel.message.toString()));
         }
 
         return Form(
@@ -64,7 +71,6 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
                         emailController.text,
                         passwordController.text,
                       );
-                      context.go(RouterNames.profile);
                     }
                   },
                   height: 50.h,

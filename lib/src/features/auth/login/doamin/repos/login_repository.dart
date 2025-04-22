@@ -17,7 +17,9 @@ class LoginRepositoryImpl implements ILoginRepository {
 
   @override
   Future<Either<ErrorModel, LoginResponce>> login(
-      String email, String password) {
+    String email,
+    String password,
+  ) {
     return remoteDs.login(email, password);
   }
 }

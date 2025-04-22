@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:grocery/src/features/auth/forgotPassword/presentation/components/forgot_password_componentdart';
+import 'package:grocery/src/features/auth/forgotPassword/presentation/components/forgot_password_component.dart';
 import 'package:grocery/core/utils/app_assets.dart';
 
 class ForgetPasswordView extends StatelessWidget {
@@ -32,7 +32,6 @@ class ForgetPasswordView extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20.h),
-              // هنا نضع ال component اللي فيه الفورم
               const ForgetPasswordComponent(),
             ],
           ),

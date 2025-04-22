@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery/core/common/functions/validator.dart';
 import 'package:grocery/core/common/widgets/auth_text_field.dart';
 
 class LoginFields extends StatelessWidget {
@@ -20,6 +21,7 @@ class LoginFields extends StatelessWidget {
           icon: Icons.email,
           keyboardType: TextInputType.emailAddress,
           controller: emailController,
+          validator: Validator.validateEmail,
         ),
         const SizedBox(height: 20),
         AuthTextField(
@@ -30,6 +32,7 @@ class LoginFields extends StatelessWidget {
           isPassword: true,
           keyboardType: TextInputType.visiblePassword,
           controller: passwordController,
+          validator: Validator.validatePassword,
         ),
       ],
     );
