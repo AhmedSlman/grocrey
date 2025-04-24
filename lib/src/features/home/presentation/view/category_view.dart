@@ -65,6 +65,7 @@ class CategoryView extends StatelessWidget {
                       imagePath:
                           EndpointsStrings.baseUrl +
                           state.categorymodel.products[index].imagePath,
+                      productsDetails: state.categorymodel.products[index],
                     );
                   },
                 ),

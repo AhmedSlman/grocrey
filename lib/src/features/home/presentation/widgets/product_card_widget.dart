@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:grocery/core/theme/app_colors.dart';
 import 'package:grocery/core/utils/app_styles.dart';
+import 'package:grocery/src/features/home/data/model/product_model.dart';
+import 'package:grocery/src/features/home/presentation/view/product_details_view.dart';
 
 class ProductCard extends StatelessWidget {
   final String title;
@@ -10,6 +13,7 @@ class ProductCard extends StatelessWidget {
   final String originalPrice;
   final String imagePath;
   final VoidCallback? onAddPressed;
+  final ProductModel? productsDetails;
 
   const ProductCard({
     super.key,
@@ -19,112 +23,127 @@ class ProductCard extends StatelessWidget {
     required this.originalPrice,
     required this.imagePath,
     this.onAddPressed,
+    this.productsDetails,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: 180.w,
-        height: 230.h,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: AppColors.lightBorderGrey, width: 1),
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(8.0.r),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.all(8.0.r),
-                child: Center(
-                  child: Image.network(
-                    imagePath,
-                    height: 60.h,
-                    fit: BoxFit.contain,
+      child: InkWell(
+        onTap: () {
+          //context.go(ProductDetailsView());
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (c) {
+                return ProductDetailsView(productDetail: productsDetails!);
+              },
+            ),
+          );
+        },
+
+        child: Container(
+          width: 180.w,
+          height: 230.h,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(color: AppColors.lightBorderGrey, width: 1),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(8.0.r),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(8.0.r),
+                  child: Center(
+                    child: Image.network(
+                      imagePath,
+                      height: 60.h,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
-              ),
 
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          title,
-                          style: AppStyles.s12Alex.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        SizedBox(height: 3.h),
-                        Text(
-                          size,
-                          style: AppStyles.s12Alex.copyWith(
-                            color: AppColors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap: onAddPressed,
-                          child: Container(
-                            width: 32.r,
-                            height: 32.r,
-                            decoration: const BoxDecoration(
-                              color: Color(0xFF0A6986),
-                              shape: BoxShape.circle,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            title,
+                            style: AppStyles.s12Alex.copyWith(
+                              fontWeight: FontWeight.bold,
                             ),
-                            child: Icon(
-                              Icons.add,
-                              color: Colors.white,
-                              size: 18.r,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          SizedBox(height: 3.h),
+                          Text(
+                            size,
+                            style: AppStyles.s12Alex.copyWith(
+                              color: AppColors.grey,
                             ),
                           ),
-                        ),
+                        ],
+                      ),
 
-                        Flexible(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  originalPrice,
-                                  style: AppStyles.s12Alex.copyWith(
-                                    decoration: TextDecoration.lineThrough,
-                                    fontSize: 10.sp,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: onAddPressed,
+                            child: Container(
+                              width: 32.r,
+                              height: 32.r,
+                              decoration: const BoxDecoration(
+                                color: Color(0xFF0A6986),
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(
+                                Icons.add,
+                                color: Colors.white,
+                                size: 18.r,
+                              ),
+                            ),
+                          ),
+
+                          Flexible(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    originalPrice,
+                                    style: AppStyles.s12Alex.copyWith(
+                                      decoration: TextDecoration.lineThrough,
+                                      fontSize: 10.sp,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  overflow: TextOverflow.ellipsis,
                                 ),
-                              ),
-                              SizedBox(width: 3.w),
-                              Text(
-                                currentPrice,
-                                style: AppStyles.s12Alex.copyWith(
-                                  color: AppColors.primaryColor,
-                                  fontWeight: FontWeight.bold,
+                                SizedBox(width: 3.w),
+                                Text(
+                                  currentPrice,
+                                  style: AppStyles.s12Alex.copyWith(
+                                    color: AppColors.primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
