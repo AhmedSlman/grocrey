@@ -1,13 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/core/app_cubit/app_cubit.dart';
 import 'package:grocery/core/data/cached/cache_helper.dart';
 
 import 'package:grocery/core/routes/app_routers.dart';
-import 'package:grocery/core/services/service_locator.dart';
 import 'package:grocery/core/theme/app_themes.dart';
 
 void main() async {
