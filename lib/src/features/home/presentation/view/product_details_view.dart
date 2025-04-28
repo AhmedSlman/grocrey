@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/core/common/widgets/custom_btn.dart';
 import 'package:grocery/core/constants/endpoints_strings.dart';
+import 'package:grocery/src/features/cart/data/model/cart_model.dart';
+import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
+import 'package:grocery/src/features/favourite/presentation/logic/cubit/favourite_cubit.dart';
 import 'package:grocery/src/features/home/data/model/product_model.dart';
 
 class ProductDetailsView extends StatelessWidget {
@@ -10,6 +14,7 @@ class ProductDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //final quantity = GetQunatity(productDetail.id);
     return Scaffold(
       backgroundColor: Colors.white,
       //appBar: AppBar(),
@@ -65,17 +70,24 @@ class ProductDetailsView extends StatelessWidget {
                           Row(
                             children: [
                               Container(
-                                padding: EdgeInsets.all(8.r),
+                                //  padding: EdgeInsets.all(8.r),
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border: Border.all(
                                     color: Colors.grey.shade300,
                                   ),
                                 ),
-                                child: Icon(
-                                  Icons.favorite_border,
-                                  color: Colors.blue.shade700,
-                                  size: 20.sp,
+                                child: IconButton(
+                                  onPressed: () {
+                                    context
+                                        .read<FavouriteCubit>()
+                                        .addToFavourite(productDetail.id);
+                                  },
+                                  icon: Icon(
+                                    Icons.favorite_border,
+                                    color: Colors.blue.shade700,
+                                    size: 20.sp,
+                                  ),
                                 ),
                               ),
                               const Spacer(),
@@ -112,22 +124,55 @@ class ProductDetailsView extends StatelessWidget {
                                 ),
                                 child: Row(
                                   children: [
-                                    _quantityButton(Icons.remove, Colors.grey),
+                                    IconButton(
+                                      onPressed: () {
+                                        // context.read<CartCubit>().addToCart();
+                                        //print(productDetail.id);
+                                        //  print(cart[0].productId);
+
+                                        // final int quantity =
+                                        //     cart
+                                        //         .firstWhere(
+                                        //           (item) =>
+                                        //               item.productId ==
+                                        //               productDetail.id,
+                                        //         )
+                                        //         .quantity;
+                                        // print(quantity.toString());
+
+                                        // context.read<CartCubit>().getQuantity(
+                                        //   productDetail.id,
+                                        // );
+                                      },
+                                      icon: Icon(Icons.remove),
+                                    ),
                                     Container(
                                       padding: EdgeInsets.symmetric(
                                         horizontal: 12.w,
                                       ),
-                                      child: Text(
-                                        '1',
-                                        style: TextStyle(
-                                          fontSize: 16.sp,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                      child: BlocBuilder<CartCubit, CartState>(
+                                        builder: (context, state) {
+                                          return Text(
+                                            context
+                                                .read<CartCubit>()
+                                                .quantity
+                                                .toString(),
+                                            //  productDetail.quantity.toString(),
+                                            style: TextStyle(
+                                              fontSize: 16.sp,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          );
+                                        },
                                       ),
                                     ),
-                                    _quantityButton(
-                                      Icons.add,
-                                      Colors.blue.shade700,
+                                    IconButton(
+                                      onPressed: () {
+                                        context.read<CartCubit>().addToCart(
+                                          true,
+                                        );
+                                      },
+                                      icon: Icon(Icons.add),
                                     ),
                                   ],
                                 ),
@@ -271,17 +316,21 @@ class ProductDetailsView extends StatelessWidget {
                 ),
               ),
             ),
-            CustomButton(text: 'اضف الي السلة', onPressed: () {}),
+            BlocBuilder<CartCubit, CartState>(
+              builder: (context, state) {
+                return state is AddCartLoading
+                    ? Center(child: CircularProgressIndicator())
+                    : CustomButton(
+                      text: 'اضف الي السلة',
+                      onPressed: () {
+                        context.read<CartCubit>().addToCart(false);
+                      },
+                    );
+              },
+            ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _quantityButton(IconData icon, Color color) {
-    return Container(
-      padding: EdgeInsets.all(8.r),
-      child: Icon(icon, color: color, size: 20.sp),
     );
   }
 }

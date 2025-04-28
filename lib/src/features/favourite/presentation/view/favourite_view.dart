@@ -31,13 +31,11 @@ class FavouriteView extends StatelessWidget {
         // ),
         actions: [Image.asset('assets/images/edit.png')],
       ),
-      body: Container(
-        child: ListView.builder(
-          itemCount: 5,
-          itemBuilder: (context, index) {
-            return FavouriteItem();
-          },
-        ),
+      body: ListView.builder(
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return FavouriteItem();
+        },
       ),
     );
   }

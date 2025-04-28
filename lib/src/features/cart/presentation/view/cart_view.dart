@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grocery/core/constants/endpoints_strings.dart';
 import 'package:grocery/core/theme/app_colors.dart';
+import 'package:grocery/src/features/cart/data/model/cart_model.dart';
+import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
 
-class FavouriteView extends StatelessWidget {
-  const FavouriteView({super.key});
+class CartView extends StatelessWidget {
+  const CartView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    context.read<CartCubit>().getFromCart();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.white,
-        title: Text('المفضلة', style: TextStyle(color: AppColors.black)),
+        title: Text('السلة', style: TextStyle(color: AppColors.black)),
         centerTitle: true,
         // leading: Container(
         //   decoration: BoxDecoration(
@@ -33,10 +38,16 @@ class FavouriteView extends StatelessWidget {
       ),
       body: SizedBox(
         height: 500,
-        child: ListView.builder(
-          itemCount: 5,
-          itemBuilder: (context, index) {
-            return CartItem();
+        child: BlocBuilder<CartCubit, CartState>(
+          builder: (context, state) {
+            return state is GetCartSuccess
+                ? ListView.builder(
+                  itemCount: state.cart.length,
+                  itemBuilder: (context, index) {
+                    return CartItem(cart: state.cart[index]);
+                  },
+                )
+                : Center(child: CircularProgressIndicator());
           },
         ),
       ),
@@ -45,7 +56,8 @@ class FavouriteView extends StatelessWidget {
 }
 
 class CartItem extends StatelessWidget {
-  const CartItem({super.key});
+  final CartModel cart;
+  const CartItem({super.key, required this.cart});
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +76,7 @@ class CartItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.network(
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Tree_Top_Orange_Juice_Bottle.jpg/640px-Tree_Top_Orange_Juice_Bottle.jpg',
+                  EndpointsStrings.baseUrl + cart.productImage,
                   width: 60,
                   height: 60,
                   fit: BoxFit.cover,
@@ -76,16 +88,19 @@ class CartItem extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
+                  children: [
                     Text(
-                      'عصير برتقال',
+                      cart.productName,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
                     ),
                     SizedBox(height: 4),
-                    Text('250 مل', style: TextStyle(color: Colors.grey)),
+                    Text(
+                      cart.quantity.toString(),
+                      style: TextStyle(color: Colors.grey),
+                    ),
                   ],
                 ),
               ),
@@ -96,8 +111,8 @@ class CartItem extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    '300 جنيه',
+                  Text(
+                    cart.price,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.blue,

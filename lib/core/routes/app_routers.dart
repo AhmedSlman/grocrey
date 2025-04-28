@@ -9,6 +9,9 @@ import 'package:grocery/src/features/auth/otpFormForPassword/presentation/view/o
 import 'package:grocery/src/features/auth/setNewPass/presentation/view/set_new_pass_view.dart';
 import 'package:grocery/src/features/auth/signup/presentation/cubit/sign_up_cubit.dart';
 import 'package:grocery/src/features/auth/signup/presentation/views/signup_view.dart';
+import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
+import 'package:grocery/src/features/cart/presentation/view/cart_view.dart';
+import 'package:grocery/src/features/favourite/presentation/logic/cubit/favourite_cubit.dart';
 import 'package:grocery/src/features/home/presentation/logic/categories/getcategories_cubit.dart';
 import 'package:grocery/src/features/home/presentation/view/home_view.dart';
 import 'package:grocery/src/features/intro/onboarding.dart';
@@ -51,6 +54,12 @@ final GoRouter router = GoRouter(
       builder: (context, state) => ForgetPasswordView(),
     ),
     GoRoute(
+      path: RouterNames.cart,
+      builder:
+          (context, state) =>
+              BlocProvider(create: (context) => CartCubit(), child: CartView()),
+    ),
+    GoRoute(
       path: RouterNames.otpFormForPassword,
       builder: (context, state) => OtpForPasswordView(),
     ),
@@ -61,8 +70,11 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: RouterNames.home,
       builder:
-          (context, state) => BlocProvider(
-            create: (context) => GetcategoriesCubit(),
+          (context, state) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => GetcategoriesCubit()),
+              BlocProvider(create: (context) => FavouriteCubit()),
+            ],
             child: const HomeView(),
           ),
     ),
