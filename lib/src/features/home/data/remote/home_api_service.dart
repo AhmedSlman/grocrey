@@ -35,7 +35,7 @@ class HomeApiServiceImpl implements HomeApiService {
   @override
   Future<Either<ErrorModel, List<CategoryModel>>> getHomeCategories() async {
     try {
-      final response = await api.get('/user/categories/1');
+      final response = await api.get('/user/categories');
       List data = response['message'];
       final categories =
           data.map((json) => CategoryModel.fromJson(json)).toList();
@@ -62,7 +62,7 @@ class HomeApiServiceImpl implements HomeApiService {
     productid,
   ) async {
     try {
-      final response = await api.get('user/categories/$productid/1');
+      final response = await api.get('user/categories/$productid');
       CategoryModelDetail data = CategoryModelDetail.fromJson(
         response['message'],
       );

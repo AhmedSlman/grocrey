@@ -25,17 +25,23 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  List<CartModel> cart = [];
+  CartModel? cart;
   getFromCart() async {
     emit(GetCartLoading());
 
     try {
-      final rseponse = await api.get('user/cart/1');
-      List data = rseponse['cart'];
-      cart = data.map((e) => CartModel.fromJson(e)).toList();
+      print('=============================================');
+      final rseponse = await api.get('user/cart');
+      var data = rseponse;
+      CartModel cart = CartModel.fromJson(data);
+
+      print(cart.cart[0].product?.imagePath);
+      print('=============================================');
 
       emit(GetCartSuccess(cart));
     } catch (e) {
+      print('fffffffffffffffffffffffffffffffffffffff');
+      print(e.toString());
       emit(GetCartFail());
     }
   }

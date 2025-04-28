@@ -42,9 +42,9 @@ class CartView extends StatelessWidget {
           builder: (context, state) {
             return state is GetCartSuccess
                 ? ListView.builder(
-                  itemCount: state.cart.length,
+                  itemCount: 1,
                   itemBuilder: (context, index) {
-                    return CartItem(cart: state.cart[index]);
+                    return CartItem(cart: state.cart);
                   },
                 )
                 : Center(child: CircularProgressIndicator());
@@ -76,7 +76,7 @@ class CartItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.network(
-                  EndpointsStrings.baseUrl + cart.productImage,
+                  EndpointsStrings.baseUrl + cart.cart[0].product!.imagePath,
                   width: 60,
                   height: 60,
                   fit: BoxFit.cover,
@@ -90,7 +90,7 @@ class CartItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      cart.productName,
+                      cart.cart[0].product!.name,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
@@ -98,7 +98,7 @@ class CartItem extends StatelessWidget {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      cart.quantity.toString(),
+                      cart.cart[0].product!.quantity.toString(),
                       style: TextStyle(color: Colors.grey),
                     ),
                   ],
@@ -112,7 +112,7 @@ class CartItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    cart.price,
+                    cart.cart[0].product!.price.toString(),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.blue,
