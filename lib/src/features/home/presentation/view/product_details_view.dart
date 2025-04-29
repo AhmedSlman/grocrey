@@ -5,15 +5,30 @@ import 'package:grocery/core/common/widgets/custom_btn.dart';
 import 'package:grocery/core/constants/endpoints_strings.dart';
 import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
 import 'package:grocery/src/features/favourite/presentation/logic/cubit/favourite_cubit.dart';
-import 'package:grocery/src/features/home/data/model/product_model.dart';
 
 class ProductDetailsView extends StatelessWidget {
-  final ProductModel productDetail;
-  const ProductDetailsView({super.key, required this.productDetail});
+  final String productid;
+  final String productName;
+  final String productImage;
+  final String productPrice;
+  final String productQuantity;
+  final String productStockStatus;
+
+  const ProductDetailsView({
+    super.key,
+    required this.productid,
+    required this.productName,
+    required this.productImage,
+    required this.productPrice,
+    required this.productQuantity,
+    required this.productStockStatus,
+  });
 
   @override
   Widget build(BuildContext context) {
     //final quantity = GetQunatity(productDetail.id);
+    // context.read<CartCubit>().getQuantity(productDetail.id);
+    //context.read<CartCubit>().getFromCart();
     return Scaffold(
       backgroundColor: Colors.white,
       //appBar: AppBar(),
@@ -33,7 +48,7 @@ class ProductDetailsView extends StatelessWidget {
                           child: Center(
                             child: Image.network(
                               EndpointsStrings.baseUrl +
-                                  productDetail.imagePath,
+                                  productImage, //productDetail.imagePath,
                               fit: BoxFit.contain,
                             ),
                           ),
@@ -80,7 +95,7 @@ class ProductDetailsView extends StatelessWidget {
                                   onPressed: () {
                                     context
                                         .read<FavouriteCubit>()
-                                        .addToFavourite(productDetail.id);
+                                        .addToFavourite(productid);
                                   },
                                   icon: Icon(
                                     Icons.favorite_border,
@@ -91,7 +106,7 @@ class ProductDetailsView extends StatelessWidget {
                               ),
                               const Spacer(),
                               Text(
-                                productDetail.name,
+                                productName,
                                 style: TextStyle(
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
@@ -103,7 +118,7 @@ class ProductDetailsView extends StatelessWidget {
                           SizedBox(height: 4.h),
 
                           Text(
-                            ' الكمية ${productDetail.quantity}',
+                            ' الكمية ${productQuantity} جرام',
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: Colors.grey,
@@ -178,7 +193,7 @@ class ProductDetailsView extends StatelessWidget {
                               ),
 
                               Text(
-                                '${productDetail.price} جنيه',
+                                '$productPrice جنيه',
                                 style: TextStyle(
                                   fontSize: 18.sp,
                                   fontWeight: FontWeight.bold,
@@ -246,7 +261,7 @@ class ProductDetailsView extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(16.r),
                                     ),
                                     child: Text(
-                                      productDetail.stockStatus,
+                                      productStockStatus,
                                       style: TextStyle(fontSize: 12.sp),
                                     ),
                                   ),

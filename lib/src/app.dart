@@ -5,7 +5,9 @@ import 'package:grocery/core/app_cubit/app_cubit.dart';
 import 'package:grocery/core/theme/app_colors.dart';
 import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
 import 'package:grocery/src/features/cart/presentation/view/cart_view.dart';
+import 'package:grocery/src/features/favourite/presentation/logic/cubit/favourite_cubit.dart';
 import 'package:grocery/src/features/favourite/presentation/view/favourite_view.dart';
+import 'package:grocery/src/features/home/presentation/logic/offers/cubit/offers_cubit.dart';
 import 'package:grocery/src/features/home/presentation/view/home_view.dart';
 import 'package:grocery/src/features/profile/presentation/views/profile_view.dart';
 
@@ -15,8 +17,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> screens = [
-      HomeView(),
-      FavouriteView(),
+      BlocProvider(create: (context) => OffersCubit(), child: HomeView()),
+      BlocProvider(
+        create: (context) => FavouriteCubit(),
+        child: FavouriteView(),
+      ),
       BlocProvider(
         create: (BuildContext context) => CartCubit(),
 

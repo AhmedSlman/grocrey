@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grocery/core/constants/endpoints_strings.dart';
 import 'package:grocery/core/theme/app_colors.dart';
 import 'package:grocery/core/utils/app_styles.dart';
 import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
@@ -46,7 +47,14 @@ class ProductCard extends StatelessWidget {
                       create: (context) => CartCubit()..getFromCart(),
                     ),
                   ],
-                  child: ProductDetailsView(productDetail: productsDetails!),
+                  child: ProductDetailsView(
+                    productid: productsDetails!.id.toString(),
+                    productName: productsDetails!.name,
+                    productImage: productsDetails!.imagePath,
+                    productPrice: productsDetails!.price,
+                    productQuantity: productsDetails!.quantity.toString(),
+                    productStockStatus: productsDetails!.stockStatus,
+                  ),
                 );
               },
             ),
@@ -69,9 +77,16 @@ class ProductCard extends StatelessWidget {
                   padding: EdgeInsets.all(8.0.r),
                   child: Center(
                     child: Image.network(
-                      imagePath,
+                      EndpointsStrings.baseUrl + imagePath,
                       height: 60.h,
                       fit: BoxFit.contain,
+                      errorBuilder:
+                          (context, error, stackTrace) => Image.network(
+                            'https://ih1.redbubble.net/image.1893341687.8294/fposter,small,wall_texture,product,750x1000.jpg',
+                            fit: BoxFit.cover,
+                            height: 80.h,
+                            width: 80.w,
+                          ),
                     ),
                   ),
                 ),

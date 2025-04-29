@@ -4,7 +4,7 @@ part 'error_model.g.dart';
 
 @JsonSerializable()
 class ErrorModel {
-  @JsonKey(name: 'msg')
+  @JsonKey(name: 'message')
   final String message;
 
   final Map<String, List<String>>? errors;

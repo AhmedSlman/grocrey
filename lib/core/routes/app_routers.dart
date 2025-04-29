@@ -17,6 +17,7 @@ import 'package:grocery/src/features/favourite/presentation/logic/cubit/favourit
 import 'package:grocery/src/features/home/presentation/logic/categories/getcategories_cubit.dart';
 import 'package:grocery/src/features/home/presentation/view/home_view.dart';
 import 'package:grocery/src/features/intro/onboarding.dart';
+import 'package:grocery/src/features/intro/splash.dart';
 import 'package:grocery/src/features/profile/presentation/views/add_address_view.dart';
 import 'package:grocery/src/features/profile/presentation/views/addresses_view.dart';
 import 'package:grocery/src/features/profile/presentation/views/edit_profile_view.dart';
@@ -27,10 +28,10 @@ import 'package:grocery/src/features/profile/presentation/views/setting_view.dar
 
 final GoRouter router = GoRouter(
   routes: [
-    // GoRoute(
-    //   path: RouterNames.splash,
-    //   builder: (context, state) => const SplashView(),
-    // ),
+    GoRoute(
+      path: RouterNames.splash,
+      builder: (context, state) => const SplashView(),
+    ),
     GoRoute(
       path: RouterNames.onboarding,
       builder: (context, state) => const OnboardingView(),
@@ -55,6 +56,7 @@ final GoRouter router = GoRouter(
       path: RouterNames.forgotPassword,
       builder: (context, state) => ForgetPasswordView(),
     ),
+    GoRoute(path: RouterNames.my_app, builder: (context, state) => MyApp()),
     GoRoute(
       path: RouterNames.cart,
       builder:

@@ -37,16 +37,11 @@ class HomeApiServiceImpl implements HomeApiService {
     try {
       final response = await api.get('user/categories/1');
       List data = response['message'];
-      print(
-        '===========================================================================================',
-      );
+
       final categories =
           data.map((json) => CategoryModel.fromJson(json)).toList();
       return Right(categories);
     } on ServerException catch (e) {
-      print(
-        'fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
-      );
       return Left(e.errorModel);
     }
   }

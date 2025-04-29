@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grocery/core/constants/endpoints_strings.dart';
 import 'package:grocery/core/theme/app_colors.dart';
+import 'package:grocery/src/features/favourite/data/model/favourite_model.dart';
+import 'package:grocery/src/features/favourite/presentation/logic/cubit/favourite_cubit.dart';
 
 class FavouriteView extends StatelessWidget {
   const FavouriteView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    context.read<FavouriteCubit>().getFavourite();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.white,
         title: Text('المفضلة', style: TextStyle(color: AppColors.black)),
         centerTitle: true,
+
         // leading: Container(
         //   decoration: BoxDecoration(
         //     color: AppColors.lightGrey,
@@ -31,10 +36,18 @@ class FavouriteView extends StatelessWidget {
         // ),
         actions: [Image.asset('assets/images/edit.png')],
       ),
-      body: ListView.builder(
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return FavouriteItem();
+      body: BlocBuilder<FavouriteCubit, FavouriteState>(
+        builder: (context, state) {
+          return state is SuccessGetFavourite
+              ? ListView.builder(
+                itemCount: state.favourite.favorites.length,
+                itemBuilder: (context, index) {
+                  return FavouriteItem(
+                    favouriteItem: state.favourite.favorites[index],
+                  );
+                },
+              )
+              : Center(child: CircularProgressIndicator());
         },
       ),
     );
@@ -42,7 +55,8 @@ class FavouriteView extends StatelessWidget {
 }
 
 class FavouriteItem extends StatelessWidget {
-  const FavouriteItem({super.key});
+  final FavoriteItem favouriteItem;
+  const FavouriteItem({super.key, required this.favouriteItem});
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +68,45 @@ class FavouriteItem extends StatelessWidget {
         padding: const EdgeInsets.all(12.0),
         child: Row(
           children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.network(
+                EndpointsStrings.baseUrl + favouriteItem.imagePath,
+                width: 60,
+                height: 60,
+                fit: BoxFit.cover,
+                errorBuilder:
+                    (context, error, stackTrace) => Image.network(
+                      'https://ih1.redbubble.net/image.1893341687.8294/fposter,small,wall_texture,product,750x1000.jpg',
+                    ),
+              ),
+            ),
             // السعر
+            const SizedBox(width: 12),
+
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Text(
+                  favouriteItem.name,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+                SizedBox(height: 4),
+                Text(
+                  favouriteItem.quantity.toString(),
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ],
+            ),
+
+            // صورة المشروب
+            const Spacer(),
+            // اسم المشروب والوصف
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '300 جنيه',
+                  favouriteItem.price.toString(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
@@ -67,30 +114,6 @@ class FavouriteItem extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
-            const Spacer(),
-            // اسم المشروب والوصف
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: const [
-                Text(
-                  'اسبرايت',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-                SizedBox(height: 4),
-                Text('250 مل', style: TextStyle(color: Colors.grey)),
-              ],
-            ),
-            const SizedBox(width: 12),
-            // صورة المشروب
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                'https://ih1.redbubble.net/image.1893341687.8294/fposter,small,wall_texture,product,750x1000.jpg',
-                width: 40,
-                height: 40,
-                fit: BoxFit.cover,
-              ),
             ),
           ],
         ),

@@ -21,7 +21,7 @@ class LoginApiService {
         isFormData: true,
       );
 
-      if (response['message'] != null && response['token'] != null) {
+      if (response['user'] != null && response['token'] != null) {
         final userResponse = LoginResponce.fromJson(response);
         final user = userResponse.user;
 
