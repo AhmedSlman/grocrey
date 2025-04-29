@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/core/constants/endpoints_strings.dart';
 import 'package:grocery/core/theme/app_colors.dart';
 import 'package:grocery/src/features/cart/data/model/cart_model.dart';
@@ -42,9 +42,9 @@ class CartView extends StatelessWidget {
           builder: (context, state) {
             return state is GetCartSuccess
                 ? ListView.builder(
-                  itemCount: 1,
+                  itemCount: state.cart.cart.length,
                   itemBuilder: (context, index) {
-                    return CartItem(cart: state.cart);
+                    return CartCard(cart: state.cart.cart[index]);
                   },
                 )
                 : Center(child: CircularProgressIndicator());
@@ -55,9 +55,9 @@ class CartView extends StatelessWidget {
   }
 }
 
-class CartItem extends StatelessWidget {
-  final CartModel cart;
-  const CartItem({super.key, required this.cart});
+class CartCard extends StatelessWidget {
+  final CartItem cart;
+  const CartCard({super.key, required this.cart});
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +67,7 @@ class CartItem extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         elevation: 3,
+        color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Row(
@@ -76,10 +77,18 @@ class CartItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.network(
-                  EndpointsStrings.baseUrl + cart.cart[0].product!.imagePath,
+                  EndpointsStrings.baseUrl + cart.product!.imagePath,
                   width: 60,
                   height: 60,
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Image.network(
+                      'https://ih1.redbubble.net/image.1893341687.8294/fposter,small,wall_texture,product,750x1000.jpg',
+                      fit: BoxFit.cover,
+                      height: 80.h,
+                      width: 80.w,
+                    );
+                  },
                 ),
               ),
               const SizedBox(width: 12),
@@ -90,7 +99,7 @@ class CartItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      cart.cart[0].product!.name,
+                      cart.product!.name,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
@@ -98,7 +107,7 @@ class CartItem extends StatelessWidget {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      cart.cart[0].product!.quantity.toString(),
+                      cart.product!.quantity.toString(),
                       style: TextStyle(color: Colors.grey),
                     ),
                   ],
@@ -112,7 +121,7 @@ class CartItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    cart.cart[0].product!.price.toString(),
+                    cart.product!.price.toString(),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.blue,

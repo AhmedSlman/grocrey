@@ -1,20 +1,11 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:grocery/core/data/api/api_consumer.dart';
-import 'package:grocery/core/utils/app_assets.dart';
-import 'package:grocery/src/features/home/data/remote/home_api_service.dart';
-import 'package:grocery/src/features/home/domain/usecases/categories_usecase.dart';
+
 import 'package:grocery/src/features/home/presentation/componant/all_categories_section.dart';
-
 import 'package:grocery/src/features/home/presentation/componant/bunner_section.dart';
-
 import 'package:grocery/src/features/home/presentation/componant/home_header_section.dart';
 import 'package:grocery/src/features/home/presentation/componant/home_search_section.dart';
 import 'package:grocery/src/features/home/presentation/componant/offers_section.dart';
-import 'package:grocery/src/features/home/presentation/logic/categories/getcategories_cubit.dart';
-import 'package:grocery/src/features/home/presentation/widgets/product_card_widget.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -22,23 +13,20 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ListView(
-          // mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(height: 50.h),
+      body: ListView(
+        children: [
+          SizedBox(height: 50.h),
 
-            HomeHeaderSection(),
-            SizedBox(height: 12.h),
-            HomeSearchSection(),
-            SizedBox(height: 12.h),
-            BannerSection(),
-            SizedBox(height: 12.h),
-            AllCategoriesSection(),
-            SizedBox(height: 12.h),
-            OffersSection(),
-          ],
-        ),
+          HomeHeaderSection(),
+          SizedBox(height: 12.h),
+          HomeSearchSection(),
+          SizedBox(height: 12.h),
+          BannerSection(),
+          SizedBox(height: 12.h),
+          AllCategoriesSection(),
+          SizedBox(height: 12.h),
+          OffersSection(),
+        ],
       ),
     );
   }

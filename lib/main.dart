@@ -18,13 +18,13 @@ void main() async {
       startLocale: Locale('ar'),
 
       path: 'assets/lang',
-      child: const MyApp(),
+      child: const App(),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +34,12 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return BlocProvider(
-          create: (context) => AppCubit(),
+          create: (BuildContext context) => AppCubit(),
           child: BlocBuilder<AppCubit, AppState>(
             builder: (context, state) {
               return MaterialApp.router(
                 routerConfig: router,
+
                 debugShowCheckedModeBanner: false,
                 theme: AppTheme.getTheme(state.themeEnum),
                 localizationsDelegates: context.localizationDelegates,

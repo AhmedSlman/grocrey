@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/core/common/widgets/custom_btn.dart';
 import 'package:grocery/core/constants/endpoints_strings.dart';
-import 'package:grocery/src/features/cart/data/model/cart_model.dart';
 import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
 import 'package:grocery/src/features/favourite/presentation/logic/cubit/favourite_cubit.dart';
 import 'package:grocery/src/features/home/data/model/product_model.dart';

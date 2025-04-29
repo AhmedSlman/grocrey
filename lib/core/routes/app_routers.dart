@@ -1,7 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:grocery/core/app_cubit/app_cubit.dart';
 import 'package:grocery/core/routes/router_names.dart';
 import 'package:grocery/core/services/service_locator.dart';
+import 'package:grocery/src/app.dart';
 import 'package:grocery/src/features/auth/forgotPassword/presentation/view/forget_password_view.dart';
 import 'package:grocery/src/features/auth/login/presentation/cubit/login_cubit.dart';
 import 'package:grocery/src/features/auth/login/presentation/view/login_view.dart';
@@ -74,8 +76,9 @@ final GoRouter router = GoRouter(
             providers: [
               BlocProvider(create: (context) => GetcategoriesCubit()),
               BlocProvider(create: (context) => FavouriteCubit()),
+              BlocProvider(create: (context) => AppCubit()),
             ],
-            child: const HomeView(),
+            child: const MyApp(),
           ),
     ),
     GoRoute(

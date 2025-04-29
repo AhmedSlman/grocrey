@@ -86,7 +86,7 @@ class FavouriteItem extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.network(
-                'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Sprite_can_2020.png/640px-Sprite_can_2020.png',
+                'https://ih1.redbubble.net/image.1893341687.8294/fposter,small,wall_texture,product,750x1000.jpg',
                 width: 40,
                 height: 40,
                 fit: BoxFit.cover,

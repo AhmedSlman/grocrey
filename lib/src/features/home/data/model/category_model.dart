@@ -18,13 +18,13 @@ class CategoryModel {
   });
   factory CategoryModel.fromJson(Map<String, dynamic> json) {
     return CategoryModel(
-      id: json['id'],
+      id: json['id'] ?? 0,
       name: json['name'],
-      description: json['description'],
-      image_path: json['image_path'],
-      created_at: json['created_at'],
-      updated_at: json['updated_at'],
-      products_count: json['products_count'],
+      description: json['description'] ?? '',
+      image_path: json['image_path'] ?? '',
+      created_at: json['created_at'] ?? '',
+      updated_at: json['updated_at'] ?? '',
+      products_count: json['products_count'] ?? 0,
     );
   }
 }

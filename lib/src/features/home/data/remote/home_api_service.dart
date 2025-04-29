@@ -35,12 +35,18 @@ class HomeApiServiceImpl implements HomeApiService {
   @override
   Future<Either<ErrorModel, List<CategoryModel>>> getHomeCategories() async {
     try {
-      final response = await api.get('/user/categories');
+      final response = await api.get('user/categories/1');
       List data = response['message'];
+      print(
+        '===========================================================================================',
+      );
       final categories =
           data.map((json) => CategoryModel.fromJson(json)).toList();
       return Right(categories);
     } on ServerException catch (e) {
+      print(
+        'fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+      );
       return Left(e.errorModel);
     }
   }
@@ -62,7 +68,7 @@ class HomeApiServiceImpl implements HomeApiService {
     productid,
   ) async {
     try {
-      final response = await api.get('user/categories/$productid');
+      final response = await api.get('user/categories/$productid/1');
       CategoryModelDetail data = CategoryModelDetail.fromJson(
         response['message'],
       );
