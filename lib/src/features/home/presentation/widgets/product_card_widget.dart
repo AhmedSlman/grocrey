@@ -19,8 +19,11 @@ class ProductCard extends StatelessWidget {
   final String imagePath;
   final String quantaty;
   final String stock_status;
+
   final VoidCallback? onAddPressed;
   final ProductModel? productsDetails;
+  final String createdAt;
+  final String updatedAt;
 
   const ProductCard({
     super.key,
@@ -35,6 +38,8 @@ class ProductCard extends StatelessWidget {
 
     this.onAddPressed,
     this.productsDetails,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   @override
@@ -62,6 +67,8 @@ class ProductCard extends StatelessWidget {
                     productPrice: currentPrice,
                     productQuantity: quantaty,
                     productStockStatus: stock_status,
+                    productCreatedAt: createdAt.toString(),
+                    productUpdatedAt: updatedAt.toString(),
                   ),
                 );
               },

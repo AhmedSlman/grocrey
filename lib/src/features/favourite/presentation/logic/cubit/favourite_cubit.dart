@@ -10,7 +10,7 @@ part 'favourite_state.dart';
 class FavouriteCubit extends Cubit<FavouriteState> {
   FavouriteCubit() : super(FavouriteInitial());
   final ApiConsumer api = DioConsumer(dio: Dio());
-
+  bool isFavourite = false;
   getFavourite() async {
     try {
       var response = await api.get('user/my_favorites/1');
@@ -22,9 +22,16 @@ class FavouriteCubit extends Cubit<FavouriteState> {
   }
 
   addToFavourite(product_id) async {
-    final response = await api.post(
-      'user/put_favorites',
-      data: {'product_id': product_id},
-    );
+    emit(LoadingAddToFavourite());
+    try {
+      emit(SuccessAddToFavourite('Product added to favourites'));
+
+      final response = await api.post(
+        'user/put_favorites',
+        data: {'product_id': product_id},
+      );
+    } catch (e) {
+      emit(FailAddToFavourite(e.toString()));
+    }
   }
 }

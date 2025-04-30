@@ -140,7 +140,10 @@ class CartCard extends StatelessWidget {
                           icon: const Icon(Icons.remove, color: Colors.blue),
                           onPressed: () {},
                         ),
-                        const Text('1', style: TextStyle(fontSize: 16)),
+                        Text(
+                          cart.quantity.toString(),
+                          style: TextStyle(fontSize: 16),
+                        ),
                         IconButton(
                           icon: const Icon(Icons.add, color: Colors.blue),
                           onPressed: () {},
@@ -149,6 +152,14 @@ class CartCard extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              IconButton(
+                icon: const Icon(Icons.delete, color: Colors.redAccent),
+                onPressed: () async {
+                  await context.read<CartCubit>().deleteFromCart(
+                    cart.productId.toString(),
+                  );
+                },
               ),
             ],
           ),

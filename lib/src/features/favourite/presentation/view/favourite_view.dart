@@ -77,6 +77,8 @@ class FavouriteItem extends StatelessWidget {
                   productPrice: favouriteItem.price,
                   productQuantity: favouriteItem.price,
                   productStockStatus: favouriteItem.stockStatus,
+                  productCreatedAt: '',
+                  productUpdatedAt: '',
                 ),
               );
             },

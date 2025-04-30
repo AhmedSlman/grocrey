@@ -52,6 +52,13 @@ class OffersSection extends StatelessWidget {
                                   state.offer_producs[index].stockStatus
                                       .toString() ??
                                   '',
+                              createdAt:
+                                  state.offer_producs[index].createdAt
+                                      .toString(),
+
+                              updatedAt:
+                                  state.offer_producs[index].updatedAt
+                                      .toString(),
                             );
                           },
                         )

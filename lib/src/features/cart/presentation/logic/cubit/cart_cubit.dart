@@ -12,12 +12,12 @@ class CartCubit extends Cubit<CartState> {
   final ApiConsumer api = DioConsumer(dio: Dio());
   int quantity = 1;
 
-  addToCart(bool isSilent) async {
+  addToCart(bool isSilent, String id) async {
     !isSilent ? emit(AddCartLoading()) : null;
 
     try {
       quantity++;
-      await api.post('user/cart', data: {'product_id': '2', 'quantity': 1});
+      await api.post('user/cart', data: {'product_id': id, 'quantity': 1});
 
       emit(AddCartSuccess(quantity));
     } catch (e) {
@@ -37,6 +37,18 @@ class CartCubit extends Cubit<CartState> {
       emit(GetCartSuccess(cart));
     } catch (e) {
       emit(GetCartFail());
+    }
+  }
+
+  deleteFromCart(String id) async {
+    emit(DeleteCartLoading());
+
+    try {
+      await api.delete('user/cart/$id');
+      getFromCart();
+      emit(DeleteCartSuccess());
+    } catch (e) {
+      emit(DeleteCartFail());
     }
   }
 }

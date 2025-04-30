@@ -32,3 +32,11 @@ final class GetQunatity extends CartState {
   final int quantity;
   GetQunatity(this.quantity);
 }
+
+////////////////////////////////////////////
+
+final class DeleteCartLoading extends CartState {}
+
+final class DeleteCartSuccess extends CartState {}
+
+final class DeleteCartFail extends CartState {}

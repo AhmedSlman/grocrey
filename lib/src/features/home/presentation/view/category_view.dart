@@ -69,6 +69,12 @@ class CategoryView extends StatelessWidget {
                               .toString(),
                       stock_status:
                           state.categorymodel.products[index].stockStatus,
+                      createdAt:
+                          state.categorymodel.products[index].createdAt
+                              .toString(),
+                      updatedAt:
+                          state.categorymodel.products[index].updatedAt
+                              .toString(),
                     );
                   },
                 ),
