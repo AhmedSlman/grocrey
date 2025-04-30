@@ -7,24 +7,32 @@ import 'package:grocery/core/utils/app_styles.dart';
 import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
 import 'package:grocery/src/features/favourite/presentation/logic/cubit/favourite_cubit.dart';
 import 'package:grocery/src/features/home/data/model/product_model.dart';
+import 'package:grocery/src/features/home/presentation/logic/offers/cubit/offers_cubit.dart';
 import 'package:grocery/src/features/home/presentation/view/product_details_view.dart';
 
 class ProductCard extends StatelessWidget {
+  final int id;
   final String title;
   final String size;
   final String currentPrice;
   final String originalPrice;
   final String imagePath;
+  final String quantaty;
+  final String stock_status;
   final VoidCallback? onAddPressed;
   final ProductModel? productsDetails;
 
   const ProductCard({
     super.key,
+    required this.id,
     required this.title,
     required this.size,
     required this.currentPrice,
     required this.originalPrice,
     required this.imagePath,
+    required this.quantaty,
+    required this.stock_status,
+
     this.onAddPressed,
     this.productsDetails,
   });
@@ -48,12 +56,12 @@ class ProductCard extends StatelessWidget {
                     ),
                   ],
                   child: ProductDetailsView(
-                    productid: productsDetails!.id.toString(),
-                    productName: productsDetails!.name,
-                    productImage: productsDetails!.imagePath,
-                    productPrice: productsDetails!.price,
-                    productQuantity: productsDetails!.quantity.toString(),
-                    productStockStatus: productsDetails!.stockStatus,
+                    productid: id.toString(),
+                    productName: title,
+                    productImage: imagePath,
+                    productPrice: currentPrice,
+                    productQuantity: quantaty,
+                    productStockStatus: stock_status,
                   ),
                 );
               },
@@ -62,14 +70,14 @@ class ProductCard extends StatelessWidget {
         },
 
         child: Container(
-          width: 180.w,
+          width: 200.w,
           height: 230.h,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(10),
             border: Border.all(color: AppColors.lightBorderGrey, width: 1),
           ),
           child: Padding(
-            padding: EdgeInsets.all(8.0.r),
+            padding: EdgeInsets.all(2.r),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

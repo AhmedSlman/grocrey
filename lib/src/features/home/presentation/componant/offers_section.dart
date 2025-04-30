@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:grocery/core/utils/app_assets.dart';
 import 'package:grocery/core/utils/app_shimmer.dart';
-import 'package:grocery/src/features/home/presentation/logic/categories/getcategories_cubit.dart';
 import 'package:grocery/src/features/home/presentation/logic/offers/cubit/offers_cubit.dart';
 import 'package:grocery/src/features/home/presentation/widgets/home_section_header.dart';
 import 'package:grocery/src/features/home/presentation/widgets/product_card_widget.dart';
@@ -34,6 +32,7 @@ class OffersSection extends StatelessWidget {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return ProductCard(
+                              id: state.offer_producs[index].id!,
                               title:
                                   state.offer_producs[index].name ?? 'Unknown',
                               size:
@@ -43,7 +42,16 @@ class OffersSection extends StatelessWidget {
                               originalPrice: '300 جنيه',
                               imagePath:
                                   state.offer_producs[index].imagePath
-                                      .toString(),
+                                      .toString() ??
+                                  '',
+                              quantaty:
+                                  state.offer_producs[index].quantity
+                                      .toString() ??
+                                  '',
+                              stock_status:
+                                  state.offer_producs[index].stockStatus
+                                      .toString() ??
+                                  '',
                             );
                           },
                         )

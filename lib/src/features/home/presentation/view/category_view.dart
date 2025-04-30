@@ -66,6 +66,12 @@ class CategoryView extends StatelessWidget {
                           EndpointsStrings.baseUrl +
                           state.categorymodel.products[index].imagePath,
                       productsDetails: state.categorymodel.products[index],
+                      id: state.categorymodel.products[index].id,
+                      quantaty:
+                          state.categorymodel.products[index].quantity
+                              .toString(),
+                      stock_status:
+                          state.categorymodel.products[index].stockStatus,
                     );
                   },
                 ),
