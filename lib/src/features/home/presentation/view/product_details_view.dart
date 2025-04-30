@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:grocery/core/common/widgets/custom_btn.dart';
 import 'package:grocery/core/constants/endpoints_strings.dart';
 import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
 import 'package:grocery/src/features/favourite/presentation/logic/cubit/favourite_cubit.dart';
+import 'package:grocery/src/features/home/presentation/componant/add_to_cart.dart';
 
 class ProductDetailsView extends StatelessWidget {
   final String productid;
@@ -26,9 +26,6 @@ class ProductDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final quantity = GetQunatity(productDetail.id);
-    // context.read<CartCubit>().getQuantity(productDetail.id);
-    //context.read<CartCubit>().getFromCart();
     return Scaffold(
       backgroundColor: Colors.white,
       //appBar: AppBar(),
@@ -47,15 +44,13 @@ class ProductDetailsView extends StatelessWidget {
                           color: Colors.white,
                           child: Center(
                             child: Image.network(
-                              EndpointsStrings.baseUrl +
-                                  productImage, //productDetail.imagePath,
+                              EndpointsStrings.baseUrl + productImage,
                               fit: BoxFit.contain,
                             ),
                           ),
                         ),
                         Positioned(
                           top: 16.h,
-                          //   left: 16.w,
                           right: 18.w,
                           child: InkWell(
                             onTap: () => Navigator.pop(context),
@@ -118,7 +113,7 @@ class ProductDetailsView extends StatelessWidget {
                           SizedBox(height: 4.h),
 
                           Text(
-                            ' الكمية ${productQuantity} جرام',
+                            ' الكمية $productQuantity جرام',
                             style: TextStyle(
                               fontSize: 14.sp,
                               color: Colors.grey,
@@ -330,18 +325,7 @@ class ProductDetailsView extends StatelessWidget {
                 ),
               ),
             ),
-            BlocBuilder<CartCubit, CartState>(
-              builder: (context, state) {
-                return state is AddCartLoading
-                    ? Center(child: CircularProgressIndicator())
-                    : CustomButton(
-                      text: 'اضف الي السلة',
-                      onPressed: () {
-                        context.read<CartCubit>().addToCart(false);
-                      },
-                    );
-              },
-            ),
+            AddToCart(),
           ],
         ),
       ),

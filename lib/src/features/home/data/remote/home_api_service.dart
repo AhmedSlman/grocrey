@@ -6,6 +6,7 @@ import 'package:grocery/core/data/api/api_consumer.dart';
 import 'package:grocery/core/errors/error_model.dart';
 import 'package:grocery/core/errors/exceptions.dart';
 import 'package:grocery/src/features/home/data/model/category_model.dart';
+import 'package:grocery/src/features/home/data/model/offers_model.dart';
 import 'package:grocery/src/features/home/data/model/product_model.dart';
 
 abstract class HomeApiService {
@@ -14,7 +15,7 @@ abstract class HomeApiService {
   Future<Either<ErrorModel, CategoryModelDetail>> getHomeProducts(productId);
   Future<Either<ErrorModel, void>> getHomeBanners();
   Future<Either<ErrorModel, void>> getHomeBrands();
-  Future<Either<ErrorModel, void>> getHomeOffers();
+  Future<Either<ErrorModel, OffersModel>> getHomeOffers();
 }
 
 class HomeApiServiceImpl implements HomeApiService {
@@ -53,9 +54,15 @@ class HomeApiServiceImpl implements HomeApiService {
   }
 
   @override
-  Future<Either<ErrorModel, void>> getHomeOffers() {
-    // TODO: implement getHomeOffers
-    throw UnimplementedError();
+  Future<Either<ErrorModel, OffersModel>> getHomeOffers() async {
+    try {
+      var response = await api.get('user/products');
+
+      OffersModel offers = OffersModel.fromJson(response);
+      return Right(offers);
+    } on ServerException catch (e) {
+      return Left(e.errorModel);
+    }
   }
 
   @override

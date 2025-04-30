@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:grocery/core/errors/error_model.dart';
 import 'package:grocery/src/features/home/data/model/category_model.dart';
+import 'package:grocery/src/features/home/data/model/offers_model.dart';
 import 'package:grocery/src/features/home/data/model/product_model.dart';
 import 'package:grocery/src/features/home/data/remote/home_api_service.dart';
 
@@ -10,7 +11,7 @@ abstract class HomeRemoteDataSource {
   Future<Either<ErrorModel, CategoryModelDetail>> getHomeProducts(productId);
   Future<Either<ErrorModel, void>> getHomeBanners();
   Future<Either<ErrorModel, void>> getHomeBrands();
-  Future<Either<ErrorModel, void>> getHomeOffers();
+  Future<Either<ErrorModel, OffersModel>> getHomeOffers();
 }
 
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
@@ -38,7 +39,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   }
 
   @override
-  Future<Either<ErrorModel, void>> getHomeOffers() {
+  Future<Either<ErrorModel, OffersModel>> getHomeOffers() {
     return homeApiService.getHomeOffers();
   }
 
