@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -76,19 +77,21 @@ class CartCard extends StatelessWidget {
               // صورة المنتج
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: Image.network(
-                  EndpointsStrings.baseUrl + cart.product!.imagePath,
+                child: CachedNetworkImage(
                   width: 60,
                   height: 60,
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
-                    return Image.network(
-                      'https://ih1.redbubble.net/image.1893341687.8294/fposter,small,wall_texture,product,750x1000.jpg',
+
+                  errorWidget: (context, error, stackTrace) {
+                    return CachedNetworkImage(
+                      imageUrl:
+                          'https://ih1.redbubble.net/image.1893341687.8294/fposter,small,wall_texture,product,750x1000.jpg',
                       fit: BoxFit.cover,
                       height: 80.h,
                       width: 80.w,
                     );
                   },
+                  imageUrl: EndpointsStrings.baseUrl + cart.product!.imagePath,
                 ),
               ),
               const SizedBox(width: 12),

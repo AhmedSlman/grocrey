@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -24,7 +25,9 @@ class ProfilePicture extends StatelessWidget {
                 shape: BoxShape.circle,
                 color: Colors.grey[200],
                 image: DecorationImage(
-                  image: NetworkImage('https://example.com/profile.jpg'),
+                  image: CachedNetworkImageProvider(
+                    'https://example.com/profile.jpg',
+                  ),
 
                   fit: BoxFit.cover,
                 ),

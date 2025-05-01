@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery/core/constants/endpoints_strings.dart';
@@ -96,12 +97,12 @@ class FavouriteItem extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  EndpointsStrings.baseUrl + favouriteItem.imagePath,
+                child: CachedNetworkImage(
+                  imageUrl: EndpointsStrings.baseUrl + favouriteItem.imagePath,
                   width: 60,
                   height: 60,
                   fit: BoxFit.cover,
-                  errorBuilder:
+                  errorWidget:
                       (context, error, stackTrace) => Image.network(
                         'https://ih1.redbubble.net/image.1893341687.8294/fposter,small,wall_texture,product,750x1000.jpg',
                       ),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -91,17 +92,17 @@ class ProductCard extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.all(8.0.r),
                   child: Center(
-                    child: Image.network(
-                      EndpointsStrings.baseUrl + imagePath,
+                    child: CachedNetworkImage(
                       height: 60.h,
                       fit: BoxFit.contain,
-                      errorBuilder:
+                      errorWidget:
                           (context, error, stackTrace) => Image.network(
                             'https://ih1.redbubble.net/image.1893341687.8294/fposter,small,wall_texture,product,750x1000.jpg',
                             fit: BoxFit.cover,
                             height: 80.h,
                             width: 80.w,
                           ),
+                      imageUrl: EndpointsStrings.baseUrl + imagePath,
                     ),
                   ),
                 ),

@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:grocery/core/data/api/api_consumer.dart';
 import 'package:grocery/core/data/api/dio_consumer.dart';
 import 'package:grocery/core/services/service_locator.dart';
 import 'package:grocery/src/features/profile/data/data_source/profile_data_source.dart';
@@ -23,8 +22,9 @@ class ProfileCubit extends Cubit<ProfileState> {
     // final usecase = GetProfileUseCases(
     //   ProfileRepoImpl(ProfileDataSourceImpl(api)),
     // );
-
-    final get_profile_data_usecase = getIt<GetProfileUseCases>();
+    final get_profile_data_usecase = GetProfileUseCases(
+      ProfileRepoImpl(ProfileDataSourceImpl(dio)),
+    );
     try {
       emit(LoadingProfileState());
 
@@ -33,6 +33,10 @@ class ProfileCubit extends Cubit<ProfileState> {
         (failure) => emit(FailProfileState(failure.message)),
         (success) => emit(SuccessProfileState(success)),
       );
+      print(
+        '----------------------------------------------------------------------------------',
+      );
+      print(result.toString());
     } catch (e) {
       emit(FailProfileState(e.toString()));
     }

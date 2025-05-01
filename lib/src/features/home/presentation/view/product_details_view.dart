@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -94,10 +95,19 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                               height: 350.h,
                               color: Colors.white,
                               child: Center(
-                                child: Image.network(
-                                  EndpointsStrings.baseUrl +
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      EndpointsStrings.baseUrl +
                                       widget.productImage,
                                   fit: BoxFit.contain,
+                                  errorWidget:
+                                      (
+                                        context,
+                                        error,
+                                        stackTrace,
+                                      ) => Image.network(
+                                        'https://ih1.redbubble.net/image.1893341687.8294/fposter,small,wall_texture,product,750x1000.jpg',
+                                      ),
                                 ),
                               ),
                             ),
