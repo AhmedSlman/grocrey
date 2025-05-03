@@ -7,8 +7,8 @@ import 'package:grocery/core/theme/app_colors.dart';
 import 'package:grocery/core/utils/app_styles.dart';
 import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
 import 'package:grocery/src/features/favourite/presentation/logic/cubit/favourite_cubit.dart';
-import 'package:grocery/src/features/home/data/model/product_model.dart';
-import 'package:grocery/src/features/home/presentation/logic/offers/cubit/offers_cubit.dart';
+import 'package:grocery/src/features/home/data/model/category_model_detail.dart';
+import 'package:grocery/src/features/home/presentation/logic/product/cubit/product_cubit.dart';
 import 'package:grocery/src/features/home/presentation/view/product_details_view.dart';
 
 class ProductCard extends StatelessWidget {
@@ -57,20 +57,13 @@ class ProductCard extends StatelessWidget {
                 return MultiBlocProvider(
                   providers: [
                     BlocProvider(create: (context) => FavouriteCubit()),
+                    BlocProvider(create: (context) => ProductCubit()),
+
                     BlocProvider(
                       create: (context) => CartCubit()..getFromCart(),
                     ),
                   ],
-                  child: ProductDetailsView(
-                    productid: id.toString(),
-                    productName: title,
-                    productImage: imagePath,
-                    productPrice: currentPrice,
-                    productQuantity: quantaty,
-                    productStockStatus: stock_status,
-                    productCreatedAt: createdAt.toString(),
-                    productUpdatedAt: updatedAt.toString(),
-                  ),
+                  child: ProductDetailsView(productid: id.toString()),
                 );
               },
             ),

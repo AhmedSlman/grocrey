@@ -7,7 +7,7 @@ import 'package:grocery/core/errors/error_model.dart';
 import 'package:grocery/core/errors/exceptions.dart';
 import 'package:grocery/src/features/home/data/model/category_model.dart';
 import 'package:grocery/src/features/home/data/model/offers_model.dart';
-import 'package:grocery/src/features/home/data/model/product_model.dart';
+import 'package:grocery/src/features/home/data/model/category_model_detail.dart';
 
 abstract class HomeApiService {
   Future<Either<ErrorModel, void>> getHomeData();

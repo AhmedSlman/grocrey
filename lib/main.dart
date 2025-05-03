@@ -57,8 +57,3 @@ class App extends StatelessWidget {
     );
   }
 }
-
-class Person {
-  late final String name;
-  Person._s();
-}

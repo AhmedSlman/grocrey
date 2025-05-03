@@ -40,3 +40,14 @@ final class DeleteCartLoading extends CartState {}
 final class DeleteCartSuccess extends CartState {}
 
 final class DeleteCartFail extends CartState {}
+
+////////////////////////////////////////////
+
+final class CreateOrderLoading extends CartState {}
+
+final class CreateOrderSuccess extends CartState {}
+
+final class CreateOrderFail extends CartState {
+  final String message;
+  CreateOrderFail(this.message);
+}

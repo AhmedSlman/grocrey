@@ -16,7 +16,8 @@ final class FailGetFavourite extends FavouriteState {}
 
 final class SuccessAddToFavourite extends FavouriteState {
   final String message;
-  SuccessAddToFavourite(this.message);
+  final bool isFavourite;
+  SuccessAddToFavourite(this.message, {this.isFavourite = false});
 }
 
 final class LoadingAddToFavourite extends FavouriteState {}

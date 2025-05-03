@@ -6,6 +6,7 @@ import 'package:grocery/core/theme/app_colors.dart';
 import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
 import 'package:grocery/src/features/favourite/data/model/favourite_model.dart';
 import 'package:grocery/src/features/favourite/presentation/logic/cubit/favourite_cubit.dart';
+import 'package:grocery/src/features/home/presentation/logic/product/cubit/product_cubit.dart';
 import 'package:grocery/src/features/home/presentation/view/product_details_view.dart';
 
 class FavouriteView extends StatelessWidget {
@@ -37,19 +38,21 @@ class FavouriteView extends StatelessWidget {
         //     ),
         //   ),
         // ),
-        actions: [Image.asset('assets/images/edit.png')],
+        //  actions: [Image.asset('assets/images/edit.png')],
       ),
       body: BlocBuilder<FavouriteCubit, FavouriteState>(
         builder: (context, state) {
           return state is SuccessGetFavourite
-              ? ListView.builder(
-                itemCount: state.favourite.favorites.length,
-                itemBuilder: (context, index) {
-                  return FavouriteItem(
-                    favouriteItem: state.favourite.favorites[index],
-                  );
-                },
-              )
+              ? state.favourite.favorites.isNotEmpty
+                  ? ListView.builder(
+                    itemCount: state.favourite.favorites.length,
+                    itemBuilder: (context, index) {
+                      return FavouriteItem(
+                        favouriteItem: state.favourite.favorites[index],
+                      );
+                    },
+                  )
+                  : Center(child: Text('لا توجد عناصر مفضلة'))
               : Center(child: CircularProgressIndicator());
         },
       ),
@@ -65,26 +68,29 @@ class FavouriteItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (c) {
-              return BlocProvider(
-                create: (context) => CartCubit(),
-                child: ProductDetailsView(
-                  productid: favouriteItem.id.toString(),
-                  productName: favouriteItem.name,
-                  productImage: favouriteItem.imagePath,
-                  productPrice: favouriteItem.price,
-                  productQuantity: favouriteItem.price,
-                  productStockStatus: favouriteItem.stockStatus,
-                  productCreatedAt: '',
-                  productUpdatedAt: '',
-                ),
-              );
-            },
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (c) {
+        //       return MultiBlocProvider(
+        //         providers: [
+        //           BlocProvider(create: (context) => CartCubit()),
+        //           BlocProvider(create: (context) => ProductCubit()),
+        //         ],
+        //         child: ProductDetailsView(
+        //           productid: favouriteItem.id.toString(),
+        //           // productName: favouriteItem.name,
+        //           // productImage: favouriteItem.imagePath,
+        //           // productPrice: favouriteItem.price,
+        //           // productQuantity: favouriteItem.price,
+        //           // productStockStatus: favouriteItem.stockStatus,
+        //           // productCreatedAt: '',
+        //           // productUpdatedAt: '',
+        //         ),
+        //       );
+        //     },
+        //   ),
+        // );
       },
       child: Card(
         color: Colors.white,
@@ -120,7 +126,9 @@ class FavouriteItem extends StatelessWidget {
                   ),
                   SizedBox(height: 4),
                   Text(
-                    favouriteItem.quantity.toString(),
+                    'الكمية : ${favouriteItem.quantity}',
+
+                    textAlign: TextAlign.right,
                     style: TextStyle(color: Colors.grey),
                   ),
                 ],

@@ -2,11 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:grocery/core/constants/endpoints_strings.dart';
 import 'package:grocery/core/theme/app_colors.dart';
-import 'package:grocery/core/utils/app_assets.dart';
-import 'package:grocery/src/features/home/data/model/category_model.dart';
+
 import 'package:grocery/src/features/home/presentation/logic/categories/getcategories_cubit.dart';
 import 'package:grocery/src/features/home/presentation/view/category_view.dart';
 

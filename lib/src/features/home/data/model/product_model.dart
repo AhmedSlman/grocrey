@@ -1,39 +1,30 @@
-class CategoryModelDetail {
-  final int id;
-  final String name;
-  final String description;
-  final String imagePath;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final List<ProductModel> products;
+class ProductModel {
+  final bool isFavorite;
+  final Product product;
+  final String message;
+  final List<Product> relatedProducts;
 
-  CategoryModelDetail({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.imagePath,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.products,
+  ProductModel({
+    required this.isFavorite,
+    required this.product,
+    required this.message,
+    required this.relatedProducts,
   });
 
-  factory CategoryModelDetail.fromJson(Map<String, dynamic> json) {
-    return CategoryModelDetail(
-      id: json['id'],
-      name: json['name'],
-      description: json['description'],
-      imagePath: json['image_path'].trim(),
-      createdAt: DateTime.parse(json['created_at']),
-      updatedAt: DateTime.parse(json['updated_at']),
-      products:
-          (json['products'] as List<dynamic>)
-              .map((product) => ProductModel.fromJson(product))
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    return ProductModel(
+      isFavorite: json['is_favorite'],
+      product: Product.fromJson(json['product']),
+      message: json['message'],
+      relatedProducts:
+          (json['related_products'] as List)
+              .map((e) => Product.fromJson(e))
               .toList(),
     );
   }
 }
 
-class ProductModel {
+class Product {
   final int id;
   final String name;
   final int categoryId;
@@ -45,7 +36,7 @@ class ProductModel {
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  ProductModel({
+  Product({
     required this.id,
     required this.name,
     required this.categoryId,
@@ -58,8 +49,8 @@ class ProductModel {
     required this.updatedAt,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) {
-    return ProductModel(
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
       id: json['id'],
       name: json['name'],
       categoryId: json['category_id'],
@@ -67,7 +58,7 @@ class ProductModel {
       discountPrice: json['discount_price'],
       quantity: json['quantity'],
       stockStatus: json['stock_status'],
-      imagePath: json['image_path'].trim(),
+      imagePath: json['image_path'],
       createdAt: DateTime.parse(json['created_at']),
       updatedAt: DateTime.parse(json['updated_at']),
     );

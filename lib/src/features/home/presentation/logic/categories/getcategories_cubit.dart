@@ -1,12 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:grocery/core/data/api/api_consumer.dart';
 import 'package:grocery/core/data/api/dio_consumer.dart';
 import 'package:grocery/core/errors/error_model.dart';
 import 'package:grocery/core/errors/exceptions.dart';
 import 'package:grocery/src/features/home/data/model/category_model.dart';
-import 'package:grocery/src/features/home/data/model/offers_model.dart';
-import 'package:grocery/src/features/home/data/model/product_model.dart';
+import 'package:grocery/src/features/home/data/model/category_model_detail.dart';
 import 'package:grocery/src/features/home/data/remote/home_api_service.dart';
 import 'package:grocery/src/features/home/data/remote/home_remote_data_source.dart';
 import 'package:grocery/src/features/home/domain/repos/home_repo.dart';
