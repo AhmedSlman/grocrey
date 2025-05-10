@@ -7,6 +7,7 @@ import 'package:grocery/core/utils/app_styles.dart';
 import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
 import 'package:grocery/src/features/favourite/presentation/logic/cubit/favourite_cubit.dart';
 import 'package:grocery/src/features/home/data/model/product_model.dart';
+import 'package:grocery/src/features/home/presentation/logic/offers/cubit/offers_cubit.dart';
 import 'package:grocery/src/features/home/presentation/view/product_details_view.dart';
 
 class ProductCard extends StatelessWidget {
@@ -31,6 +32,8 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<OffersCubit>().getOffers();
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(

@@ -15,7 +15,7 @@ import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.da
 import 'package:grocery/src/features/cart/presentation/view/cart_view.dart';
 import 'package:grocery/src/features/favourite/presentation/logic/cubit/favourite_cubit.dart';
 import 'package:grocery/src/features/home/presentation/logic/categories/getcategories_cubit.dart';
-import 'package:grocery/src/features/home/presentation/view/home_view.dart';
+import 'package:grocery/src/features/home/presentation/logic/offers/cubit/offers_cubit.dart';
 import 'package:grocery/src/features/intro/onboarding.dart';
 import 'package:grocery/src/features/intro/splash.dart';
 import 'package:grocery/src/features/profile/presentation/views/add_address_view.dart';
@@ -39,8 +39,8 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: RouterNames.login,
       builder:
-          (context, state) => BlocProvider(
-            create: (context) => getIt<LoginCubit>(),
+          (context, state) => MultiBlocProvider(
+            providers: [BlocProvider(create: (context) => getIt<LoginCubit>())],
             child: const LoginView(),
           ),
     ),
@@ -56,7 +56,17 @@ final GoRouter router = GoRouter(
       path: RouterNames.forgotPassword,
       builder: (context, state) => ForgetPasswordView(),
     ),
-    GoRoute(path: RouterNames.my_app, builder: (context, state) => MyApp()),
+    GoRoute(
+      path: RouterNames.myApp,
+      builder:
+          (context, state) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => GetcategoriesCubit()),
+              BlocProvider(create: (context) => OffersCubit()),
+            ],
+            child: MyApp(),
+          ),
+    ),
     GoRoute(
       path: RouterNames.cart,
       builder:
@@ -96,7 +106,7 @@ final GoRouter router = GoRouter(
       builder: (context, state) => AddressesView(),
     ),
     GoRoute(
-      path: RouterNames.add_addresses,
+      path: RouterNames.addresses,
       builder: (context, state) => AddAddressView(),
     ),
 
@@ -109,7 +119,7 @@ final GoRouter router = GoRouter(
       builder: (context, state) => OrdersView(),
     ),
     GoRoute(
-      path: RouterNames.about_info,
+      path: RouterNames.aboutInfo,
       builder: (context, state) => InfoView(),
     ),
   ],

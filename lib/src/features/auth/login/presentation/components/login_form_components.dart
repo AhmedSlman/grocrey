@@ -20,89 +20,106 @@ class _LoginFormComponentState extends State<LoginFormComponent> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginCubit, LoginState>(
-      builder: (context, state) {
-        if (state is LoginLoadingState) {
-          return const Center(child: CircularProgressIndicator());
+    return BlocListener<LoginCubit, LoginState>(
+      listener: (context, state) {
+        if (state is LoginSuccessState) {
+          context.go(RouterNames.myApp);
+        } else if (state is LoginErrorState) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.errorModel.message)));
         }
-
-        if (state is LoginErrorState) {
-          return Center(child: Text(state.errorModel.message.toString()));
-        }
-
-        return Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              LoginFields(
-                emailController: emailController,
-                passwordController: passwordController,
-              ),
-              SizedBox(height: 20.h),
-              GestureDetector(
-                onTap: () {
-                  context.go(RouterNames.forgotPassword);
-                },
-                child: Text(
-                  "هل نسيت كلمه السر؟",
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-              SizedBox(height: 60.h),
-              Center(
-                child: CustomButton(
-                  text: 'تسجيل دخول',
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      context.read<LoginCubit>().login(
-                        emailController.text,
-                        passwordController.text,
-                      );
-                      context.go(RouterNames.profile);
-                    }
-                  },
-                  height: 50.h,
-                  width: 230.w,
-                ),
-              ),
-              SizedBox(height: 20.h),
-              Center(
-                child: Text(
-                  "سجل باستخدام",
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xff8E8EA9),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(AppAssets.googleIcon, width: 30.w, height: 30.h),
-                  SizedBox(width: 20.w),
-                  Image.asset(AppAssets.appleIcon, width: 30.w, height: 30.h),
-                  SizedBox(width: 20.w),
-                  Image.asset(
-                    AppAssets.facebookIcon,
-                    width: 30.w,
-                    height: 30.h,
-                  ),
-                ],
-              ),
-              SizedBox(height: 20.h),
-              DontHaveAnAcountWidget(),
-            ],
-          ),
-        );
       },
+      child: BlocBuilder<LoginCubit, LoginState>(
+        builder: (context, state) {
+          return Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                LoginFields(
+                  emailController: emailController,
+                  passwordController: passwordController,
+                ),
+                SizedBox(height: 20.h),
+                GestureDetector(
+                  onTap: () {
+                    context.go(RouterNames.forgotPassword);
+                  },
+                  child: Text(
+                    "هل نسيت كلمه السر؟",
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 60.h),
+                Center(
+                  child:
+                      state is LoginLoadingState
+                          ? const CircularProgressIndicator()
+                          : CustomButton(
+                            text: 'تسجيل دخول',
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                context.read<LoginCubit>().login(
+                                  emailController.text,
+                                  passwordController.text,
+                                );
+                              }
+                            },
+                            height: 50.h,
+                            width: 230.w,
+                          ),
+                ),
+                SizedBox(height: 20.h),
+                Center(
+                  child: Text(
+                    "سجل باستخدام",
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w600,
+                      color: const Color(0xff8E8EA9),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      AppAssets.googleIcon,
+                      width: 30.w,
+                      height: 30.h,
+                    ),
+                    SizedBox(width: 20.w),
+                    Image.asset(AppAssets.appleIcon, width: 30.w, height: 30.h),
+                    SizedBox(width: 20.w),
+                    Image.asset(
+                      AppAssets.facebookIcon,
+                      width: 30.w,
+                      height: 30.h,
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20.h),
+                const DontHaveAnAcountWidget(),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
