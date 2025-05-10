@@ -16,7 +16,6 @@ class HomeView extends StatelessWidget {
       body: ListView(
         children: [
           SizedBox(height: 50.h),
-
           HomeHeaderSection(),
           SizedBox(height: 12.h),
           HomeSearchSection(),

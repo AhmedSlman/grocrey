@@ -12,7 +12,10 @@ final class GetCartSuccess extends CartState {
   GetCartSuccess(this.cart);
 }
 
-final class GetCartFail extends CartState {}
+final class GetCartFail extends CartState {
+  final String message;
+  GetCartFail(this.message);
+}
 
 ///////////////////////////////////////////////
 

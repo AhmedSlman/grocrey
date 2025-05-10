@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:grocery/core/data/api/api_consumer.dart';
 import 'package:grocery/core/data/api/dio_consumer.dart';
+import 'package:grocery/core/errors/exceptions.dart';
 import 'package:grocery/src/features/cart/data/data_source/remote_datasource.dart';
 import 'package:grocery/src/features/cart/data/model/cart_model.dart';
 import 'package:grocery/src/features/cart/data/repositories/cart_repo_impl.dart';
@@ -39,8 +40,8 @@ class CartCubit extends Cubit<CartState> {
       CartModel cart = CartModel.fromJson(data);
 
       emit(GetCartSuccess(cart));
-    } catch (e) {
-      emit(GetCartFail());
+    } on ServerException catch (e) {
+      emit(GetCartFail(e.errorModel.message));
     }
   }
 

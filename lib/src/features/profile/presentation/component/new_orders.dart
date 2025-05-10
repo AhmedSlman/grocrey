@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grocery/core/utils/app_shimmer.dart';
 import 'package:grocery/src/features/profile/presentation/logic/orders/cubit/orders_cubit.dart';
 import 'package:grocery/src/features/profile/presentation/widgets/order_item.dart';
 
@@ -41,7 +42,17 @@ class NewOrders extends StatelessWidget {
                         return SizedBox(height: 10.h);
                       },
                     )
-                    : const Center(child: CircularProgressIndicator());
+                    : ListView.builder(
+                      itemCount: 4,
+                      itemBuilder: (context, index) {
+                        return Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: AppShimmer(height: 80.h),
+                          ),
+                        );
+                      },
+                    );
               },
             ),
           ),

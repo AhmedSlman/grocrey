@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/core/common/widgets/custom_btn.dart';
 import 'package:grocery/core/theme/app_colors.dart';
+import 'package:grocery/core/utils/app_shimmer.dart';
 import 'package:grocery/src/features/cart/presentation/component/cart_component.dart';
 import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
 import 'package:grocery/src/features/cart/presentation/view/checkout_view.dart';
@@ -24,7 +25,16 @@ class CartView extends StatelessWidget {
       body: CartSection(),
       bottomNavigationBar: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
-          return state is GetCartSuccess
+          return state is GetCartFail
+              ? Center(
+                child: Text(
+                  state.message,
+                  style: TextStyle(color: AppColors.red),
+                ),
+              )
+              : state is GetCartLoading
+              ? Center(child: AppShimmer(height: 60.h))
+              : state is GetCartSuccess
               ? Container(
                 height: 60.h,
                 width: double.infinity,
@@ -71,7 +81,7 @@ class CartView extends StatelessWidget {
                   ],
                 ),
               )
-              : Center(child: CircularProgressIndicator());
+              : FlutterLogo(size: 0);
         },
       ),
     );

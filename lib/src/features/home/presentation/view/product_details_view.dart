@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/core/common/widgets/pop_icon.dart';
 import 'package:grocery/core/constants/endpoints_strings.dart';
 import 'package:grocery/core/theme/app_colors.dart';
+import 'package:grocery/core/utils/app_shimmer.dart';
 import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
 import 'package:grocery/src/features/favourite/presentation/logic/cubit/favourite_cubit.dart';
 import 'package:grocery/src/features/home/presentation/componant/add_to_cart.dart';
@@ -396,9 +397,16 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
               ),
             );
           } else {
-            print('++++++++++++++++++++++++++++++++++++++++++++++++++');
-            return Center(
-              child: CircularProgressIndicator(color: AppColors.primaryColor),
+            return ListView.builder(
+              itemCount: 4,
+              itemBuilder: (context, index) {
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AppShimmer(height: 80.h),
+                  ),
+                );
+              },
             );
           }
         },

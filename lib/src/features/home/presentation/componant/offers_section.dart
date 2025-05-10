@@ -42,16 +42,13 @@ class OffersSection extends StatelessWidget {
                               originalPrice: '300 جنيه',
                               imagePath:
                                   state.offer_producs[index].imagePath
-                                      .toString() ??
-                                  '',
+                                      .toString(),
                               quantaty:
                                   state.offer_producs[index].quantity
-                                      .toString() ??
-                                  '',
+                                      .toString(),
                               stock_status:
                                   state.offer_producs[index].stockStatus
-                                      .toString() ??
-                                  '',
+                                      .toString(),
                               createdAt:
                                   state.offer_producs[index].createdAt
                                       .toString(),
@@ -62,6 +59,8 @@ class OffersSection extends StatelessWidget {
                             );
                           },
                         )
+                        : state is GetOffersFail
+                        ? Center(child: Text(state.errorModel.message))
                         : ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: 6,
