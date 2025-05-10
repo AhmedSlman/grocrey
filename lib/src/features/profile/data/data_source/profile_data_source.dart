@@ -1,19 +1,27 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:grocery/core/constants/endpoints_strings.dart';
 import 'package:grocery/core/data/api/api_consumer.dart';
 import 'package:grocery/core/errors/error_model.dart';
 import 'package:grocery/core/errors/exceptions.dart';
+import 'package:grocery/src/features/profile/data/model/ordermodel.dart';
 import 'package:grocery/src/features/profile/data/model/profile_model.dart';
 
 abstract class ProfileDataSource {
   Future<Either<ErrorModel, ProfileModel>> getUserData(int id);
-  Future<Either<ErrorModel, void>> updateData(nameController, emailController);
+  Future<Either<ErrorModel, void>> updateData(
+    nameController,
+    emailController,
+    String imagePath,
+  );
   Future<Either<ErrorModel, void>> changePassword(
     String current_password,
     String new_password,
     String confirm_new_password,
   );
+  Future<Either<ErrorModel, OrdersModel>> getallOrders();
 }
 
 class ProfileDataSourceImpl extends ProfileDataSource {
@@ -35,11 +43,16 @@ class ProfileDataSourceImpl extends ProfileDataSource {
   Future<Either<ErrorModel, void>> updateData(
     nameController,
     emailController,
+    String imagePath,
   ) async {
     try {
       var response = await api.post(
         "${EndpointsStrings.update_profile}4",
-        data: {'name': nameController, 'email': emailController},
+        data: {
+          'name': nameController,
+          'email': emailController,
+          'image': File(imagePath),
+        },
       );
       print(response.toString());
       return Right(response);
@@ -64,6 +77,17 @@ class ProfileDataSourceImpl extends ProfileDataSource {
         },
       );
       return Right(response);
+    } on ServerException catch (e) {
+      return Left(e.errorModel);
+    }
+  }
+
+  @override
+  Future<Either<ErrorModel, OrdersModel>> getallOrders() async {
+    try {
+      var response = await api.get('/user/all_orders/1');
+      OrdersModel data = OrdersModel.fromJson(response);
+      return Right(data);
     } on ServerException catch (e) {
       return Left(e.errorModel);
     }

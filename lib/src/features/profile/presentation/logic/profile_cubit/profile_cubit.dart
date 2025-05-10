@@ -45,36 +45,41 @@ class ProfileCubit extends Cubit<ProfileState> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  updateProfile() async {
-    final update_profile_usecase = getIt<UpdateProfileUseCases>();
-    if (formKey.currentState!.validate()) {
-      try {
-        emit(LoadingUpdateProfileState());
 
-        final result = await update_profile_usecase.call(
-          nameController.text,
-          emailController.text,
-        );
-        result.fold(
-          (failure) => emit(FailProfileState(failure.message)),
-          (success) => emit(SuccessUpdateProfile()),
-        );
-      } catch (e) {
-        print(e.toString());
-        emit(FailProfileState(e.toString()));
-      }
+  updateProfile() async {
+    final update_profile_usecase = UpdateProfileUseCases(
+      ProfileRepoImpl(ProfileDataSourceImpl(dio)),
+    );
+
+    try {
+      emit(LoadingUpdateProfileState());
+
+      final result = await update_profile_usecase.call(
+        nameController.text,
+        emailController.text,
+        imagePath ?? '',
+      );
+      result.fold(
+        (failure) => emit(FailProfileState(failure.message)),
+        (success) => emit(SuccessUpdateProfile()),
+      );
+    } catch (e) {
+      print(e.toString());
+      emit(FailProfileState(e.toString()));
     }
   }
 
   final ImagePicker picker = ImagePicker();
+  String? imagePath;
 
   chooseImageFromCamera() async {
     XFile? file = await picker.pickImage(source: ImageSource.camera);
-    print(file.toString());
+    imagePath = file?.path;
   }
 
   chooseImageFromGallery() async {
     XFile? file = await picker.pickImage(source: ImageSource.gallery);
-    print(file.toString());
+    imagePath = file?.path;
+    print(file?.path);
   }
 }

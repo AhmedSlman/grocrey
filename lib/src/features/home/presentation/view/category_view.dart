@@ -52,6 +52,13 @@ class CategoryView extends StatelessWidget {
                     crossAxisCount: 2,
                   ),
                   itemBuilder: (context, index) {
+                    print(
+                      '***********************************************************************',
+                    );
+                    print(
+                      EndpointsStrings.baseUrl +
+                          state.categorymodel.products[index].imagePath,
+                    );
                     return ProductCard(
                       title: state.categorymodel.products[index].name,
                       size: state.categorymodel.products[index].price,

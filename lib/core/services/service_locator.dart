@@ -20,6 +20,7 @@ import '../data/cached/cache_helper.dart';
 final GetIt getIt = GetIt.instance;
 void setupLocator() {
   ///! FOR APP CUBIT ///
+
   getIt.registerFactory<AppCubit>(() => AppCubit());
 
   getIt.registerSingleton<CacheHelper>(CacheHelper());

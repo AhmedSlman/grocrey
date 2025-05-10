@@ -42,7 +42,14 @@ class FavouriteView extends StatelessWidget {
       ),
       body: BlocBuilder<FavouriteCubit, FavouriteState>(
         builder: (context, state) {
-          return state is SuccessGetFavourite
+          return state is FailGetFavourite
+              ? Center(
+                child: Text(
+                  state.message,
+                  style: TextStyle(color: AppColors.red),
+                ),
+              )
+              : state is SuccessGetFavourite
               ? state.favourite.favorites.isNotEmpty
                   ? ListView.builder(
                     itemCount: state.favourite.favorites.length,
@@ -61,7 +68,7 @@ class FavouriteView extends StatelessWidget {
 }
 
 class FavouriteItem extends StatelessWidget {
-  final FavoriteItem favouriteItem;
+  final FavoriteModel favouriteItem;
   const FavouriteItem({super.key, required this.favouriteItem});
 
   @override

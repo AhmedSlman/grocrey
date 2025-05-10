@@ -19,12 +19,16 @@ class CategoryModelDetail {
 
   factory CategoryModelDetail.fromJson(Map<String, dynamic> json) {
     return CategoryModelDetail(
-      id: json['id'],
-      name: json['name'],
-      description: json['description'],
-      imagePath: json['image_path'].trim(),
-      createdAt: DateTime.parse(json['created_at']),
-      updatedAt: DateTime.parse(json['updated_at']),
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
+      description: json['description'] ?? '',
+      imagePath: json['image_path'].trim() ?? '',
+      createdAt: DateTime.parse(
+        json['created_at'] ?? DateTime.now().toString(),
+      ),
+      updatedAt: DateTime.parse(
+        json['updated_at'] ?? DateTime.now().toString(),
+      ),
       products:
           (json['products'] as List<dynamic>)
               .map((product) => ProductModel.fromJson(product))
@@ -60,16 +64,20 @@ class ProductModel {
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
-      id: json['id'],
-      name: json['name'],
-      categoryId: json['category_id'],
-      price: json['price'],
-      discountPrice: json['discount_price'],
-      quantity: json['quantity'],
-      stockStatus: json['stock_status'],
-      imagePath: json['image_path'].trim(),
-      createdAt: DateTime.parse(json['created_at']),
-      updatedAt: DateTime.parse(json['updated_at']),
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
+      categoryId: json['category_id'] ?? 0,
+      price: json['price'] ?? '0',
+      discountPrice: json['discount_price'] ?? '0',
+      quantity: json['quantity'] ?? 0,
+      stockStatus: json['stock_status'] ?? '',
+      imagePath: json['image_path'].trim() ?? '',
+      createdAt: DateTime.parse(
+        json['created_at'] ?? DateTime.now().toString(),
+      ),
+      updatedAt: DateTime.parse(
+        json['updated_at'] ?? DateTime.now().toString(),
+      ),
     );
   }
 }

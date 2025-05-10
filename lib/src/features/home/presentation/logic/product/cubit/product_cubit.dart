@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:grocery/core/data/api/api_consumer.dart';
 import 'package:grocery/core/data/api/dio_consumer.dart';
+import 'package:grocery/core/errors/exceptions.dart';
 import 'package:grocery/src/features/home/data/model/product_model.dart';
 import 'package:meta/meta.dart';
 
@@ -21,7 +22,8 @@ class ProductCubit extends Cubit<ProductState> {
       ProductModel product = ProductModel.fromJson(data);
 
       emit(GetProductCartSuccess(product));
-    } catch (e) {
+    } on ServerException catch (e) {
+      print(e.errorModel.message);
       emit(GetProductCartFail('failed to load product'));
     }
   }

@@ -36,12 +36,11 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
       body: BlocBuilder<ProductCubit, ProductState>(
         builder: (context, state) {
           if (state is GetProductCartSuccess) {
-            if (isfavourite == null) {
-              isfavourite = state.product.isFavorite;
-            }
-            if (quanatity == null) {
-              quanatity = state.product.product.quantity.toString();
-            }
+            print(
+              '-------------------------------------------------------------------------',
+            );
+            isfavourite ??= state.product.product.isFavorite;
+            quanatity ??= state.product.product.quantity.toString();
 
             return SafeArea(
               child: Column(
@@ -73,7 +72,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                   ),
                                 ),
                               ),
-                              PopIconWidget(),
+                              const PopIconWidget(),
                             ],
                           ),
                           Container(
@@ -124,6 +123,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                         },
                                       ),
                                     ),
+
                                     const Spacer(),
                                     Text(
                                       state.product.product.name,
@@ -160,9 +160,9 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                         children: [
                                           IconButton(
                                             onPressed: () {
-                                              // Placeholder for decrease logic
+                                              // Optional: ناقص تنفيذ الإنقاص
                                             },
-                                            icon: Icon(Icons.remove),
+                                            icon: const Icon(Icons.remove),
                                           ),
                                           Container(
                                             padding: EdgeInsets.symmetric(
@@ -197,7 +197,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                                     widget.productid,
                                                   );
                                             },
-                                            icon: Icon(Icons.add),
+                                            icon: const Icon(Icons.add),
                                           ),
                                         ],
                                       ),
@@ -243,17 +243,17 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                           padding: const EdgeInsets.all(16.0),
                                           child: Row(
                                             children: [
-                                              Icon(
+                                              const Icon(
                                                 Icons.access_time,
                                                 color: Colors.blue,
                                                 size: 30,
                                               ),
-                                              SizedBox(width: 10),
+                                              const SizedBox(width: 10),
                                               Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
+                                                  const Text(
                                                     'تاريخ الإنشاء:',
                                                     style: TextStyle(
                                                       fontSize: 16,
@@ -262,14 +262,14 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                                       color: Colors.black87,
                                                     ),
                                                   ),
-                                                  SizedBox(height: 4),
+                                                  const SizedBox(height: 4),
                                                   Text(
                                                     state
                                                         .product
                                                         .product
                                                         .createdAt
                                                         .toString(),
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                       fontSize: 14,
                                                       color: Colors.black54,
                                                     ),
@@ -293,17 +293,17 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                           padding: const EdgeInsets.all(16.0),
                                           child: Row(
                                             children: [
-                                              Icon(
+                                              const Icon(
                                                 Icons.update,
                                                 color: Colors.orange,
                                                 size: 30,
                                               ),
-                                              SizedBox(width: 10),
+                                              const SizedBox(width: 10),
                                               Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
+                                                  const Text(
                                                     'تاريخ التحديث:',
                                                     style: TextStyle(
                                                       fontSize: 16,
@@ -312,14 +312,14 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                                                       color: Colors.black87,
                                                     ),
                                                   ),
-                                                  SizedBox(height: 4),
+                                                  const SizedBox(height: 4),
                                                   Text(
                                                     state
                                                         .product
                                                         .product
                                                         .updatedAt
                                                         .toString(),
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                       fontSize: 14,
                                                       color: Colors.black54,
                                                     ),
@@ -390,11 +390,13 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                       ),
                     ),
                   ),
-                  AddToCart(id: widget.productid.toString()),
+
+                  AddToCart(id: widget.productid),
                 ],
               ),
             );
           } else {
+            print('++++++++++++++++++++++++++++++++++++++++++++++++++');
             return Center(
               child: CircularProgressIndicator(color: AppColors.primaryColor),
             );

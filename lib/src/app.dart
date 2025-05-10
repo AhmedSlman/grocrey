@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
 
         child: CartView(),
       ),
+
       ProfileView(),
     ];
     return BlocBuilder<AppCubit, AppState>(

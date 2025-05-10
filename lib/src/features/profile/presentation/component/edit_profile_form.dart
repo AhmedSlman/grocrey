@@ -100,7 +100,9 @@ class EditProfileForm extends StatelessWidget {
                     : CustomButton(
                       text: 'حفظ',
                       onPressed: () {
-                        cubit.updateProfile();
+                        if (cubit.formKey.currentState!.validate()) {
+                          cubit.updateProfile();
+                        }
                       },
                     ),
 

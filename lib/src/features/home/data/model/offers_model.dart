@@ -44,16 +44,16 @@ class OfferProduct {
 
   factory OfferProduct.fromJson(Map<String, dynamic> json) {
     return OfferProduct(
-      id: json['id'],
-      name: json['name'],
-      categoryId: json['category_id'],
-      price: json['price'],
-      discountPrice: json['discount_price'],
-      quantity: json['quantity'],
-      stockStatus: json['stock_status'],
-      imagePath: json['image_path'],
-      createdAt: json['created_at'],
-      updatedAt: json['updated_at'],
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
+      categoryId: json['category_id'] ?? 0,
+      price: json['price'] ?? '',
+      discountPrice: json['discount_price'] ?? '',
+      quantity: json['quantity'] ?? 0,
+      stockStatus: json['stock_status'] ?? '',
+      imagePath: json['image_path'] ?? '',
+      createdAt: json['created_at'] ?? '',
+      updatedAt: json['updated_at'] ?? '',
       images: json['images'] ?? [],
     );
   }

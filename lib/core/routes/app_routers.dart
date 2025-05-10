@@ -15,9 +15,11 @@ import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.da
 import 'package:grocery/src/features/cart/presentation/view/cart_view.dart';
 import 'package:grocery/src/features/favourite/presentation/logic/cubit/favourite_cubit.dart';
 import 'package:grocery/src/features/home/presentation/logic/categories/getcategories_cubit.dart';
-import 'package:grocery/src/features/home/presentation/view/home_view.dart';
+import 'package:grocery/src/features/home/presentation/logic/search/cubit/search_cubit.dart';
 import 'package:grocery/src/features/intro/onboarding.dart';
 import 'package:grocery/src/features/intro/splash.dart';
+import 'package:grocery/src/features/profile/presentation/logic/orders/cubit/orders_cubit.dart';
+import 'package:grocery/src/features/profile/presentation/logic/profile_cubit/profile_cubit.dart';
 import 'package:grocery/src/features/profile/presentation/views/add_address_view.dart';
 import 'package:grocery/src/features/profile/presentation/views/addresses_view.dart';
 import 'package:grocery/src/features/profile/presentation/views/edit_profile_view.dart';
@@ -79,6 +81,7 @@ final GoRouter router = GoRouter(
               BlocProvider(create: (context) => GetcategoriesCubit()),
               BlocProvider(create: (context) => FavouriteCubit()),
               BlocProvider(create: (context) => AppCubit()),
+              BlocProvider(create: (context) => SearchCubit()),
             ],
             child: const MyApp(),
           ),
@@ -89,7 +92,11 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: RouterNames.editProfile,
-      builder: (context, state) => EditProfileView(),
+      builder:
+          (context, state) => BlocProvider(
+            create: (context) => ProfileCubit(),
+            child: EditProfileView(),
+          ),
     ),
     GoRoute(
       path: RouterNames.addresses,
@@ -106,7 +113,11 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: RouterNames.orders,
-      builder: (context, state) => OrdersView(),
+      builder:
+          (context, state) => BlocProvider(
+            create: (context) => OrdersCubit(),
+            child: OrdersView(),
+          ),
     ),
     GoRoute(
       path: RouterNames.about_info,

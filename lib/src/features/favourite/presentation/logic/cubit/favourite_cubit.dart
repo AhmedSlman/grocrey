@@ -1,8 +1,8 @@
-import 'package:bloc/bloc.dart';
+import 'package:bloc/bloc.dart'; 
 import 'package:dio/dio.dart';
 import 'package:grocery/core/data/api/api_consumer.dart';
 import 'package:grocery/core/data/api/dio_consumer.dart';
-import 'package:grocery/main.dart';
+import 'package:grocery/core/errors/exceptions.dart';
 import 'package:grocery/src/features/favourite/data/model/favourite_model.dart';
 import 'package:meta/meta.dart';
 
@@ -14,16 +14,18 @@ class FavouriteCubit extends Cubit<FavouriteState> {
   getFavourite() async {
     try {
       var response = await api.get('user/my_favorites');
-      FavouriteModel favouriteModel = FavouriteModel.fromJson(response);
+      FavoritesResponseModel favouriteModel = FavoritesResponseModel.fromJson(
+        response,
+      );
       emit(SuccessGetFavourite(favouriteModel));
-    } catch (e) {
-      emit(FailGetFavourite());
+    } on ServerException catch (e) {
+      emit(FailGetFavourite(e.errorModel.message));
     }
   }
 
   bool isFvaourite = false;
 
-  addToFavourite(product_id) async {
+  addToFavourite(product_id) async { 
     emit(LoadingAddToFavourite());
     try {
       final response = await api.post(

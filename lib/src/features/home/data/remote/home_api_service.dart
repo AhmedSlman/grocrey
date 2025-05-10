@@ -8,6 +8,7 @@ import 'package:grocery/core/errors/exceptions.dart';
 import 'package:grocery/src/features/home/data/model/category_model.dart';
 import 'package:grocery/src/features/home/data/model/offers_model.dart';
 import 'package:grocery/src/features/home/data/model/category_model_detail.dart';
+import 'package:grocery/src/features/home/data/model/search_model.dart';
 
 abstract class HomeApiService {
   Future<Either<ErrorModel, void>> getHomeData();
@@ -16,6 +17,7 @@ abstract class HomeApiService {
   Future<Either<ErrorModel, void>> getHomeBanners();
   Future<Either<ErrorModel, void>> getHomeBrands();
   Future<Either<ErrorModel, OffersModel>> getHomeOffers();
+  Future<Either<ErrorModel, SearchModel>> getSearchData(String query);
 }
 
 class HomeApiServiceImpl implements HomeApiService {
@@ -74,6 +76,20 @@ class HomeApiServiceImpl implements HomeApiService {
       CategoryModelDetail data = CategoryModelDetail.fromJson(
         response['message'],
       );
+      return Right(data);
+    } on ServerException catch (e) {
+      return Left(e.errorModel);
+    }
+  }
+
+  @override
+  Future<Either<ErrorModel, SearchModel>> getSearchData(String query) async {
+    try {
+      final response = await api.get(
+        'user/search',
+        queryParameters: {'query': query},
+      );
+      SearchModel data = SearchModel.fromJson(response);
       return Right(data);
     } on ServerException catch (e) {
       return Left(e.errorModel);

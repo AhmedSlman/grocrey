@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grocery/src/features/home/presentation/logic/search/cubit/search_cubit.dart';
 
 import '../../theme/app_colors.dart';
 
@@ -20,28 +22,20 @@ class SearchWidget extends StatelessWidget {
                 color: AppColors.fillGrey,
                 borderRadius: BorderRadius.circular(10.r),
               ),
-              child: const TextField(
+              child: TextFormField(
+                onTap: onPressed,
+                onChanged: (value) {
+                  context.read<SearchCubit>().getProducts(value);
+                },
                 decoration: InputDecoration(
                   hintText: 'ابحث عن منتج',
+
                   hintStyle: TextStyle(color: AppColors.grey),
                   prefixIcon: Icon(Icons.search, color: AppColors.fillGrey),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(vertical: 10),
                 ),
               ),
-            ),
-          ),
-          SizedBox(width: 10.w),
-          Container(
-            height: 45.h,
-            width: 45.w,
-            decoration: BoxDecoration(
-              color: AppColors.fillGrey,
-              borderRadius: BorderRadius.circular(14.r),
-            ),
-            child: IconButton(
-              icon: Icon(icon, color: AppColors.grey),
-              onPressed: onPressed,
             ),
           ),
         ],

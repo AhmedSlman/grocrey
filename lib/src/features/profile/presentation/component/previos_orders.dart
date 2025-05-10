@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:grocery/src/features/profile/presentation/widgets/order_item.dart';
 
 class PreviosOrders extends StatelessWidget {
   const PreviosOrders({super.key});
@@ -17,21 +16,12 @@ class PreviosOrders extends StatelessWidget {
             textAlign: TextAlign.end,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
-          SizedBox(height: 5.h),
-          SizedBox(
-            height: 300.h,
-            child: ListView.separated(
-              itemCount: 3,
-              itemBuilder: (BuildContext context, int index) {
-                return OrderItem(
-                  amount: '300 جنيه',
-                  orderNumber: '6524',
-                  status: 'status',
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(height: 10.h);
-              },
+          SizedBox(height: 80.h),
+
+          Center(
+            child: Text(
+              'لايوجد طلبات سابقة',
+              style: TextStyle(fontSize: 16.sp),
             ),
           ),
         ],
