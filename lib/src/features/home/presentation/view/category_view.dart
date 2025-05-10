@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:grocery/core/constants/endpoints_strings.dart';
 import 'package:grocery/core/theme/app_colors.dart';
-import 'package:grocery/core/utils/app_styles.dart';
 import 'package:grocery/src/features/home/presentation/logic/categories/getcategories_cubit.dart';
-import 'package:grocery/src/features/home/presentation/widgets/category_item_widget.dart';
 import 'package:grocery/src/features/home/presentation/widgets/product_card_widget.dart';
 
 class CategoryView extends StatelessWidget {
@@ -55,6 +52,13 @@ class CategoryView extends StatelessWidget {
                     crossAxisCount: 2,
                   ),
                   itemBuilder: (context, index) {
+                    print(
+                      '***********************************************************************',
+                    );
+                    print(
+                      EndpointsStrings.baseUrl +
+                          state.categorymodel.products[index].imagePath,
+                    );
                     return ProductCard(
                       title: state.categorymodel.products[index].name,
                       size: state.categorymodel.products[index].price,
@@ -65,7 +69,19 @@ class CategoryView extends StatelessWidget {
                       imagePath:
                           EndpointsStrings.baseUrl +
                           state.categorymodel.products[index].imagePath,
-                      productsDetails: state.categorymodel.products[index],
+
+                      id: state.categorymodel.products[index].id,
+                      quantaty:
+                          state.categorymodel.products[index].quantity
+                              .toString(),
+                      stock_status:
+                          state.categorymodel.products[index].stockStatus,
+                      createdAt:
+                          state.categorymodel.products[index].createdAt
+                              .toString(),
+                      updatedAt:
+                          state.categorymodel.products[index].updatedAt
+                              .toString(),
                     );
                   },
                 ),
