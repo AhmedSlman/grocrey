@@ -1,75 +1,67 @@
-class CategoryModelDetail {
-  final int id;
-  final String name;
-  final String description;
-  final String imagePath;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final List<ProductModel> products;
+class ProductModel {
+  final Product product;
+  final String message;
+  // final List<Product> relatedProducts;
 
-  CategoryModelDetail({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.imagePath,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.products,
+  ProductModel({
+    required this.product,
+    required this.message,
+    // required this.relatedProducts,
   });
 
-  factory CategoryModelDetail.fromJson(Map<String, dynamic> json) {
-    return CategoryModelDetail(
-      id: json['id'],
-      name: json['name'],
-      description: json['description'],
-      imagePath: json['image_path'].trim(),
-      createdAt: DateTime.parse(json['created_at']),
-      updatedAt: DateTime.parse(json['updated_at']),
-      products:
-          (json['products'] as List<dynamic>)
-              .map((product) => ProductModel.fromJson(product))
-              .toList(),
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    return ProductModel(
+      product: Product.fromJson(json['product']),
+      message: json['message'] ?? '',
+      // relatedProducts:
+      //     (json['related_products'] as List)
+      //         .map((e) => Product.fromJson(e))
+      //         .toList() ??
+      //     [],
     );
   }
 }
 
-class ProductModel {
+class Product {
   final int id;
   final String name;
   final int categoryId;
   final String price;
-  final String? discountPrice;
+  final String discountPrice;
   final int quantity;
   final String stockStatus;
   final String imagePath;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final bool isFavorite;
 
-  ProductModel({
+  Product({
     required this.id,
     required this.name,
     required this.categoryId,
     required this.price,
-    this.discountPrice,
+    required this.discountPrice,
     required this.quantity,
     required this.stockStatus,
     required this.imagePath,
     required this.createdAt,
     required this.updatedAt,
+    required this.isFavorite,
   });
 
-  factory ProductModel.fromJson(Map<String, dynamic> json) {
-    return ProductModel(
-      id: json['id'],
-      name: json['name'],
-      categoryId: json['category_id'],
-      price: json['price'],
-      discountPrice: json['discount_price'],
-      quantity: json['quantity'],
-      stockStatus: json['stock_status'],
-      imagePath: json['image_path'].trim(),
-      createdAt: DateTime.parse(json['created_at']),
-      updatedAt: DateTime.parse(json['updated_at']),
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
+      categoryId: json['category_id'] ?? 0,
+      price: json['price'] ?? '',
+      discountPrice: json['discount_price'] ?? '0',
+      quantity: json['quantity'] ?? 0,
+      stockStatus: json['stock_status'] ?? '',
+      imagePath: json['image_path'] ?? '',
+      createdAt: DateTime.parse(json['created_at']) ?? DateTime.now(),
+      updatedAt: DateTime.parse(json['updated_at']) ?? DateTime.now(),
+      isFavorite: json['is_favorite'] ?? false,
     );
   }
 }

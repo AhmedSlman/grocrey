@@ -16,6 +16,7 @@ class CustomTextFormField extends StatelessWidget {
   final void Function()? toggleObscure;
   final TextInputType? keyboardType;
   final String labelText;
+  final void Function(String)? onchanged;
 
   const CustomTextFormField({
     super.key,
@@ -31,6 +32,7 @@ class CustomTextFormField extends StatelessWidget {
     this.toggleObscure,
     this.keyboardType,
     required this.labelText,
+    this.onchanged,
   });
 
   @override
@@ -62,6 +64,7 @@ class CustomTextFormField extends StatelessWidget {
                   color: AppColors.grey,
                 )
                 : suffixIcon,
+
         prefixIcon: prefixIcon,
         border: InputBorder.none,
         enabledBorder: OutlineInputBorder(
@@ -78,6 +81,7 @@ class CustomTextFormField extends StatelessWidget {
         ),
       ),
       validator: validator ?? (value) => null,
+      onChanged: onchanged,
       maxLines: maxLines,
     );
   }

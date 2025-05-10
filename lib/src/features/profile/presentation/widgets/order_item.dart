@@ -44,7 +44,7 @@ class OrderItem extends StatelessWidget {
                 ),
               ),
               Text(
-                amount,
+                '$amount جنيه',
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,

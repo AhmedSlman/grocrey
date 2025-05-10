@@ -6,17 +6,21 @@ sealed class FavouriteState {}
 final class FavouriteInitial extends FavouriteState {}
 
 final class SuccessGetFavourite extends FavouriteState {
-  final FavouriteModel favourite;
+  final FavoritesResponseModel favourite;
   SuccessGetFavourite(this.favourite);
 }
 
 final class LoadingGetFavourite extends FavouriteState {}
 
-final class FailGetFavourite extends FavouriteState {}
+final class FailGetFavourite extends FavouriteState {
+  final String message;
+  FailGetFavourite(this.message);
+}
 
 final class SuccessAddToFavourite extends FavouriteState {
   final String message;
-  SuccessAddToFavourite(this.message);
+  final bool isFavourite;
+  SuccessAddToFavourite(this.message, {this.isFavourite = false});
 }
 
 final class LoadingAddToFavourite extends FavouriteState {}

@@ -5,7 +5,15 @@ import 'package:grocery/src/features/profile/domain/repositories/profile_repo.da
 class UpdateProfileUseCases {
   final ProfileRepo profileRepo;
   UpdateProfileUseCases(this.profileRepo);
-  Future<Either<ErrorModel, void>> call(nameController, emailController) {
-    return profileRepo.updateUserData(nameController, emailController);
+  Future<Either<ErrorModel, void>> call(
+    nameController,
+    emailController,
+    String imagePath,
+  ) {
+    return profileRepo.updateUserData(
+      nameController,
+      emailController,
+      imagePath,
+    );
   }
 }

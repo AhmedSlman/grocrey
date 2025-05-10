@@ -17,9 +17,9 @@ class _BannerSectionState extends State<BannerSection> {
   int _currentBannerIndex = 0;
 
   final List<String> _staticBanners = [
-    'https://via.placeholder.com/400x200?text=Banner+1',
-    'https://via.placeholder.com/400x200?text=Banner+2',
-    'https://via.placeholder.com/400x200?text=Banner+3',
+    'https://static.vecteezy.com/system/resources/thumbnails/038/046/770/small_2x/horizontal-sale-banner-template-for-vegetarian-or-organic-product-vector.jpg',
+    'https://www.shutterstock.com/image-photo/fresh-healthy-food-vegetables-grocery-260nw-1175684464.jpg',
+    'https://www.shutterstock.com/image-photo/banner-different-groceries-food-donations-260nw-1852537183.jpg',
   ];
 
   @override

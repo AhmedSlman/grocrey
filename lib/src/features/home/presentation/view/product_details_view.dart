@@ -1,349 +1,415 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:grocery/core/common/widgets/custom_btn.dart';
+import 'package:grocery/core/common/widgets/pop_icon.dart';
 import 'package:grocery/core/constants/endpoints_strings.dart';
+import 'package:grocery/core/theme/app_colors.dart';
+import 'package:grocery/core/utils/app_shimmer.dart';
 import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
 import 'package:grocery/src/features/favourite/presentation/logic/cubit/favourite_cubit.dart';
+import 'package:grocery/src/features/home/presentation/componant/add_to_cart.dart';
+import 'package:grocery/src/features/home/presentation/logic/product/cubit/product_cubit.dart';
 
-class ProductDetailsView extends StatelessWidget {
+class ProductDetailsView extends StatefulWidget {
   final String productid;
-  final String productName;
-  final String productImage;
-  final String productPrice;
-  final String productQuantity;
-  final String productStockStatus;
 
-  const ProductDetailsView({
-    super.key,
-    required this.productid,
-    required this.productName,
-    required this.productImage,
-    required this.productPrice,
-    required this.productQuantity,
-    required this.productStockStatus,
-  });
+  const ProductDetailsView({super.key, required this.productid});
+
+  @override
+  State<ProductDetailsView> createState() => _ProductDetailsViewState();
+}
+
+class _ProductDetailsViewState extends State<ProductDetailsView> {
+  bool? isfavourite;
+  String? quanatity;
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProductCubit>().getProduct(widget.productid);
+  }
 
   @override
   Widget build(BuildContext context) {
-    //final quantity = GetQunatity(productDetail.id);
-    // context.read<CartCubit>().getQuantity(productDetail.id);
-    //context.read<CartCubit>().getFromCart();
     return Scaffold(
       backgroundColor: Colors.white,
-      //appBar: AppBar(),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Stack(
-                      children: [
-                        Container(
-                          height: 350.h,
-                          color: Colors.white,
-                          child: Center(
-                            child: Image.network(
-                              EndpointsStrings.baseUrl +
-                                  productImage, //productDetail.imagePath,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 16.h,
-                          //   left: 16.w,
-                          right: 18.w,
-                          child: InkWell(
-                            onTap: () => Navigator.pop(context),
-                            child: Container(
-                              padding: EdgeInsets.all(15.r),
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(
-                                Icons.arrow_back_ios,
-                                size: 16.sp,
-                                color: Colors.black54,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+      body: BlocBuilder<ProductCubit, ProductState>(
+        builder: (context, state) {
+          if (state is GetProductCartSuccess) {
+            print(
+              '-------------------------------------------------------------------------',
+            );
+            isfavourite ??= state.product.product.isFavorite;
+            quanatity ??= state.product.product.quantity.toString();
 
-                    Container(
-                      padding: EdgeInsets.all(16.r),
+            return SafeArea(
+              child: Column(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Row(
+                          Stack(
                             children: [
                               Container(
-                                //  padding: EdgeInsets.all(8.r),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Colors.grey.shade300,
-                                  ),
-                                ),
-                                child: IconButton(
-                                  onPressed: () {
-                                    context
-                                        .read<FavouriteCubit>()
-                                        .addToFavourite(productid);
-                                  },
-                                  icon: Icon(
-                                    Icons.favorite_border,
-                                    color: Colors.blue.shade700,
-                                    size: 20.sp,
+                                height: 350.h,
+                                color: Colors.white,
+                                child: Center(
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        EndpointsStrings.baseUrl +
+                                        state.product.product.imagePath,
+                                    fit: BoxFit.contain,
+                                    errorWidget:
+                                        (
+                                          context,
+                                          error,
+                                          stackTrace,
+                                        ) => Image.network(
+                                          'https://ih1.redbubble.net/image.1893341687.8294/fposter,small,wall_texture,product,750x1000.jpg',
+                                        ),
                                   ),
                                 ),
                               ),
-                              const Spacer(),
-                              Text(
-                                productName,
-                                style: TextStyle(
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                textDirection: TextDirection.rtl,
-                              ),
+                              const PopIconWidget(),
                             ],
                           ),
-                          SizedBox(height: 4.h),
-
-                          Text(
-                            ' الكمية ${productQuantity} جرام',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: Colors.grey,
-                            ),
-                            textDirection: TextDirection.rtl,
-                          ),
-
-                          SizedBox(height: 16.h),
-
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.shade100,
-                                  borderRadius: BorderRadius.circular(8.r),
-                                ),
-                                child: Row(
+                          Container(
+                            padding: EdgeInsets.all(16.r),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Row(
                                   children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        // context.read<CartCubit>().addToCart();
-                                        //print(productDetail.id);
-                                        //  print(cart[0].productId);
-
-                                        // final int quantity =
-                                        //     cart
-                                        //         .firstWhere(
-                                        //           (item) =>
-                                        //               item.productId ==
-                                        //               productDetail.id,
-                                        //         )
-                                        //         .quantity;
-                                        // print(quantity.toString());
-
-                                        // context.read<CartCubit>().getQuantity(
-                                        //   productDetail.id,
-                                        // );
-                                      },
-                                      icon: Icon(Icons.remove),
-                                    ),
                                     Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 12.w,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                          color: Colors.grey.shade300,
+                                        ),
                                       ),
-                                      child: BlocBuilder<CartCubit, CartState>(
+                                      child: BlocBuilder<
+                                        FavouriteCubit,
+                                        FavouriteState
+                                      >(
                                         builder: (context, state) {
-                                          return Text(
-                                            context
-                                                .read<CartCubit>()
-                                                .quantity
-                                                .toString(),
-                                            //  productDetail.quantity.toString(),
-                                            style: TextStyle(
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                          return IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                isfavourite = !isfavourite!;
+                                              });
+
+                                              context
+                                                  .read<FavouriteCubit>()
+                                                  .addToFavourite(
+                                                    widget.productid,
+                                                  );
+                                            },
+                                            icon:
+                                                isfavourite == true
+                                                    ? Icon(
+                                                      Icons.favorite,
+                                                      color: Colors.red,
+                                                      size: 20.sp,
+                                                    )
+                                                    : Icon(
+                                                      Icons.favorite_border,
+                                                      color:
+                                                          Colors.blue.shade700,
+                                                      size: 20.sp,
+                                                    ),
                                           );
                                         },
                                       ),
                                     ),
-                                    IconButton(
-                                      onPressed: () {
-                                        context.read<CartCubit>().addToCart(
-                                          true,
-                                        );
-                                      },
-                                      icon: Icon(Icons.add),
+
+                                    const Spacer(),
+                                    Text(
+                                      state.product.product.name,
+                                      style: TextStyle(
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      textDirection: TextDirection.rtl,
                                     ),
                                   ],
                                 ),
-                              ),
-
-                              Text(
-                                '$productPrice جنيه',
-                                style: TextStyle(
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.blue.shade700,
+                                SizedBox(height: 4.h),
+                                Text(
+                                  ' الكمية ${state.product.product.quantity} جرام',
+                                  style: TextStyle(
+                                    fontSize: 14.sp,
+                                    color: Colors.grey,
+                                  ),
+                                  textDirection: TextDirection.rtl,
                                 ),
-                                textDirection: TextDirection.rtl,
-                              ),
-                            ],
-                          ),
-
-                          Divider(height: 32.h),
-
-                          // Product Description
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                              'تفاصيل الطلب',
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textDirection: TextDirection.rtl,
+                                SizedBox(height: 16.h),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.shade100,
+                                        borderRadius: BorderRadius.circular(
+                                          8.r,
+                                        ),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          IconButton(
+                                            onPressed: () {
+                                              // Optional: ناقص تنفيذ الإنقاص
+                                            },
+                                            icon: const Icon(Icons.remove),
+                                          ),
+                                          Container(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 12.w,
+                                            ),
+                                            child: BlocBuilder<
+                                              CartCubit,
+                                              CartState
+                                            >(
+                                              builder: (context, state) {
+                                                return Text(
+                                                  quanatity!,
+                                                  style: TextStyle(
+                                                    fontSize: 16.sp,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                          IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                quanatity =
+                                                    (int.parse(quanatity!) + 1)
+                                                        .toString();
+                                              });
+                                              context
+                                                  .read<CartCubit>()
+                                                  .addToCart(
+                                                    true,
+                                                    widget.productid,
+                                                  );
+                                            },
+                                            icon: const Icon(Icons.add),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Text(
+                                      '${state.product.product.price} جنيه',
+                                      style: TextStyle(
+                                        fontSize: 18.sp,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.blue.shade700,
+                                      ),
+                                      textDirection: TextDirection.rtl,
+                                    ),
+                                  ],
+                                ),
+                                Divider(height: 32.h),
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    'تفاصيل الطلب',
+                                    style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    textDirection: TextDirection.rtl,
+                                  ),
+                                ),
+                                SizedBox(height: 8.h),
+                                SizedBox(
+                                  height: 100.h,
+                                  child: ListView(
+                                    scrollDirection: Axis.horizontal,
+                                    children: [
+                                      Card(
+                                        color: AppColors.lightGrey,
+                                        elevation: 4,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16.0),
+                                          child: Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.access_time,
+                                                color: Colors.blue,
+                                                size: 30,
+                                              ),
+                                              const SizedBox(width: 10),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    'تاريخ الإنشاء:',
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black87,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 4),
+                                                  Text(
+                                                    state
+                                                        .product
+                                                        .product
+                                                        .createdAt
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.black54,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 12.w),
+                                      Card(
+                                        color: AppColors.lightGrey,
+                                        elevation: 4,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(16.0),
+                                          child: Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.update,
+                                                color: Colors.orange,
+                                                size: 30,
+                                              ),
+                                              const SizedBox(width: 10),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const Text(
+                                                    'تاريخ التحديث:',
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black87,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 4),
+                                                  Text(
+                                                    state
+                                                        .product
+                                                        .product
+                                                        .updatedAt
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.black54,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Divider(height: 32.h),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.all(8.r),
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            border: Border.all(
+                                              color: Colors.grey.shade300,
+                                            ),
+                                          ),
+                                          child: Icon(
+                                            Icons.arrow_back_ios,
+                                            size: 14.sp,
+                                            color: Colors.black54,
+                                          ),
+                                        ),
+                                        SizedBox(width: 12.w),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 12.w,
+                                            vertical: 6.h,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey.shade200,
+                                            borderRadius: BorderRadius.circular(
+                                              16.r,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            state.product.product.stockStatus,
+                                            style: TextStyle(fontSize: 12.sp),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      'حالة المنتج',
+                                      style: TextStyle(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      textDirection: TextDirection.rtl,
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                          ),
-                          SizedBox(height: 8.h),
-                          Text(
-                            'Maecenas sed diam eget risus varius blandit sit amet non magna. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.',
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              color: Colors.grey,
-                              height: 1.5,
-                            ),
-                          ),
-
-                          Divider(height: 32.h),
-
-                          // Size Selection
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(8.r),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: Colors.grey.shade300,
-                                      ),
-                                    ),
-                                    child: Icon(
-                                      Icons.arrow_back_ios,
-                                      size: 14.sp,
-                                      color: Colors.black54,
-                                    ),
-                                  ),
-                                  SizedBox(width: 12.w),
-                                  Container(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 12.w,
-                                      vertical: 6.h,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.shade200,
-                                      borderRadius: BorderRadius.circular(16.r),
-                                    ),
-                                    child: Text(
-                                      productStockStatus,
-                                      style: TextStyle(fontSize: 12.sp),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                'حالة المنتج',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                textDirection: TextDirection.rtl,
-                              ),
-                            ],
-                          ),
-
-                          Divider(height: 32.h),
-
-                          // Rating
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    padding: EdgeInsets.all(8.r),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: Colors.grey.shade300,
-                                      ),
-                                    ),
-                                    child: Icon(
-                                      Icons.arrow_back_ios,
-                                      size: 14.sp,
-                                      color: Colors.black54,
-                                    ),
-                                  ),
-                                  SizedBox(width: 12.w),
-                                  Row(
-                                    children: List.generate(
-                                      5,
-                                      (index) => Icon(
-                                        Icons.star,
-                                        color: Colors.orange,
-                                        size: 18.sp,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                'التقييم',
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                textDirection: TextDirection.rtl,
-                              ),
-                            ],
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+
+                  AddToCart(id: widget.productid),
+                ],
               ),
-            ),
-            BlocBuilder<CartCubit, CartState>(
-              builder: (context, state) {
-                return state is AddCartLoading
-                    ? Center(child: CircularProgressIndicator())
-                    : CustomButton(
-                      text: 'اضف الي السلة',
-                      onPressed: () {
-                        context.read<CartCubit>().addToCart(false);
-                      },
-                    );
+            );
+          } else {
+            return ListView.builder(
+              itemCount: 4,
+              itemBuilder: (context, index) {
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AppShimmer(height: 80.h),
+                  ),
+                );
               },
-            ),
-          ],
-        ),
+            );
+          }
+        },
       ),
     );
   }
