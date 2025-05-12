@@ -12,7 +12,6 @@ class ProfileItems extends StatelessWidget {
   Widget build(BuildContext context) {
     const List profileItems = [
       "طلباتى",
-      "عنواني",
       "بطاقتي",
       "الاعدادات",
       "معلومات عنا",
@@ -20,26 +19,19 @@ class ProfileItems extends StatelessWidget {
     ];
     const List profileImages = [
       "assets/images/svg_images/cart.svg",
-      "assets/images/svg_images/location.svg",
       "assets/images/svg_images/wallet.svg",
       "assets/images/svg_images/setting.svg",
       "assets/images/svg_images/info.svg",
       "assets/images/svg_images/logout.svg",
     ];
-    const List profilePages = [
-      '/orders',
-      '/addresses',
-      '/carts',
-      '/setting',
-      '/about_info',
-    ];
+    const List profilePages = ['/orders', '/carts', '/setting', '/about_info'];
     return SizedBox(
       height: 500.h,
       child: ListView.separated(
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
-              index == 5
+              index == 4
                   ? showExitBottomSheet(context)
                   : context.push(profilePages[index]);
             },
@@ -63,7 +55,7 @@ class ProfileItems extends StatelessWidget {
             ],
           );
         },
-        itemCount: 6,
+        itemCount: 5,
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
       ),

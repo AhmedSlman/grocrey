@@ -1,13 +1,11 @@
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
-import 'package:grocery/core/data/api/dio_consumer.dart';
+
 import 'package:grocery/core/errors/error_model.dart';
 import 'package:grocery/core/errors/exceptions.dart';
+import 'package:grocery/core/services/service_locator.dart';
 import 'package:grocery/src/features/home/data/model/category_model.dart';
 import 'package:grocery/src/features/home/data/model/category_model_detail.dart';
-import 'package:grocery/src/features/home/data/remote/home_api_service.dart';
-import 'package:grocery/src/features/home/data/remote/home_remote_data_source.dart';
-import 'package:grocery/src/features/home/domain/repos/home_repo.dart';
+
 import 'package:grocery/src/features/home/domain/usecases/categories_usecase.dart';
 import 'package:grocery/src/features/home/domain/usecases/procuts_usecase.dart';
 import 'package:meta/meta.dart';
@@ -19,14 +17,10 @@ class GetcategoriesCubit extends Cubit<GetcategoriesState> {
 
   getCategories() async {
     emit(GetcategoriesLoading());
-    final data = GetCategoriesUseCase(
-      HomeRepoImpl(
-        HomeRemoteDataSourceImpl(HomeApiServiceImpl(DioConsumer(dio: Dio()))),
-      ),
-    );
 
+    final usecase = getIt<GetCategoriesUseCase>();
     try {
-      final result = await data.getCategories();
+      final result = await usecase.getCategories();
       result.fold(
         (failure) => emit(GetcategoriesFail(failure)),
         (success) => emit(GetcategoriesSuccess(success)),
@@ -37,13 +31,9 @@ class GetcategoriesCubit extends Cubit<GetcategoriesState> {
   }
 
   getProducts(productId) async {
-    final data = GetProductsUseCase(
-      HomeRepoImpl(
-        HomeRemoteDataSourceImpl(HomeApiServiceImpl(DioConsumer(dio: Dio()))),
-      ),
-    );
+    final usecase = getIt<GetProductsUseCase>();
     try {
-      final result = await data.getProducts(productId);
+      final result = await usecase.getProducts(productId);
       result.fold(
         (failure) => emit(GetProductsFail(failure)),
         (success) => emit(GetProductsSuccess(success)),

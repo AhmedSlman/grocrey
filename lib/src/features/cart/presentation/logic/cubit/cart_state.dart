@@ -26,7 +26,10 @@ final class AddCartSuccess extends CartState {
   AddCartSuccess(this.qunatity);
 }
 
-final class AddCartFail extends CartState {}
+final class AddCartFail extends CartState {
+  final String message;
+  AddCartFail(this.message);
+}
 
 ///////////////////////////////////////////////
 final class LoadingQuantity extends CartState {}

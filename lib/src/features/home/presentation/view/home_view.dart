@@ -15,15 +15,13 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       body: ListView(
         children: [
-          SizedBox(height: 50.h),
+          SizedBox(height: 10.h),
           HomeHeaderSection(),
-          SizedBox(height: 12.h),
           HomeSearchSection(),
-          SizedBox(height: 12.h),
           BannerSection(),
-          SizedBox(height: 12.h),
+          SizedBox(height: 10.h),
           AllCategoriesSection(),
-          SizedBox(height: 12.h),
+          SizedBox(height: 10.h),
           OffersSection(),
         ],
       ),

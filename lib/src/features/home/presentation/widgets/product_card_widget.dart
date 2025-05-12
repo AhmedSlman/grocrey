@@ -8,10 +8,8 @@ import 'package:grocery/core/utils/app_styles.dart';
 import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
 import 'package:grocery/src/features/favourite/presentation/logic/cubit/favourite_cubit.dart';
 import 'package:grocery/src/features/home/data/model/product_model.dart';
-import 'package:grocery/src/features/home/presentation/logic/offers/cubit/offers_cubit.dart';
-import 'package:grocery/src/features/home/presentation/logic/product/cubit/product_cubit.dart'
-    show ProductCubit;
-import 'package:grocery/src/features/home/presentation/view/product_details_view.dart';
+import 'package:grocery/src/features/product_details/presentation/logic/product/cubit/product_cubit.dart';
+import 'package:grocery/src/features/product_details/presentation/view/product_details_view.dart';
 
 class ProductCard extends StatelessWidget {
   final int id;
@@ -23,7 +21,6 @@ class ProductCard extends StatelessWidget {
   final String quantaty;
   final String stock_status;
 
-  final VoidCallback? onAddPressed;
   final ProductModel? productsDetails;
   final String createdAt;
   final String updatedAt;
@@ -39,7 +36,6 @@ class ProductCard extends StatelessWidget {
     required this.quantaty,
     required this.stock_status,
 
-    this.onAddPressed,
     this.productsDetails,
     required this.createdAt,
     required this.updatedAt,
@@ -47,7 +43,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<OffersCubit>().getOffers();
+    // context.read<OffersCubit>().getOffers();
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -76,7 +72,7 @@ class ProductCard extends StatelessWidget {
 
         child: Container(
           width: 200.w,
-          height: 230.h,
+          //height: 300.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: AppColors.lightBorderGrey, width: 1),
@@ -95,7 +91,7 @@ class ProductCard extends StatelessWidget {
                       errorWidget:
                           (context, error, stackTrace) => Image.network(
                             'https://ih1.redbubble.net/image.1893341687.8294/fposter,small,wall_texture,product,750x1000.jpg',
-                            fit: BoxFit.cover,
+                            fit: BoxFit.fill,
                             height: 80.h,
                             width: 80.w,
                           ),
@@ -103,41 +99,74 @@ class ProductCard extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            title,
-                            style: AppStyles.s12Alex.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
+                SizedBox(height: 5.h),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: AppStyles.s12Alex.copyWith(
+                            fontWeight: FontWeight.bold,
                           ),
-                          SizedBox(height: 3.h),
-                          Text(
-                            size,
-                            style: AppStyles.s12Alex.copyWith(
-                              color: AppColors.grey,
-                            ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: 3.h),
+                        Text(
+                          size,
+                          style: AppStyles.s12Alex.copyWith(
+                            color: AppColors.grey,
                           ),
-                        ],
-                      ),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            onTap: onAddPressed,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        BlocListener<CartCubit, CartState>(
+                          listener: (context, state) {
+                            if (state is AddCartSuccess) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'تمت الاضافة بنجاح',
+                                    style: AppStyles.s12Alex.copyWith(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  backgroundColor: Colors.green,
+                                ),
+                              );
+                            }
+                            if (state is AddCartFail) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    state.message,
+                                    style: AppStyles.s12Alex.copyWith(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+                          },
+                          child: InkWell(
+                            onTap: () {
+                              context.read<CartCubit>().addToCart(
+                                false,
+                                id.toString(),
+                              );
+                            },
                             child: Container(
-                              width: 32.r,
-                              height: 32.r,
+                              width: 35.r,
+                              height: 35.r,
                               decoration: const BoxDecoration(
                                 color: Color(0xFF0A6986),
                                 shape: BoxShape.circle,
@@ -145,40 +174,40 @@ class ProductCard extends StatelessWidget {
                               child: Icon(
                                 Icons.add,
                                 color: Colors.white,
-                                size: 18.r,
+                                size: 20.r,
                               ),
                             ),
                           ),
+                        ),
 
-                          Flexible(
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    originalPrice,
-                                    style: AppStyles.s12Alex.copyWith(
-                                      decoration: TextDecoration.lineThrough,
-                                      fontSize: 10.sp,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                                SizedBox(width: 3.w),
-                                Text(
-                                  currentPrice,
+                        Flexible(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  originalPrice,
                                   style: AppStyles.s12Alex.copyWith(
-                                    color: AppColors.primaryColor,
-                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.lineThrough,
+                                    fontSize: 10.sp,
                                   ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(width: 3.w),
+                              Text(
+                                currentPrice,
+                                style: AppStyles.s12Alex.copyWith(
+                                  color: AppColors.primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),

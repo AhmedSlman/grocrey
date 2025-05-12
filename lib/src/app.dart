@@ -3,11 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery/core/app_cubit/app_cubit.dart';
 import 'package:grocery/core/theme/app_colors.dart';
-import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
 import 'package:grocery/src/features/cart/presentation/view/cart_view.dart';
-import 'package:grocery/src/features/favourite/presentation/logic/cubit/favourite_cubit.dart';
 import 'package:grocery/src/features/favourite/presentation/view/favourite_view.dart';
-import 'package:grocery/src/features/home/presentation/logic/offers/cubit/offers_cubit.dart';
 import 'package:grocery/src/features/home/presentation/view/home_view.dart';
 import 'package:grocery/src/features/profile/presentation/views/profile_view.dart';
 
@@ -17,17 +14,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Widget> screens = [
-      BlocProvider(create: (context) => OffersCubit(), child: HomeView()),
-      BlocProvider(
-        create: (context) => FavouriteCubit(),
-        child: FavouriteView(),
-      ),
-      BlocProvider(
-        create: (BuildContext context) => CartCubit(),
-
-        child: CartView(),
-      ),
-
+      HomeView(),
+      FavouriteView(),
+      CartView(),
       ProfileView(),
     ];
     return BlocBuilder<AppCubit, AppState>(
@@ -38,8 +27,7 @@ class MyApp extends StatelessWidget {
             backgroundColor: Colors.white,
             type: BottomNavigationBarType.fixed,
             currentIndex: state.bottomNavBarSelectedIndex,
-            selectedItemColor:
-                AppColors.primaryColor, // اللون للأيقونة المختارة
+            selectedItemColor: AppColors.primaryColor,
             unselectedItemColor: Colors.black,
             onTap: (index) {
               context.read<AppCubit>().changeBottomNavBarSelectedIndex(index);
@@ -47,7 +35,7 @@ class MyApp extends StatelessWidget {
             items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.store_mall_directory_outlined),
-                label: 'Shop',
+                label: 'المتجر',
               ),
               // BottomNavigationBarItem(
               //   icon: Icon(Icons.explore_outlined),
@@ -55,15 +43,15 @@ class MyApp extends StatelessWidget {
               // ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.favorite_border),
-                label: 'Favourite',
+                label: 'المفضلة',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.shopping_cart_outlined),
-                label: 'Cart',
+                label: 'السلة',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person_outline),
-                label: 'Account',
+                label: 'الحساب',
               ),
             ],
           ),

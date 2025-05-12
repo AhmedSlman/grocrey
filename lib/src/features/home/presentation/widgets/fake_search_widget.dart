@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:grocery/src/features/home/presentation/componant/home_search_section.dart';
+import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
 import 'package:grocery/src/features/home/presentation/componant/search_compenent.dart';
 import 'package:grocery/src/features/home/presentation/logic/search/cubit/search_cubit.dart';
 
@@ -17,8 +17,11 @@ class FakeSearchBox extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (c) {
-              return BlocProvider(
-                create: (context) => SearchCubit(),
+              return MultiBlocProvider(
+                providers: [
+                  BlocProvider(create: (context) => SearchCubit()),
+                  BlocProvider(create: (context) => CartCubit()),
+                ],
                 child: SearchComponent(),
               );
             },
@@ -32,7 +35,13 @@ class FakeSearchBox extends StatelessWidget {
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Text('ابحث عن منتج...', style: TextStyle(color: Colors.grey)),
+        child: Row(
+          children: [
+            Icon(Icons.search, color: Colors.grey),
+            const SizedBox(width: 10),
+            Text('ابحث عن منتج...', style: TextStyle(color: Colors.grey)),
+          ],
+        ),
       ),
     );
   }

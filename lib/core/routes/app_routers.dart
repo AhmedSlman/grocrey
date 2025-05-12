@@ -64,18 +64,21 @@ final GoRouter router = GoRouter(
       builder:
           (context, state) => MultiBlocProvider(
             providers: [
-              BlocProvider(create: (context) => GetcategoriesCubit()),
-              BlocProvider(create: (context) => OffersCubit()),
+              BlocProvider(
+                create: (context) => GetcategoriesCubit()..getCategories(),
+              ),
+              BlocProvider(create: (context) => OffersCubit()..getOffers()),
+              BlocProvider(create: (context) => FavouriteCubit()),
+              BlocProvider(create: (context) => CartCubit()),
+              BlocProvider(create: (context) => AppCubit()),
+              BlocProvider(
+                create: (context) => ProfileCubit()..getProfileData(),
+              ),
             ],
             child: MyApp(),
           ),
     ),
-    GoRoute(
-      path: RouterNames.cart,
-      builder:
-          (context, state) =>
-              BlocProvider(create: (context) => CartCubit(), child: CartView()),
-    ),
+    GoRoute(path: RouterNames.cart, builder: (context, state) => CartView()),
     GoRoute(
       path: RouterNames.otpFormForPassword,
       builder: (context, state) => OtpForPasswordView(),
@@ -93,6 +96,10 @@ final GoRouter router = GoRouter(
               BlocProvider(create: (context) => FavouriteCubit()),
               BlocProvider(create: (context) => AppCubit()),
               BlocProvider(create: (context) => SearchCubit()),
+              BlocProvider(create: (context) => CartCubit()),
+              BlocProvider(
+                create: (context) => ProfileCubit()..getProfileData(),
+              ),
             ],
             child: const MyApp(),
           ),

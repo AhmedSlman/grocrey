@@ -37,7 +37,7 @@ class DioConsumer extends ApiConsumer {
             'Accept': 'application/vnd.api+json',
             'Content-Type': 'application/vnd.api+json',
             'Authorization':
-                'Bearer 3|x9sx8iilGJGOtFYTBfwTTBRUWWlkLvpyfgqBdw0Q6573b03e',
+                'Bearer 9|P6LkMyWawmgzZ6yaz9TqYrfrIDH2dqKYEdbwyedlb0155df1',
           },
         ),
       );
@@ -66,8 +66,7 @@ class DioConsumer extends ApiConsumer {
           headers: {
             'Accept': 'application/vnd.api+json',
             'Content-Type': 'application/vnd.api+json',
-            'Authorization':
-                'Bearer 3|x9sx8iilGJGOtFYTBfwTTBRUWWlkLvpyfgqBdw0Q6573b03e',
+            'Authorization': 'Bearer $token',
           },
         ),
       );
@@ -96,8 +95,7 @@ class DioConsumer extends ApiConsumer {
           headers: {
             'Accept': 'application/vnd.api+json',
             'Content-Type': 'application/vnd.api+json',
-            'Authorization':
-                'Bearer 3|x9sx8iilGJGOtFYTBfwTTBRUWWlkLvpyfgqBdw0Q6573b03e',
+            'Authorization': 'Bearer $token',
           },
         ),
       );
@@ -124,8 +122,7 @@ class DioConsumer extends ApiConsumer {
         headers: {
           'Accept': 'application/vnd.api+json',
           'Content-Type': 'application/vnd.api+json',
-          'Authorization':
-              'Bearer 3|x9sx8iilGJGOtFYTBfwTTBRUWWlkLvpyfgqBdw0Q6573b03e',
+          'Authorization': 'Bearer $token',
         },
       ),
     );
@@ -151,8 +148,7 @@ class DioConsumer extends ApiConsumer {
           headers: {
             'Accept': 'application/vnd.api+json',
             'Content-Type': 'application/vnd.api+json',
-            'Authorization':
-                'Bearer 3|x9sx8iilGJGOtFYTBfwTTBRUWWlkLvpyfgqBdw0Q6573b03e',
+            'Authorization': 'Bearer $token',
           },
         ),
       );

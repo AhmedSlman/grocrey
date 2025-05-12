@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:grocery/core/common/widgets/search_widget.dart';
+import 'package:grocery/core/theme/app_colors.dart';
 import 'package:grocery/core/utils/app_shimmer.dart';
 import 'package:grocery/src/features/home/presentation/logic/search/cubit/search_cubit.dart';
 import 'package:grocery/src/features/home/presentation/widgets/product_card_widget.dart';
@@ -17,7 +19,28 @@ class SearchComponent extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 45.h),
-            SearchWidget(),
+            Row(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.lightGrey,
+                    borderRadius: BorderRadius.circular(80),
+                  ),
+
+                  child: IconButton(
+                    onPressed: () {
+                      context.pop();
+                    },
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      color: AppColors.black,
+                      size: 15,
+                    ),
+                  ),
+                ),
+                Expanded(child: SearchWidget()),
+              ],
+            ),
             SizedBox(
               height: MediaQuery.of(context).size.height,
               child: BlocBuilder<SearchCubit, SearchState>(

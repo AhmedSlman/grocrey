@@ -12,6 +12,12 @@ import 'package:grocery/src/features/auth/signup/domain/repository/signup_repo.d
 import 'package:grocery/src/features/auth/signup/domain/usecase/sign_up_use_case.dart';
 import 'package:grocery/src/features/auth/signup/presentation/cubit/sign_up_cubit.dart';
 import 'package:grocery/src/features/home/data/remote/home_api_service.dart';
+import 'package:grocery/src/features/home/data/remote/home_remote_data_source.dart';
+import 'package:grocery/src/features/home/domain/repos/home_repo.dart';
+import 'package:grocery/src/features/home/domain/usecases/categories_usecase.dart';
+import 'package:grocery/src/features/home/domain/usecases/offers_usecase.dart';
+import 'package:grocery/src/features/home/domain/usecases/procuts_usecase.dart';
+import 'package:grocery/src/features/home/domain/usecases/search_usecase.dart';
 import '../app_cubit/app_cubit.dart';
 import '../data/api/api_consumer.dart';
 import '../data/api/dio_consumer.dart';
@@ -37,6 +43,12 @@ void setupLocator() {
   getIt.registerLazySingleton<LoginApiService>(
     () => LoginApiService(getIt<ApiConsumer>()),
   );
+  // getIt.registerLazySingleton<HomeApiServiceImpl>(
+  //   () => HomeApiServiceImpl(getIt<ApiConsumer>()),
+  // );
+  // getIt.registerLazySingleton<HomeApiServiceImpl>(
+  //   () => HomeApiServiceImpl(getIt<ApiConsumer>()),
+  // );
   getIt.registerLazySingleton<HomeApiServiceImpl>(
     () => HomeApiServiceImpl(getIt<ApiConsumer>()),
   );
@@ -47,6 +59,9 @@ void setupLocator() {
   );
   getIt.registerLazySingleton<LoginRemoteDs>(
     () => LoginRemoteDs(getIt<LoginApiService>()),
+  );
+  getIt.registerLazySingleton<HomeRemoteDataSourceImpl>(
+    () => HomeRemoteDataSourceImpl(getIt<HomeApiServiceImpl>()),
   );
   // getIt.resetLazySingleton<HomeRemoteDataSourceImpl>(
   //   () => HomeRemoteDataSourceImpl(apiService: getIt<HomeApiServiceImpl>()),
@@ -60,6 +75,10 @@ void setupLocator() {
     () => LoginRepositoryImpl(getIt<LoginRemoteDs>()),
   );
 
+  getIt.registerSingleton<HomeRepoImpl>(
+    HomeRepoImpl(getIt<HomeRemoteDataSourceImpl>()),
+  );
+
   /// !-- UseCases -- ///
 
   getIt.registerLazySingleton<RegisterUseCase>(
@@ -67,6 +86,20 @@ void setupLocator() {
   );
   getIt.registerLazySingleton<LoginUseCase>(
     () => LoginUseCase(getIt<ILoginRepository>()),
+  );
+  getIt.registerLazySingleton<GetOffersUseCase>(
+    () => GetOffersUseCase(getIt<HomeRepoImpl>()),
+  );
+  getIt.registerLazySingleton<GetCategoriesUseCase>(
+    () => GetCategoriesUseCase(getIt<HomeRepoImpl>()),
+  );
+
+  getIt.registerLazySingleton<GetSearchProductsUseCase>(
+    () => GetSearchProductsUseCase(getIt<HomeRepoImpl>()),
+  );
+
+  getIt.registerLazySingleton<GetProductsUseCase>(
+    () => GetProductsUseCase(getIt<HomeRepoImpl>()),
   );
   // !Cubits //
   getIt.registerFactory<SignUpCubit>(

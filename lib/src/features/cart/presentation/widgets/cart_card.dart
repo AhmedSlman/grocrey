@@ -84,22 +84,6 @@ class CartCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                       color: Colors.grey.shade200,
                     ),
-                    child: Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.remove, color: Colors.blue),
-                          onPressed: () {},
-                        ),
-                        Text(
-                          cart.quantity.toString(),
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.add, color: Colors.blue),
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
                   ),
                 ],
               ),

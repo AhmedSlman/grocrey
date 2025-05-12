@@ -24,8 +24,8 @@ class CartCubit extends Cubit<CartState> {
       await api.post('user/cart', data: {'product_id': id, 'quantity': 1});
 
       emit(AddCartSuccess(quantity));
-    } catch (e) {
-      emit(AddCartFail());
+    } on ServerException catch (e) {
+      emit(AddCartFail(e.errorModel.message));
     }
   }
 

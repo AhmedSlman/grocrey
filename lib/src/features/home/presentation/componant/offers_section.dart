@@ -11,64 +11,58 @@ class OffersSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<OffersCubit>().getOffers();
-
     return BlocBuilder<OffersCubit, OffersState>(
       builder: (context, state) {
+        Widget content;
+
+        if (state is GetOffersSuccess) {
+          final products = state.offer_producs;
+
+          content = ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: products.length,
+            separatorBuilder: (context, index) => SizedBox(width: 10.w),
+            itemBuilder: (context, index) {
+              final product = products[index];
+              return ProductCard(
+                id: product.id!,
+                title: product.name ?? 'Unknown',
+                size: product.name ?? 'Unknown',
+                currentPrice: product.price.toString(),
+                originalPrice: '300 جنيه',
+                imagePath: product.imagePath ?? '',
+                quantaty: product.quantity.toString(),
+                stock_status: product.stockStatus.toString(),
+                createdAt: product.createdAt.toString(),
+                updatedAt: product.updatedAt.toString(),
+              );
+            },
+          );
+        } else if (state is GetOffersFail) {
+          content = Center(
+            child: Text(
+              state.errorModel.message,
+              style: TextStyle(color: Colors.red, fontSize: 16.sp),
+            ),
+          );
+        } else {
+          content = ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: 6,
+            separatorBuilder: (context, index) => SizedBox(width: 10.w),
+            itemBuilder:
+                (context, index) => const AppShimmer(width: 90, lPadding: 7),
+          );
+        }
+
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.w),
-
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const HomeSectionHeader(title: 'اشهر العروض'),
               SizedBox(height: 12.h),
-              SizedBox(
-                height: 250.h,
-                child:
-                    state is GetOffersSuccess
-                        ? ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: state.offer_producs.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return ProductCard(
-                              id: state.offer_producs[index].id!,
-                              title:
-                                  state.offer_producs[index].name ?? 'Unknown',
-                              size:
-                                  state.offer_producs[index].name ?? 'Unknown',
-                              currentPrice:
-                                  state.offer_producs[index].price.toString(),
-                              originalPrice: '300 جنيه',
-                              imagePath:
-                                  state.offer_producs[index].imagePath
-                                      .toString(),
-                              quantaty:
-                                  state.offer_producs[index].quantity
-                                      .toString(),
-                              stock_status:
-                                  state.offer_producs[index].stockStatus
-                                      .toString(),
-                              createdAt:
-                                  state.offer_producs[index].createdAt
-                                      .toString(),
-
-                              updatedAt:
-                                  state.offer_producs[index].updatedAt
-                                      .toString(),
-                            );
-                          },
-                        )
-                        : state is GetOffersFail
-                        ? Center(child: Text(state.errorModel.message))
-                        : ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 6,
-                          itemBuilder:
-                              (context, index) =>
-                                  AppShimmer(width: 90.w, lPadding: 7),
-                        ),
-              ),
+              SizedBox(height: 200.h, child: content),
             ],
           ),
         );

@@ -2,11 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grocery/core/common/widgets/custom_btn.dart';
 import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
+import 'package:grocery/src/features/home/presentation/componant/home_header_section.dart';
 
-class CheckoutView extends StatelessWidget {
+class CheckoutView extends StatefulWidget {
   final String totalprice;
 
   const CheckoutView({super.key, required this.totalprice});
+
+  @override
+  State<CheckoutView> createState() => _CheckoutViewState();
+}
+
+class _CheckoutViewState extends State<CheckoutView> {
+  String location = 'المنصورة';
+
+  getCity() {
+    locationFuture.then((v) {
+      location = v;
+      setState(() {});
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCity();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,32 +58,17 @@ class CheckoutView extends StatelessWidget {
                     'توصيل الي',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
+                  Expanded(
+                    child: Text(
+                      location,
+                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                    ),
+                  ),
                   Spacer(),
                   const Icon(Icons.arrow_forward_ios, size: 16),
                 ],
               ),
               const SizedBox(height: 24),
-
-              Align(
-                alignment: Alignment.centerRight,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    const Text(
-                      'المنزل',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-
-                        fontSize: 16,
-                      ),
-                    ),
-                    const Text(
-                      'المنصورة، شارع الجلاء',
-                      style: TextStyle(fontSize: 14, color: Colors.grey),
-                    ),
-                  ],
-                ),
-              ),
 
               const Divider(height: 32),
               Row(
@@ -94,7 +100,7 @@ class CheckoutView extends StatelessWidget {
 
               const Divider(height: 32),
 
-              buildTotalRow('المجموع الكلى', totalprice),
+              buildTotalRow('المجموع الكلى', widget.totalprice),
 
               const Spacer(),
 
@@ -107,7 +113,9 @@ class CheckoutView extends StatelessWidget {
                         : CustomButton(
                           text: 'اطلب',
                           onPressed: () {
-                            context.read<CartCubit>().createOrder(totalprice);
+                            context.read<CartCubit>().createOrder(
+                              widget.totalprice,
+                            );
                           },
                         );
                   },

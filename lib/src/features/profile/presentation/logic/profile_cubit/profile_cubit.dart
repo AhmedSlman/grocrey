@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery/core/data/api/dio_consumer.dart';
+import 'package:grocery/core/errors/exceptions.dart';
 import 'package:grocery/core/services/service_locator.dart';
 import 'package:grocery/src/features/profile/data/data_source/profile_data_source.dart';
 import 'package:grocery/src/features/profile/data/model/profile_model.dart';
@@ -18,27 +19,19 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   final dio = DioConsumer(dio: Dio());
   getProfileData() async {
-    // final ApiConsumer api = dio;
-    // final usecase = GetProfileUseCases(
-    //   ProfileRepoImpl(ProfileDataSourceImpl(api)),
-    // );
-    final get_profile_data_usecase = GetProfileUseCases(
+    final getProfileDataUsecase = GetProfileUseCases(
       ProfileRepoImpl(ProfileDataSourceImpl(dio)),
     );
     try {
       emit(LoadingProfileState());
 
-      final result = await get_profile_data_usecase.call(1);
+      final result = await getProfileDataUsecase.call(1);
       result.fold(
         (failure) => emit(FailProfileState(failure.message)),
         (success) => emit(SuccessProfileState(success)),
       );
-      print(
-        '----------------------------------------------------------------------------------',
-      );
-      print(result.toString());
-    } catch (e) {
-      emit(FailProfileState(e.toString()));
+    } on ServerException catch (e) {
+      emit(FailProfileState(e.errorModel.message));
     }
   }
 

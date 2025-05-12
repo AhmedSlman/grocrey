@@ -5,15 +5,12 @@ import 'package:grocery/core/utils/app_shimmer.dart';
 import 'package:grocery/src/features/home/presentation/logic/categories/getcategories_cubit.dart';
 import 'package:grocery/src/features/home/presentation/widgets/category_item_widget.dart';
 import 'package:grocery/src/features/home/presentation/widgets/home_section_header.dart';
-import 'package:grocery/src/features/profile/presentation/logic/change_password/change_password_cubit.dart';
 
 class AllCategoriesSection extends StatelessWidget {
   const AllCategoriesSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    context.read<GetcategoriesCubit>().getCategories();
-
     return BlocBuilder<GetcategoriesCubit, GetcategoriesState>(
       builder: (context, state) {
         return Padding(

@@ -40,7 +40,6 @@ class App extends StatelessWidget {
             builder: (context, state) {
               return MaterialApp.router(
                 routerConfig: router,
-
                 debugShowCheckedModeBanner: false,
                 theme: AppTheme.getTheme(state.themeEnum),
                 localizationsDelegates: context.localizationDelegates,
