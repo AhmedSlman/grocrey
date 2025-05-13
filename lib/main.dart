@@ -13,7 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   setupLocator();
-  CacheHelper().init();
+ await CacheHelper().init();
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('ar'), Locale('en')],

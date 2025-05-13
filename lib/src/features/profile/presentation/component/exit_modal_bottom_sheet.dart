@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:grocery/core/data/cached/cache_helper.dart';
+import 'package:grocery/core/routes/router_names.dart';
 import 'package:grocery/core/theme/app_colors.dart';
 
 void showExitBottomSheet(BuildContext context) {
@@ -51,9 +54,15 @@ void showExitBottomSheet(BuildContext context) {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryColor,
                     ),
-                    child: Text(
-                      'نعم!تسجيل خروج',
-                      style: TextStyle(color: AppColors.white),
+                    child: GestureDetector(
+                      onTap: () {
+                        CacheHelper.deleteToken();
+                        context.go(RouterNames.login);
+                      },
+                      child: Text(
+                        'نعم!تسجيل خروج',
+                        style: TextStyle(color: AppColors.white),
+                      ),
                     ),
                   ),
                 ),
