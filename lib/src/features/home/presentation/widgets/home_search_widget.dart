@@ -20,7 +20,6 @@ class HomeSearchWidget extends StatelessWidget {
         prefixIcon: Icon(Icons.search_rounded, color: AppColors.iconColor),
         suffixIcon: Icon(Icons.filter_alt, color: AppColors.iconColor),
         fillColor: AppColors.fillGrey,
-
         hintText: "ابحث عما تريد",
         onchanged: onchanged,
       ),

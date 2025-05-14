@@ -7,6 +7,7 @@ import 'package:grocery/core/utils/app_shimmer.dart';
 import 'package:grocery/src/features/cart/presentation/component/cart_component.dart';
 import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
 import 'package:grocery/src/features/cart/presentation/view/checkout_view.dart';
+import 'package:grocery/src/features/home/presentation/logic/location/cubit/location_cubit.dart';
 
 class CartView extends StatelessWidget {
   const CartView({super.key});
@@ -64,9 +65,15 @@ class CartView extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: (c) {
-                                          return CheckoutView(
-                                            totalprice:
-                                                state.cart.total.toString(),
+                                          return BlocProvider(
+                                            create:
+                                                (context) =>
+                                                    LocationCubit()
+                                                      ..getLocation(),
+                                            child: CheckoutView(
+                                              totalprice:
+                                                  state.cart.total.toString(),
+                                            ),
                                           );
                                         },
                                       ),

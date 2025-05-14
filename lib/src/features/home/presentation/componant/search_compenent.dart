@@ -13,7 +13,6 @@ class SearchComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<SearchCubit>().getProducts('');
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

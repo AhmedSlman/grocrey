@@ -15,16 +15,17 @@ import 'package:grocery/src/features/auth/signup/presentation/views/signup_view.
 import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
 import 'package:grocery/src/features/cart/presentation/view/cart_view.dart';
 import 'package:grocery/src/features/favourite/presentation/logic/cubit/favourite_cubit.dart';
+import 'package:grocery/src/features/home/presentation/componant/search_compenent.dart';
 import 'package:grocery/src/features/home/presentation/logic/categories/getcategories_cubit.dart';
+import 'package:grocery/src/features/home/presentation/logic/location/cubit/location_cubit.dart';
 import 'package:grocery/src/features/home/presentation/logic/offers/cubit/offers_cubit.dart';
 import 'package:grocery/src/features/home/presentation/logic/search/cubit/search_cubit.dart';
 import 'package:grocery/src/features/intro/onboarding.dart';
 import 'package:grocery/src/features/intro/splash.dart';
+import 'package:grocery/src/features/product_details/presentation/logic/product/cubit/product_cubit.dart';
+import 'package:grocery/src/features/product_details/presentation/view/product_details_view.dart';
 import 'package:grocery/src/features/profile/presentation/logic/orders/cubit/orders_cubit.dart';
 import 'package:grocery/src/features/profile/presentation/logic/profile_cubit/profile_cubit.dart';
-
-import 'package:grocery/src/features/intro/onboarding.dart';
-import 'package:grocery/src/features/intro/splash.dart';
 import 'package:grocery/src/features/profile/presentation/views/add_address_view.dart';
 import 'package:grocery/src/features/profile/presentation/views/addresses_view.dart';
 import 'package:grocery/src/features/profile/presentation/views/edit_profile_view.dart';
@@ -78,6 +79,7 @@ final GoRouter router = GoRouter(
               BlocProvider(
                 create: (context) => ProfileCubit()..getProfileData(),
               ),
+              BlocProvider(create: (context) => LocationCubit()..getLocation()),
             ],
             child: MyApp(),
           ),
@@ -170,6 +172,33 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: RouterNames.aboutInfo,
       builder: (context, state) => InfoView(),
+    ),
+    GoRoute(
+      path: '${RouterNames.productDetails}/:id',
+      builder: (context, state) {
+        final id = state.pathParameters['id'];
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => FavouriteCubit()),
+            BlocProvider(create: (context) => ProductCubit()),
+
+            BlocProvider(create: (context) => CartCubit()..getFromCart()),
+          ],
+          child: ProductDetailsView(productid: id.toString()),
+        );
+      },
+    ),
+    GoRoute(
+      path: RouterNames.search,
+      builder: (context, state) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => SearchCubit()..getProducts('')),
+            BlocProvider(create: (context) => CartCubit()),
+          ],
+          child: SearchComponent(),
+        );
+      },
     ),
   ],
 );

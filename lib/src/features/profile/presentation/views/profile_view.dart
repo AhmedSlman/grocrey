@@ -11,7 +11,7 @@ class ProfileView extends StatelessWidget {
     return Scaffold(
       body: ListView(
         children: [
-          CustomProfileHeader(header: 'البيانات الشخصية'),
+          CustomProfileHeader(header: 'البيانات الشخصية', showIcon: false),
           UserInfo(),
           ProfileItems(),
         ],

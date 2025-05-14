@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:grocery/core/constants/endpoints_strings.dart';
+import 'package:grocery/core/routes/router_names.dart';
 import 'package:grocery/core/theme/app_colors.dart';
 import 'package:grocery/core/utils/app_shimmer.dart';
 import 'package:grocery/src/features/favourite/data/model/favourite_model.dart';
@@ -84,6 +86,8 @@ class FavouriteItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        context.push('${RouterNames.productDetails}/${favouriteItem.id}');
+
         // Navigator.push(
         //   context,
         //   MaterialPageRoute(
