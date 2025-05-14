@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grocery/core/data/cached/cache_helper.dart';
 import 'package:grocery/core/routes/router_names.dart';
 import 'package:grocery/core/theme/app_colors.dart';
 import 'package:grocery/core/utils/app_assets.dart';
@@ -17,7 +18,15 @@ class _SplashViewState extends State<SplashView> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
-      context.go(RouterNames.onboarding);
+      final isViewed = CacheHelper.getData(key: 'isOnboardingViewed') ?? false;
+      final isLogin = CacheHelper.getToken() ;
+      if (isLogin != null) {
+         context.go(RouterNames.myApp);
+         }
+      else if (isViewed) {
+        context.go(RouterNames.login);
+      }else
+      {context.go(RouterNames.onboarding);}
     });
   }
 
