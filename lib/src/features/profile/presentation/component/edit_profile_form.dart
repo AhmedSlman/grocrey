@@ -35,7 +35,7 @@ class EditProfileForm extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: CustomTextFormField(
                     labelText: 'اسمك',
-                    hintText: 'محمد علي',
+                    hintText: '',
                     controller: cubit.nameController,
                     validator: (value) {
                       return Validator.validateName(value);
@@ -88,7 +88,7 @@ class EditProfileForm extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: CustomTextFormField(
                     labelText: 'ايميلك',
-                    hintText: 'waleedsefan@gmail.com',
+                    hintText: '',
                     controller: cubit.emailController,
                     validator: (value) {
                       return Validator.validateEmail(value);
