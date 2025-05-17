@@ -12,14 +12,15 @@ import 'package:grocery/src/features/profile/data/model/profile_model.dart';
 abstract class ProfileDataSource {
   Future<Either<ErrorModel, ProfileModel>> getUserData(int id);
   Future<Either<ErrorModel, void>> updateData(
-    nameController,
-    emailController,
+    String id,
+    String nameController,
+    String emailController,
     String imagePath,
   );
   Future<Either<ErrorModel, void>> changePassword(
-    String current_password,
-    String new_password,
-    String confirm_new_password,
+    String currentPassword,
+    String newPassword,
+    String confirmNewPassword,
   );
   Future<Either<ErrorModel, OrdersModel>> getallOrders();
 }
@@ -41,17 +42,18 @@ class ProfileDataSourceImpl extends ProfileDataSource {
 
   @override
   Future<Either<ErrorModel, void>> updateData(
-    nameController,
-    emailController,
+    String id,
+    String nameController,
+    String emailController,
     String imagePath,
   ) async {
     try {
       var response = await api.post(
-        "${EndpointsStrings.update_profile}4",
+        "${EndpointsStrings.update_profile}$id",
         data: {
           'name': nameController,
           'email': emailController,
-          'image': File(imagePath),
+          // 'image': XFile(imagePath),
         },
       );
       print(response.toString());
@@ -63,17 +65,17 @@ class ProfileDataSourceImpl extends ProfileDataSource {
 
   @override
   Future<Either<ErrorModel, void>> changePassword(
-    String current_password,
-    String new_password,
-    String confirm_new_password,
+    String currentPassword,
+    String newPassword,
+    String confirmNewPassword,
   ) async {
     try {
       var response = await api.post(
-        '${EndpointsStrings.change_password}4',
+        EndpointsStrings.change_password,
         data: {
-          'old_password': current_password,
-          'new_password': new_password,
-          'new_password_confirmation': confirm_new_password,
+          'old_password': currentPassword,
+          'new_password': newPassword,
+          'new_password_confirmation': confirmNewPassword,
         },
       );
       return Right(response);

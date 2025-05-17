@@ -6,11 +6,13 @@ class UpdateProfileUseCases {
   final ProfileRepo profileRepo;
   UpdateProfileUseCases(this.profileRepo);
   Future<Either<ErrorModel, void>> call(
-    nameController,
-    emailController,
+    String id,
+    String nameController,
+    String emailController,
     String imagePath,
   ) {
     return profileRepo.updateUserData(
+      id,
       nameController,
       emailController,
       imagePath,

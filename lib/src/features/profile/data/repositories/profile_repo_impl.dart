@@ -15,11 +15,13 @@ class ProfileRepoImpl extends ProfileRepo {
 
   @override
   Future<Either<ErrorModel, void>> updateUserData(
-    nameController,
-    emailController,
+    String id,
+    String nameController,
+    String emailController,
     String imagePath,
   ) async {
     return await profileDataSource.updateData(
+      id,
       nameController,
       emailController,
       imagePath,
@@ -28,14 +30,15 @@ class ProfileRepoImpl extends ProfileRepo {
 
   @override
   Future<Either<ErrorModel, void>> changePassword(
-    String current_password,
-    String new_password,
-    String confirm_new_password,
+    String id,
+    String currentPassword,
+    String newPassword,
+    String confirmNewPassword,
   ) async {
     return await profileDataSource.changePassword(
-      current_password,
-      new_password,
-      confirm_new_password,
+      currentPassword,
+      newPassword,
+      confirmNewPassword,
     );
   }
 

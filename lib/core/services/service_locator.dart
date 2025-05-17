@@ -26,6 +26,11 @@ import 'package:grocery/src/features/home/domain/usecases/categories_usecase.dar
 import 'package:grocery/src/features/home/domain/usecases/offers_usecase.dart';
 import 'package:grocery/src/features/home/domain/usecases/procuts_usecase.dart';
 import 'package:grocery/src/features/home/domain/usecases/search_usecase.dart';
+import 'package:grocery/src/features/profile/data/data_source/profile_data_source.dart';
+import 'package:grocery/src/features/profile/data/repositories/profile_repo_impl.dart';
+import 'package:grocery/src/features/profile/domain/repositories/profile_repo.dart';
+import 'package:grocery/src/features/profile/domain/usecases/edit_profile_use_case.dart';
+import 'package:grocery/src/features/profile/domain/usecases/get_profile_use_cases.dart';
 import '../app_cubit/app_cubit.dart';
 import '../data/api/api_consumer.dart';
 import '../data/api/dio_consumer.dart';
@@ -77,6 +82,9 @@ void setupLocator() {
   getIt.registerLazySingleton<HomeRemoteDataSourceImpl>(
     () => HomeRemoteDataSourceImpl(getIt<HomeApiServiceImpl>()),
   );
+  getIt.registerLazySingleton<ProfileDataSource>(
+    () => ProfileDataSourceImpl(getIt<DioConsumer>()),
+  );
   // getIt.resetLazySingleton<HomeRemoteDataSourceImpl>(
   //   () => HomeRemoteDataSourceImpl(apiService: getIt<HomeApiServiceImpl>()),
   // );
@@ -105,6 +113,10 @@ void setupLocator() {
     HomeRepoImpl(getIt<HomeRemoteDataSourceImpl>()),
   );
 
+  getIt.registerLazySingleton<ProfileRepo>(
+    () => ProfileRepoImpl(getIt<ProfileDataSource>()),
+  );
+
   /// !-- UseCases -- ///
 
   getIt.registerLazySingleton<RegisterUseCase>(
@@ -127,6 +139,15 @@ void setupLocator() {
   getIt.registerLazySingleton<GetProductsUseCase>(
     () => GetProductsUseCase(getIt<HomeRepoImpl>()),
   );
+
+  getIt.registerLazySingleton<GetProfileUseCases>(
+    () => GetProfileUseCases(getIt<ProfileRepo>()),
+  );
+
+  getIt.registerLazySingleton<UpdateProfileUseCases>(
+    () => UpdateProfileUseCases(getIt<ProfileRepo>()),
+  );
+
   // !Cubits //
   getIt.registerFactory<SignUpCubit>(
     () => SignUpCubit(getIt<RegisterUseCase>()),

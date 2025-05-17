@@ -7,15 +7,17 @@ abstract class ProfileRepo {
   Future<Either<ErrorModel, ProfileModel>> getUserData(int id);
 
   Future<Either<ErrorModel, void>> updateUserData(
-    nameController,
-    emailController,
+    String id,
+    String nameController,
+    String emailController,
     String imagePath,
   );
 
   Future<Either<ErrorModel, void>> changePassword(
-    String current_password,
-    String new_password,
-    String confirm_new_password,
+    String id,
+    String currentPassword,
+    String newPassword,
+    String confirmNewPassword,
   );
   Future<Either<ErrorModel, OrdersModel>> getallOrders();
 }

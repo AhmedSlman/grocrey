@@ -6,14 +6,16 @@ class ChangePasswordUseCase {
   final ProfileRepo profileRepo;
   ChangePasswordUseCase(this.profileRepo);
   Future<Either<ErrorModel, void>> changePassword({
-    required String current_password,
-    required String new_password,
-    required String confirm_new_password,
+    required String id,
+    required String currentPassword,
+    required String newPassword,
+    required String confirmNewPassword,
   }) {
     return profileRepo.changePassword(
-      current_password,
-      new_password,
-      confirm_new_password,
+      id,
+      currentPassword,
+      newPassword,
+      confirmNewPassword,
     );
   }
 }

@@ -30,6 +30,7 @@ class LoginApiService {
           CacheHelper.saveToken(value: userResponse.token);
           CacheHelper.saveData(key: 'name', value: user.name);
           CacheHelper.saveData(key: 'email', value: user.email);
+          CacheHelper.saveData(key: 'id', value: user.id);
         }
 
         return Right(userResponse);

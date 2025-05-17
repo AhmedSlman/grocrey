@@ -23,6 +23,8 @@ class UserInfo extends StatelessWidget {
                 backgroundImage: CachedNetworkImageProvider(
                   state is SuccessProfileState
                       ? state.profileData.image
+                      : state is FailProfileState
+                      ? state.error
                       : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
                 ),
               ),
@@ -33,6 +35,8 @@ class UserInfo extends StatelessWidget {
                   Text(
                     state is SuccessProfileState
                         ? state.profileData.name
+                        : state is FailProfileState
+                        ? state.error
                         : "الاسم",
                     style: const TextStyle(
                       fontSize: 20,
@@ -43,6 +47,8 @@ class UserInfo extends StatelessWidget {
                   Text(
                     state is SuccessProfileState
                         ? state.profileData.phone
+                        : state is FailProfileState
+                        ? state.error
                         : "...................",
                     style: TextStyle(fontSize: 16),
                   ),

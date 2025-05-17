@@ -37,9 +37,7 @@ class EditProfileForm extends StatelessWidget {
                     labelText: 'اسمك',
                     hintText: 'محمد علي',
                     controller: cubit.nameController,
-                    validator: (value) {
-                      return Validator.validateName(value);
-                    },
+                    validator: (value) {},
                   ),
                 ),
 

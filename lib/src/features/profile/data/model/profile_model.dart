@@ -1,40 +1,61 @@
 class ProfileModel {
   final int id;
   final String name;
-  final String last_name;
+  final String lastName;
   final String email;
+  final String? firebaseUid;
   final String phone;
   final String image;
   final String address;
-  final String email_verified_at;
-  final String created_at;
-  final String updated_at;
-  ProfileModel(
-    this.id,
-    this.name,
-    this.last_name,
-    this.email,
-    this.phone,
-    this.image,
-    this.address,
-    this.email_verified_at,
-    this.created_at,
-    this.updated_at,
-  );
+  final String emailVerifiedAt;
+  final String createdAt;
+  final String updatedAt;
+
+  ProfileModel({
+    required this.id,
+    required this.name,
+    required this.lastName,
+    required this.email,
+    required this.firebaseUid,
+    required this.phone,
+    required this.image,
+    required this.address,
+    required this.emailVerifiedAt,
+    required this.createdAt,
+    required this.updatedAt,
+  });
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) {
     return ProfileModel(
-      json['id'] as int ?? 0,
-      json['name'] as String ?? '',
-      json['last_name'] as String ?? '',
-      json['email'] as String ?? '',
-      json['phone'] as String ?? '',
-      (json['image'] as String?) ??
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
+      lastName: json['last_name'] ?? '',
+      email: json['email'] ?? '',
+      firebaseUid: json['firebase_uid'], // nullable
+      phone: json['phone'] ?? '',
+      image:
+          json['image'] ??
           'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
-      json['address'] as String ?? '',
-      json['email_verified_at'] ?? '',
-      json['created_at'] as String ?? '',
-      json['updated_at'] as String ?? '',
+      address: json['address'] ?? '',
+      emailVerifiedAt: json['email_verified_at'] ?? '',
+      createdAt: json['created_at'] ?? '',
+      updatedAt: json['updated_at'] ?? '',
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'last_name': lastName,
+      'email': email,
+      'firebase_uid': firebaseUid,
+      'phone': phone,
+      'image': image,
+      'address': address,
+      'email_verified_at': emailVerifiedAt,
+      'created_at': createdAt,
+      'updated_at': updatedAt,
+    };
   }
 }
