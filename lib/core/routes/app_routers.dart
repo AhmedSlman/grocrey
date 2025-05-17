@@ -9,6 +9,7 @@ import 'package:grocery/src/features/auth/forgotPassword/presentation/view/forge
 import 'package:grocery/src/features/auth/login/presentation/cubit/login_cubit.dart';
 import 'package:grocery/src/features/auth/login/presentation/view/login_view.dart';
 import 'package:grocery/src/features/auth/otpFormForPassword/presentation/cubit/verify_code_cubit.dart';
+import 'package:grocery/src/features/auth/otpFormForPassword/presentation/view/otp_form_for_password_view.dart';
 import 'package:grocery/src/features/auth/setNewPass/presentation/view/set_new_pass_view.dart';
 import 'package:grocery/src/features/auth/signup/presentation/cubit/sign_up_cubit.dart';
 import 'package:grocery/src/features/auth/signup/presentation/views/signup_view.dart';
@@ -26,6 +27,8 @@ import 'package:grocery/src/features/product_details/presentation/logic/product/
 import 'package:grocery/src/features/product_details/presentation/view/product_details_view.dart';
 import 'package:grocery/src/features/profile/presentation/logic/orders/cubit/orders_cubit.dart';
 import 'package:grocery/src/features/profile/presentation/logic/profile_cubit/profile_cubit.dart';
+
+
 import 'package:grocery/src/features/profile/presentation/views/add_address_view.dart';
 import 'package:grocery/src/features/profile/presentation/views/addresses_view.dart';
 import 'package:grocery/src/features/profile/presentation/views/edit_profile_view.dart';
@@ -86,7 +89,7 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(path: RouterNames.cart, builder: (context, state) => CartView()),
     GoRoute(
-      path: RouterNames.otpFormForPassword,
+      path: RouterNames.forgotPassword,
       builder:
           (context, state) => BlocProvider(
             create: (context) => getIt<ForgotPassworrdCubit>(),
@@ -94,14 +97,14 @@ final GoRouter router = GoRouter(
           ),
     ),
 
-    // GoRoute(
-    //   path: RouterNames.otpFormForPassword,
-    //   builder:
-    //       (context, state) => BlocProvider(
-    //         create: (context) => getIt<VerifyCodeCubit>(),
-    //         child: OtpForPasswordView(),
-    //       ),
-    // ),
+    GoRoute(
+      path: RouterNames.otpFormForPassword,
+      builder:
+          (context, state) => BlocProvider(
+            create: (context) => getIt<VerifyCodeCubit>(),
+            child: OtpForPasswordView(),
+          ),
+    ),
     // GoRoute(
     //   path: RouterNames.otpFormForPassword,
     //   builder:

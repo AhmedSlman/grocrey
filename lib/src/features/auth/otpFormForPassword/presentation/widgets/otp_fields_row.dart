@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/core/theme/app_colors.dart';
 
 class OtpFieldsRow extends StatefulWidget {
-  const OtpFieldsRow({super.key});
+  const OtpFieldsRow({Key? key}) : super(key: key);
 
   @override
   OtpFieldsRowState createState() => OtpFieldsRowState();
@@ -71,11 +71,11 @@ class OtpFieldsRowState extends State<OtpFieldsRow> {
               validator: (value) {
                 if (value == null || value.isEmpty) return '';
                 return null;
-              },
-            ),
-          ),
-        );
-      }),
-    );
-  }
+},
+),
+),
+);
+}),
+);
+}
 }
