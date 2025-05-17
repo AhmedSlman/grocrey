@@ -4,7 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomProfileHeader extends StatelessWidget {
   final String header;
-  const CustomProfileHeader({super.key, required this.header});
+  final bool showIcon;
+  const CustomProfileHeader({
+    super.key,
+    required this.header,
+    this.showIcon = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +19,23 @@ class CustomProfileHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 20.h),
-          Text(
-            header,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          Row(
+            children: [
+              showIcon
+                  ? IconButton(
+                    onPressed: () {
+                      context.pop();
+                    },
+                    icon: Icon(Icons.arrow_back_ios),
+                  )
+                  : SizedBox(width: 100.w),
+
+              Text(
+                header,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
         ],
       ),

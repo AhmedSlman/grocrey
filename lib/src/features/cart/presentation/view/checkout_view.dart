@@ -1,33 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grocery/core/common/widgets/custom_btn.dart';
+import 'package:grocery/core/utils/app_shimmer.dart';
 import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
-import 'package:grocery/src/features/home/presentation/componant/home_header_section.dart';
+import 'package:grocery/src/features/home/presentation/logic/location/cubit/location_cubit.dart';
 
-class CheckoutView extends StatefulWidget {
+class CheckoutView extends StatelessWidget {
   final String totalprice;
 
   const CheckoutView({super.key, required this.totalprice});
-
-  @override
-  State<CheckoutView> createState() => _CheckoutViewState();
-}
-
-class _CheckoutViewState extends State<CheckoutView> {
-  String location = 'المنصورة';
-
-  getCity() {
-    locationFuture.then((v) {
-      location = v;
-      setState(() {});
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getCity();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,12 +40,27 @@ class _CheckoutViewState extends State<CheckoutView> {
                     'توصيل الي',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
-                  Expanded(
-                    child: Text(
-                      location,
-                      style: TextStyle(fontSize: 14, color: Colors.grey),
-                    ),
+                  SizedBox(width: 10.w),
+                  BlocBuilder<LocationCubit, LocationState>(
+                    builder: (context, state) {
+                      return state is LoadingGetLocation
+                          ? AppShimmer(height: 30, width: 160)
+                          : state is SuccessGetLocation
+                          ? SizedBox(
+                            width: 200.w,
+                            child: Text(
+                              state.location,
+
+                              //   overflow: TextOverflow.clip,
+                              style: TextStyle(overflow: TextOverflow.clip),
+                            ),
+                          )
+                          : state is FailGetLocation
+                          ? Text(state.error)
+                          : Container();
+                    },
                   ),
+
                   Spacer(),
                   const Icon(Icons.arrow_forward_ios, size: 16),
                 ],
@@ -100,7 +97,7 @@ class _CheckoutViewState extends State<CheckoutView> {
 
               const Divider(height: 32),
 
-              buildTotalRow('المجموع الكلى', widget.totalprice),
+              buildTotalRow('المجموع الكلى', totalprice),
 
               const Spacer(),
 
@@ -113,9 +110,7 @@ class _CheckoutViewState extends State<CheckoutView> {
                         : CustomButton(
                           text: 'اطلب',
                           onPressed: () {
-                            context.read<CartCubit>().createOrder(
-                              widget.totalprice,
-                            );
+                            context.read<CartCubit>().createOrder(totalprice);
                           },
                         );
                   },

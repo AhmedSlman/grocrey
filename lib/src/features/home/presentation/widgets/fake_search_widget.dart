@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:grocery/src/features/cart/presentation/logic/cubit/cart_cubit.dart';
 import 'package:grocery/src/features/home/presentation/componant/search_compenent.dart';
 import 'package:grocery/src/features/home/presentation/logic/search/cubit/search_cubit.dart';
@@ -12,22 +13,7 @@ class FakeSearchBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (c) {
-              return MultiBlocProvider(
-                providers: [
-                  BlocProvider(create: (context) => SearchCubit()),
-                  BlocProvider(create: (context) => CartCubit()),
-                ],
-                child: SearchComponent(),
-              );
-            },
-          ),
-        );
-      },
+      onTap: () => context.push('/search'),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         margin: const EdgeInsets.all(16),
