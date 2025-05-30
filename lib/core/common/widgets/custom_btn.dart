@@ -5,7 +5,7 @@ import '../../utils/app_styles.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed; 
   final Color? backgroundColor;
   final double? height;
   final double? width;
@@ -27,25 +27,31 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDisabled = onPressed == null;
+
     return Padding(
       padding: EdgeInsets.only(top: 16.h),
       child: GestureDetector(
-        onTap: onPressed,
+        onTap: isDisabled ? null : onPressed,
         child: Container(
           height: height ?? 60.h,
           width: width ?? 358.w,
           decoration: BoxDecoration(
-            color: backgroundColor ?? AppColors.primaryColor,
+            color: isDisabled
+                ? Colors.grey // أو لون معبر عن التعطيل
+                : backgroundColor ?? AppColors.primaryColor,
             borderRadius: borderRadius ?? BorderRadius.circular(10),
-            // border: Border.all(
-            //     color: AppColors.primaryColor,
-            //     ),
           ),
           child: Center(
-            child: Text(text, style: textStyle ?? AppStyles.s16White),
+            child: isLoading
+                ? const CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  )
+                : Text(text, style: textStyle ?? AppStyles.s16White),
           ),
         ),
       ),
     );
   }
 }
+
